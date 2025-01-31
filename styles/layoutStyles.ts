@@ -23,7 +23,7 @@ export const layoutStyles = StyleSheet.create({
     recordButtonContainer: {
         width: 65,
         height: 65,
-        backgroundColor:'#92B741',
+        backgroundColor:'#030a5e',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,6 +38,7 @@ export const layoutStyles = StyleSheet.create({
         elevation: 5,
     },
     recordButton: {
+        color: '#fff',
         textAlign: 'center',
     },
 });
