@@ -32,6 +32,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "오늘의 하루가 캘린더에 접근하도록 허용하시겠습니까?"
+        }
       ]
     ],
     "experiments": {
