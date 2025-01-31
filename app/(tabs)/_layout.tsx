@@ -23,7 +23,8 @@ function TabLayout() {
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
         tabBarIconStyle: layoutStyles.tabBarIcon,
-        tabBarActiveTintColor: '#92B741',
+        tabBarActiveTintColor: '#030a5e',
+        tabBarInactiveTintColor: '#cecfd5',
         headerRight: () => <SettingButton navigation={navigation} />,
       })}
     >
@@ -36,7 +37,7 @@ function TabLayout() {
             <AntDesign 
               name="calendar" 
               size={24} 
-              color={focused ? '#92B741' : 'black'}
+              color={focused ? '#030a5e' : '#cecfd5'}
             />
           ),
         }}
@@ -50,7 +51,7 @@ function TabLayout() {
             <View
               style={[
                 layoutStyles.recordButtonContainer,
-                focused && { backgroundColor: '#92B741' },
+                focused && { backgroundColor: '#030a5e' },
               ]}
             >
               <MaterialIcons 
@@ -58,7 +59,7 @@ function TabLayout() {
               size={32} 
               style={[
                 layoutStyles.recordButton,
-                focused && { color: '#fff' },
+                focused && { color: '#81a5fa' },
               ]}
             />
             </View>
@@ -74,7 +75,7 @@ function TabLayout() {
             <MaterialIcons 
               name="menu-book" 
               size={24} 
-              color={focused ? '#92B741' : 'black'}
+              color={focused ? '#030a5e' : '#cecfd5'}
             />
           ),
         }}
