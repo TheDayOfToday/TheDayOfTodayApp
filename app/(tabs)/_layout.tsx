@@ -32,6 +32,7 @@ function TabLayout() {
         name="index"
         options={{
           headerTitle: '오늘의 하루',
+          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Calendar',
           tabBarIcon: ({ focused, color }) => (
             <AntDesign 
@@ -46,6 +47,7 @@ function TabLayout() {
         name="record"
         options={{
           headerTitle: '오늘의 하루',
+          headerTitleStyle: layoutStyles.headerTitle,
           tabBarLabel: '',
           tabBarIcon: ({ focused, color }) => (
             <View
@@ -65,11 +67,18 @@ function TabLayout() {
             </View>
           ),
         }}
+        listeners={({ navigation}) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate('record', { openBottomSheet: true });
+          },
+        })}
       />
       <Tabs.Screen
         name="analysis"
         options={{
           headerTitle: '오늘의 하루',
+          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Analysis',
           tabBarIcon: ({focused, color }) => (
             <MaterialIcons 

@@ -9,8 +9,8 @@ export const splashStyles = StyleSheet.create({
         backgroundColor: '#141733',
     },
     text: {
+        fontFamily: 'SCDream4',
         fontSize: 40,
-        fontWeight: 'bold',
         color: 'white',
     },
 });

@@ -2,15 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export const layoutStyles = StyleSheet.create({
     tabBar: {
-        display: 'flex',
-        height: 70,
-        alignContent: 'center',
-        justifyContent: 'center',
+        height: 80,
         borderTopWidth: 0, // 상단 테두리 제거
         elevation: 0, // Android 그림자 제거
         shadowOpacity: 0, // iOS 그림자 제거
     },
+    headerTitle: {
+        fontFamily: 'SCDream7',
+    },
     tabBarLabel: {
+        fontFamily: 'SCDream5',
         fontSize: 12,
     },
     tabBarIcon: {
