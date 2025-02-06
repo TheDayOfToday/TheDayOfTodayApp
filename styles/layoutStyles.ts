@@ -8,10 +8,12 @@ export const layoutStyles = StyleSheet.create({
         shadowOpacity: 0, // iOS 그림자 제거
     },
     headerTitle: {
-        fontFamily: 'SCDream7',
+        fontFamily: 'NanumSquare4',
+        fontSize: 24,
+        color: '#0e0c26',
     },
     tabBarLabel: {
-        fontFamily: 'SCDream5',
+        fontFamily: 'NanumSquare4',
         fontSize: 12,
     },
     tabBarIcon: {
@@ -19,12 +21,11 @@ export const layoutStyles = StyleSheet.create({
     },
     settingButton: {
         marginRight: 15,
-        fontSize: 16,
     },
     recordButtonContainer: {
         width: 65,
         height: 65,
-        backgroundColor:'#030a5e',
+        backgroundColor:'#0e0c26',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',

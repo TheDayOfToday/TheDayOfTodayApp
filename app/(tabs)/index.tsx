@@ -56,14 +56,8 @@ const CalendarScreen = () => {
           firstDay={0}
           dayComponent={CustomDay}
 
-
           theme={{            
-            // backgroundColor: BACKCOLOR,
-            // calendarBackground: BACKCOLOR,
             textSectionTitleColor: '#999999',
-            selectedDayBackgroundColor: '#63B75D',
-            // selectedDayTextColor: BACKCOLOR,
-            todayTextColor: '#63B75D',
             dayTextColor: '#2d4150',
             textDisabledColor: '#d9e1e8',
             arrowColor: '#999999',

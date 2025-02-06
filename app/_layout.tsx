@@ -10,17 +10,16 @@ export default function RootLayout() {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        "EulyooR": require("../assets/fonts/Eulyoo1945-Regular.ttf"),
-        "EulyooB": require("../assets/fonts/Eulyoo1945-SemiBold.ttf"),
-        "SCDream1": require("../assets/fonts/SCDream1.otf"),
-        "SCDream2": require("../assets/fonts/SCDream2.otf"),
-        "SCDream3": require("../assets/fonts/SCDream3.otf"),
-        "SCDream4": require("../assets/fonts/SCDream4.otf"),
-        "SCDream5": require("../assets/fonts/SCDream5.otf"),
-        "SCDream6": require("../assets/fonts/SCDream6.otf"),
-        "SCDream7": require("../assets/fonts/SCDream7.otf"),
-        "SCDream8": require("../assets/fonts/SCDream8.otf"),
-        "SCDream9": require("../assets/fonts/SCDream9.otf"),
+        "MaruBuri5": require("../assets/fonts/MaruBuri-Bold.otf"),
+        "MaruBuri4": require("../assets/fonts/MaruBuri-SemiBold.otf"),
+        "MaruBuri3": require("../assets/fonts/MaruBuri-Regular.otf"),
+        "MaruBuri2": require("../assets/fonts/MaruBuri-Light.otf"),
+        "MaruBuri1": require("../assets/fonts/MaruBuri-ExtraLight.otf"),
+        "NanumSquare5": require("../assets/fonts/NanumSquareNeoOTF-Hv.otf"),
+        "NanumSquare4": require("../assets/fonts/NanumSquareNeoOTF-Eb.otf"),
+        "NanumSquare3": require("../assets/fonts/NanumSquareNeoOTF-Bd.otf"),
+        "NanumSquare2": require("../assets/fonts/NanumSquareNeoOTF-Rg.otf"),
+        "NanumSquare1": require("../assets/fonts/NanumSquareNeoOTF-Lt.otf"),
       });
       setIsReady(true);
     }
