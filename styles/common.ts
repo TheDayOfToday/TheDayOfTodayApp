@@ -8,8 +8,8 @@ export const commonStyles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     text: {
+        fontFamily: 'NanumSquare5',
         fontSize: 24,
-        fontWeight: 'bold',
-        color: '#333',
+        color: '#0e0c26',
     },
 });

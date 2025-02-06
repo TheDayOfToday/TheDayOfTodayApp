@@ -31,10 +31,10 @@ export const styles = StyleSheet.create({
         marginTop: 32,        
       },
       disabledText: {
-        color: '#d9e1e8',
+        color: '#b9babd',
       },
       selectedDayText: {
-        color: '#63B75D',
+        color: '#0e0c26',
         fontWeight: 'bold',
       },
       circleIcon: {
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#E8E8E8',
       },
       markedCircle: {
-        backgroundColor: '#63B75D',
+        backgroundColor: '#0e0c26',
       },
       modalOverlay: {
         flex: 1,
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
         marginBottom: 20,
       },
       modalButton: {
-        backgroundColor: '#63B75D',
+        backgroundColor: '#0e0c26',
         padding: 10,
         borderRadius: 10,
         marginTop: 20,

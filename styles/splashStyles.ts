@@ -6,11 +6,11 @@ export const splashStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: '#141733',
+        backgroundColor: '#fff',
     },
     text: {
-        fontFamily: 'SCDream4',
+        fontFamily: 'NanumSquare3',
         fontSize: 40,
-        color: 'white',
+        color: '#0e0c26',
     },
 });
