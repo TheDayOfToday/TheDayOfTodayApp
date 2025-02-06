@@ -1,12 +1,32 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { commonStyles } from '../../styles/common';
+import { ScrollView, View, Text } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 
 const AnalysisScreen = () => {
   return (
-    <View style={commonStyles.container}>
-      <Text style={commonStyles.text}>분석 화면</Text>
-    </View>
+    <ScrollView 
+      style={{flex: 1}}
+      contentContainerStyle={analysisScreenStyles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={analysisScreenStyles.headerContainer}>
+        <FontAwesome name="circle-thin" size={200} color="black" />
+        <Text style={analysisScreenStyles.headerText}>일주일 한 줄 요약</Text>
+      </View>
+      <View style={analysisScreenStyles.contentContainer}>
+        <Text style={analysisScreenStyles.contentText}>
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
+        </Text>
+      </View>
+    </ScrollView>
   );
 };
 
