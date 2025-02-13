@@ -8,7 +8,7 @@ export const recordScreenStyles = StyleSheet.create({
         alignItems: 'center',
     },
     message: {
-        fontFamily: 'SCDream3',
+        // fontFamily: 'NanumSquare3',
         fontSize: 20,
     },
 });

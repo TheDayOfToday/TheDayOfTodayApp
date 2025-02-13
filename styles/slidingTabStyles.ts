@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const slidingTabStyles = StyleSheet.create({
     sheet: {
-        padding: 30,
+        padding: 25,
     },
     sheetView: {
         // 컨텐츠 스타일
@@ -12,22 +12,23 @@ export const slidingTabStyles = StyleSheet.create({
         marginVertical: 10,
     },
     sheetHeaderTitle: {
-        fontFamily: 'SCDream6',
+        fontFamily: 'NanumSquare4',
         fontSize: 24,
     },
     recordButtonContainer:{
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        gap: 35,
     },
     recordButton: {
         paddingVertical: 12,
         paddingHorizontal: 60,
         borderRadius: 8,
         marginVertical: 20,
-        backgroundColor: '#030a5e',
+        backgroundColor: '#0e0c26',
     },
     recordButtonText: {
-        fontFamily: 'SCDream3',
+        fontFamily: 'NanumSquare3',
         fontSize: 16,
         color: '#fff',
     },
@@ -35,13 +36,13 @@ export const slidingTabStyles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     cancleButton: {
-        paddingVertical: 8,
+        paddingVertical: 12,
         paddingHorizontal: 40,
         borderRadius: 130,
         backgroundColor: '#f7f7f7',
     },
     cancleButtonText: {
-        fontFamily: 'SCDream3',
+        fontFamily: 'NanumSquare2',
         fontSize: 16,
         color: '#333',
     },

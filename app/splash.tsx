@@ -18,7 +18,7 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <View style={splashStyles.container}>
       <Text style={splashStyles.text}>오늘의 하루 </Text>
-      <Ionicons name="pencil-sharp" size={35} color="white" />
+      <Ionicons name="pencil-sharp" size={35} color="#fff" />
     </View>
   );
 }
