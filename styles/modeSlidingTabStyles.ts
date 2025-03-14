@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
-export const slidingTabStyles = StyleSheet.create({
+export const modeSlidingTabStyles = StyleSheet.create({
     sheet: {
         paddingHorizontal: 25,
     },
     sheetView: {
-        // 스타일 추가
+        //add
     },
     sheetHeaderContainer: {
         alignItems: 'center',
