@@ -7,7 +7,7 @@ import { AnimateToPositionType } from '@gorhom/bottom-sheet/lib/typescript/compo
 
 const BACKCOLOR = '#F3F2ED';
 
-const CalendarScreen = () => {
+function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
