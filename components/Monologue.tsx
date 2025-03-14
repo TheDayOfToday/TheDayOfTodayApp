@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { recordScreenStyles } from '@/styles/recordScreenStyles';
+import SelectMoodTab from './SelectMoodTab';
 
-type MonologueProp = {
+interface MonologueProps {
   setMode: (mode: string) => void;
 };
 
-function Monologue({setMode}: MonologueProp) {
+function Monologue({setMode}: MonologueProps) {
+  const [isOpenMoodTab, setOpenMoodTab] = useState(false);
+
+  const handleOpenMoodTab = () => setOpenMoodTab(true);
+  const handleCloseMoodTab = () => setOpenMoodTab(false);
+
   const onPressSubmitButton = () => {
     setMode('');
+    handleOpenMoodTab();
   }
 
   return(
@@ -21,6 +28,10 @@ function Monologue({setMode}: MonologueProp) {
       >
         <Text style={recordScreenStyles.submitButtonText}>마침</Text>
       </Pressable>
+      <SelectMoodTab
+        isOpen={isOpenMoodTab}
+        onClose={handleCloseMoodTab}
+      />
     </View>
   );
 };

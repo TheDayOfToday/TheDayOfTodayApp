@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { recordScreenStyles } from '@/styles/recordScreenStyles';
 
-type ConversationProp = {
+interface ConversationProps {
   setMode: (mode: string) => void;
 }
 
-function Conversation({setMode}: ConversationProp) {
+function Conversation({setMode}: ConversationProps) {
   const onPressSubmitButton = () => {
     setMode('');
   }

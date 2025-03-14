@@ -11,13 +11,13 @@ type SelectModeTabRouteProp = RouteProp<
   'record'
 >;
 
-type SelectModeTabProps = {
+interface SelectModeTabProps {
   setMode: (mode: string) => void;
 };
 
 function SelectModeTab({ setMode }: SelectModeTabProps) {
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["35%", "10%", "100%"], []);
+  const snapPoints = useMemo(() => ["35%", "100%"], []);
   const route = useRoute<SelectModeTabRouteProp>();
   const navigation = useNavigation();
   const currentRoute = useNavigationState(state => state.routes[state.index]?.name)
@@ -44,16 +44,17 @@ function SelectModeTab({ setMode }: SelectModeTabProps) {
   }, [navigation]);
 
   // 독백 버튼 클릭 시 핸들러 함수
-  const onPressMonologue = () => {
+  const onPressMonologue = useCallback(() => {
     setMode('MonologueMode');
     sheetRef.current?.close();
-  }
+  }, [setMode]);
 
   // 대화 버튼 클릭 시 핸들러 함수
-  const onPressConversation = () => {
+
+  const onPressConversation = useCallback(() => {
     setMode('ConversationMode');
     sheetRef.current?.close();
-  }
+  }, [setMode]);
 
   // 다른 탭으로 이동 시 슬라이딩 탭 닫힘
   useEffect(() => {
