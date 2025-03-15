@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
 export const analysisScreenStyles = StyleSheet.create({
-  container: {
+  Screen: {
+    flex: 1,
     backgroundColor: '#fff',
+  },
+  container: {
     alignItems: 'center',
     padding: 30,
     gap: 10,

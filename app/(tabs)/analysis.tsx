@@ -6,7 +6,7 @@ import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 function AnalysisScreen() {
   return (
     <ScrollView 
-      style={{flex: 1}}
+      style={analysisScreenStyles.Screen}
       contentContainerStyle={analysisScreenStyles.container}
       showsVerticalScrollIndicator={false}
     >
