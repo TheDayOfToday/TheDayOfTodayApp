@@ -5,7 +5,7 @@ function NotFoundScreen() {
   return (
     <>
       <View>
-        <Text>Nooooot Found</Text>
+        <Text>Not Found</Text>
       </View>
     </>
   );

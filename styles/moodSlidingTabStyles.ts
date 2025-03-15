@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
-export const slidingTabStyles = StyleSheet.create({
+export const moodSlidingTabStyles = StyleSheet.create({
     sheet: {
-        padding: 25,
+        paddingHorizontal: 25,
     },
     sheetView: {
-        // 컨텐츠 스타일
+        //add
     },
     sheetHeaderContainer: {
         alignItems: 'center',
@@ -14,15 +14,21 @@ export const slidingTabStyles = StyleSheet.create({
     sheetHeaderTitle: {
         fontFamily: 'NanumSquare4',
         fontSize: 24,
+        textAlign: 'center',
+        width: '100%',
     },
     recordButtonContainer:{
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 35,
+        gap: 20,
     },
     recordButton: {
+        flex: 1,
+        alignItems: 'center',
+        minWidth: 120,
+        maxWidth: 180,
         paddingVertical: 12,
-        paddingHorizontal: 60,
+        paddingHorizontal: 20,
         borderRadius: 8,
         marginVertical: 20,
         backgroundColor: '#0e0c26',

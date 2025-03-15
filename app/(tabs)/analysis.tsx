@@ -3,10 +3,10 @@ import { ScrollView, View, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 
-const AnalysisScreen = () => {
+function AnalysisScreen() {
   return (
     <ScrollView 
-      style={{flex: 1}}
+      style={analysisScreenStyles.Screen}
       contentContainerStyle={analysisScreenStyles.container}
       showsVerticalScrollIndicator={false}
     >

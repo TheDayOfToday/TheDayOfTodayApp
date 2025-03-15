@@ -20,6 +20,7 @@ export const calendarModalStyles = StyleSheet.create({
       },
       tabContainer: {
         flexDirection: 'row',
+        width: '100%',
         marginVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',

@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 export const analysisScreenStyles = StyleSheet.create({
+  Screen: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     alignItems: 'center',
     padding: 30,
@@ -15,9 +19,9 @@ export const analysisScreenStyles = StyleSheet.create({
     fontSize: 20,
   },
   contentContainer: {
+    backgroundColor: '#f5f5f5',
     borderWidth: 2,
     borderRadius: 15,
-    // borderColor: 'pink',
     padding: 25,
   },
   contentText: {
