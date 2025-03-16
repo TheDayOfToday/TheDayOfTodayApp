@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from './SelectMoodTab';
-import { recordScreenStyles } from '@/styles/recordScreenStyles';
+import SelectMoodTab from '@/components/SelectMoodTab';
+import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 
 function Conversation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,14 +13,13 @@ function Conversation() {
 
   return(
     <GestureHandlerRootView>
-      <View style={recordScreenStyles.recordScreen}>
-        <Text style={recordScreenStyles.message}>당신의 하루를 들려주세요</Text>
+      <View style={recordingScreenStyles.recordScreen}>
         <Text>{'대화'}</Text>
         <Pressable
-          style={recordScreenStyles.submitButton}
+          style={recordingScreenStyles.submitButton}
           onPress={onPressSubmitButton}
         >
-          <Text style={recordScreenStyles.submitButtonText}>마침</Text>
+          <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
         </Pressable>
       </View>
       {isOpen && <SelectMoodTab />}

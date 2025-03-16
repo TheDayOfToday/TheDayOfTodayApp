@@ -44,7 +44,7 @@ function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="record"
+        name="recording"
         options={{
           headerTitle: '오늘의 하루',
           headerTitleStyle: layoutStyles.headerTitle,
@@ -70,7 +70,7 @@ function TabLayout() {
         listeners={({ navigation}) => ({
           tabPress: (e) => {
             e.preventDefault();
-            navigation.navigate('record', { openBottomSheet: true });
+            navigation.navigate('recording', { openBottomSheet: true });
           },
         })}
       />

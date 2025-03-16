@@ -1,19 +1,18 @@
 import React, { useCallback, useRef, useMemo} from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useRouter } from 'expo-router';
 import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
 
 function SelectMoodTab() {
   const moodSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["10%", "100%"], []);
+  const router = useRouter();
 
   // 완료 버튼 클릭 시 탭 닫힘
   const handleSubmitPress = useCallback(() => {
     moodSheetRef.current?.close();
-  }, []);
-
-  const handleSnapPress = useCallback((index: number) => {
-    moodSheetRef.current?.snapToIndex(index);
+    router.push('/recording/result');
   }, []);
 
   // 무드미터 선택 시 핸들러 함수
@@ -29,7 +28,7 @@ function SelectMoodTab() {
     >
       <BottomSheetScrollView style={moodSlidingTabStyles.sheetView}>
         <View>
-          <Text style={moodSlidingTabStyles.headerTitle}>무드미터선택</Text>
+          <Text style={moodSlidingTabStyles.headerTitle}>무드미터 선택</Text>
         </View>
         <View style={moodSlidingTabStyles.content}>
           {/* map으로 불러오기..? */}
