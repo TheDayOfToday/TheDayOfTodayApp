@@ -65,7 +65,6 @@ function SelectModeTab({ setMode }: SelectModeTabProps) {
   }, [currentRoute]);
 
   return (
-    <GestureHandlerRootView>
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
@@ -91,7 +90,6 @@ function SelectModeTab({ setMode }: SelectModeTabProps) {
           </View>
         </BottomSheetView>
       </BottomSheet>
-    </GestureHandlerRootView>
   );
 };
 

@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import SelectMoodTab from './SelectMoodTab';
 import { recordScreenStyles } from '@/styles/recordScreenStyles';
 
-interface ConversationProps {
-  setMode: (mode: string) => void;
-}
+function Conversation() {
+  const [isOpen, setIsOpen] = useState(false);
 
-function Conversation({setMode}: ConversationProps) {
   const onPressSubmitButton = () => {
-    setMode('');
+    setIsOpen(true);
   }
 
   return(
-    <View style={recordScreenStyles.recordScreen}>
-      <Text style={recordScreenStyles.message}>당신의 하루를 들려주세요</Text>
-      <Text>{'대화'}</Text>
-      <Pressable
-        style={recordScreenStyles.submitButton}
-        onPress={onPressSubmitButton}
-      >
-        <Text style={recordScreenStyles.submitButtonText}>마침</Text>
-      </Pressable>
-    </View>
+    <GestureHandlerRootView>
+      <View style={recordScreenStyles.recordScreen}>
+        <Text style={recordScreenStyles.message}>당신의 하루를 들려주세요</Text>
+        <Text>{'대화'}</Text>
+        <Pressable
+          style={recordScreenStyles.submitButton}
+          onPress={onPressSubmitButton}
+        >
+          <Text style={recordScreenStyles.submitButtonText}>마침</Text>
+        </Pressable>
+      </View>
+      {isOpen && <SelectMoodTab />}
+    </GestureHandlerRootView>
   );
 };
 

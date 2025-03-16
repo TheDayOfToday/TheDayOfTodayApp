@@ -10,8 +10,8 @@ function RecordScreen() {
 
   return (
     <View style={recordScreenStyles.container}>
-      { mode === 'MonologueMode' && <Monologue setMode={setMode} />}
-      { mode === 'ConversationMode' && <Conversation setMode={setMode} />}
+      { mode === 'MonologueMode' && <Monologue />}
+      { mode === 'ConversationMode' && <Conversation />}
       <SelectModeTab setMode={setMode} />
     </View>
   );

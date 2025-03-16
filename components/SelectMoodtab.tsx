@@ -1,75 +1,54 @@
-import React, { useCallback, useRef, useMemo, useEffect } from 'react';
-import { View, Text, Pressable } from 'react-native';
-import { useNavigationState } from '@react-navigation/native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React, { useCallback, useRef, useMemo} from 'react';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
 
-interface SelectMoodTabProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-function SelectMoodTab({ isOpen, onClose }: SelectMoodTabProps) {
-  const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["10%", "90%"], []);
-  const currentRoute = useNavigationState(state => state.routes[state.index]?.name)
-
-  useEffect(() => {
-    // sheetRef.current?.snapToIndex(1); // 50% 위치로 열기
-  }, [isOpen]);
+function SelectMoodTab() {
+  const moodSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["10%", "100%"], []);
 
   // 완료 버튼 클릭 시 탭 닫힘
   const handleSubmitPress = useCallback(() => {
-    sheetRef.current?.close();
-    onClose(); // 부모 상태 업데이트
+    moodSheetRef.current?.close();
   }, []);
 
   const handleSnapPress = useCallback((index: number) => {
-    sheetRef.current?.snapToIndex(index);
+    moodSheetRef.current?.snapToIndex(index);
   }, []);
 
   // 무드미터 선택 시 핸들러 함수
   const onPressMood = useCallback(() => {
   }, []);
 
-  // 다른 탭으로 이동 시 슬라이딩 탭 닫힘
-  useEffect(() => {
-    if (currentRoute !== 'record') {
-      sheetRef.current?.close();
-    }
-  }, [currentRoute]);
-
   return (
-    <GestureHandlerRootView>
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false} // snapPoints로 시트 크기 고정
-        style={moodSlidingTabStyles.sheet}
-      >
-        <BottomSheetScrollView style={moodSlidingTabStyles.sheetView}>
-          <View>
-            <Text>무드미터 선택</Text>
-          </View>
-          <View>
-            {/* map으로 불러오기..? */}
-            <Pressable
-              onPress={onPressMood}
-            >
-              <Text>무드미터</Text>
-            </Pressable>
-          </View>
-          <View>
-            <Pressable
-              onPress={handleSubmitPress}
-            >
-              <Text>완료</Text>
-            </Pressable>
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
-    </GestureHandlerRootView>
+    <BottomSheet
+      ref={moodSheetRef}
+      index={1}
+      snapPoints={snapPoints}
+      enableDynamicSizing={false}
+    >
+      <BottomSheetScrollView style={moodSlidingTabStyles.sheet}>
+        <View>
+          <Text style={moodSlidingTabStyles.headerTitle}>무드미터선택</Text>
+        </View>
+        <View style={moodSlidingTabStyles.content}>
+          {/* map으로 불러오기..? */}
+          <Pressable
+            onPress={onPressMood}
+          >
+            <Text>무드미터</Text>
+          </Pressable>
+        </View>
+        <View style={moodSlidingTabStyles.submitButtonContainer}>
+          <Pressable
+            onPress={handleSubmitPress}
+            style={moodSlidingTabStyles.submitButton}
+          >
+            <Text style={moodSlidingTabStyles.submitButtonText}>완료</Text>
+          </Pressable>
+        </View>
+      </BottomSheetScrollView>
+    </BottomSheet>
   );
 };
 

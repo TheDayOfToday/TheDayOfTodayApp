@@ -6,9 +6,10 @@ export const recordScreenStyles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
     },
     recordScreen: {
+        flex: 1,
         alignItems: 'center',
-        padding: 15,
         gap: 15,
+        height: '100%',
     },
     message: {
         fontFamily: 'NanumSquare3',
