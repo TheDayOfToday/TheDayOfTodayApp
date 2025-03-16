@@ -9,6 +9,7 @@ export const recordingScreenStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         gap: 15,
+        paddingVertical: 30,
         height: '100%',
     },
     messageContainer: {
