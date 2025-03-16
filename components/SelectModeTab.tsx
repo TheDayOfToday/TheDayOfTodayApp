@@ -1,25 +1,23 @@
 import React, { useCallback, useRef, useMemo, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useFocusEffect, useRoute, RouteProp, useNavigationState } from '@react-navigation/native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { modeSlidingTabStyles } from '@/styles/modeSlidingTabStyles';
 import { useNavigation } from 'expo-router';
 
 type SelectModeTabRouteProp = RouteProp<
-  { record: { openBottomSheet?: boolean } },
-  'record'
+  { recording: { openBottomSheet?: boolean } },
+  'recording'
 >;
 
 interface SelectModeTabProps {
-  setMode: (mode: string) => void;
+  selectMode: (mode: string) => void;
 };
 
-function SelectModeTab({ setMode }: SelectModeTabProps) {
+function SelectModeTab({ selectMode }: SelectModeTabProps) {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["35%", "100%"], []);
   const route = useRoute<SelectModeTabRouteProp>();
-  const navigation = useNavigation();
   const currentRoute = useNavigationState(state => state.routes[state.index]?.name)
 
   // 기록 화면에 있을 때 슬라이딩 탭 오픈
@@ -31,41 +29,28 @@ function SelectModeTab({ setMode }: SelectModeTabProps) {
     }, [route.params?.openBottomSheet])
   );
 
-  // 슬라이딩 탭 위치 조정 핸들러함수
-  const handleSnapPress = useCallback((index: number) => {
-    sheetRef.current?.snapToIndex(index);
-  }, []);
-
-  // 취소 버튼 클릭 시 홈 화면 이동
-  const handleClosePress = useCallback(() => {
-    setMode('');
-    sheetRef.current?.close();
-    navigation.goBack();
-  }, [navigation]);
-
   // 독백 버튼 클릭 시 핸들러 함수
   const onPressMonologue = useCallback(() => {
-    setMode('MonologueMode');
+    selectMode('MonologueMode');
     sheetRef.current?.close();
-  }, [setMode]);
+  }, [selectMode]);
 
   // 대화 버튼 클릭 시 핸들러 함수
 
   const onPressConversation = useCallback(() => {
-    setMode('ConversationMode');
+    selectMode('ConversationMode');
     sheetRef.current?.close();
-  }, [setMode]);
+  }, [selectMode]);
 
   // 다른 탭으로 이동 시 슬라이딩 탭 닫힘
   useEffect(() => {
-    if (currentRoute !== 'record') {
+    if (currentRoute !== 'recording') {
       sheetRef.current?.close();
-      setMode('');
+      selectMode('');
     }
   }, [currentRoute]);
 
   return (
-    <GestureHandlerRootView>
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
@@ -84,14 +69,8 @@ function SelectModeTab({ setMode }: SelectModeTabProps) {
               <Text style={modeSlidingTabStyles.recordButtonText}>대화</Text>
             </Pressable>
           </View>
-          <View style={modeSlidingTabStyles.cancleButtonContainer}>
-            <Pressable style={modeSlidingTabStyles.cancleButton} onPress={() => handleClosePress()}>
-              <Text style={modeSlidingTabStyles.cancleButtonText}>취소</Text>
-            </Pressable>
-          </View>
         </BottomSheetView>
       </BottomSheet>
-    </GestureHandlerRootView>
   );
 };
 

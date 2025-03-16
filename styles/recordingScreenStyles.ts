@@ -1,18 +1,24 @@
 import { StyleSheet } from 'react-native';
 
-export const recordScreenStyles = StyleSheet.create({
+export const recordingScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
     },
     recordScreen: {
+        flex: 1,
         alignItems: 'center',
-        padding: 15,
         gap: 15,
+        paddingVertical: 30,
+        height: '100%',
+    },
+    messageContainer: {
+        paddingVertical: 100,
+        alignItems: 'center',
     },
     message: {
         fontFamily: 'NanumSquare3',
-        fontSize: 20,
+        fontSize: 25,
     },
     submitButton: {
         paddingVertical: 12,
