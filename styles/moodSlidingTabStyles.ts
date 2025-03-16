@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const moodSlidingTabStyles = StyleSheet.create({
-    sheet: {
+    sheetView: {
         padding: 25,
     },
     headerTitle: {
@@ -11,8 +11,8 @@ export const moodSlidingTabStyles = StyleSheet.create({
         width: '100%',
     },
     content: {
+        paddingVertical: 20,
         alignItems: 'center',
-        gap: 10,
     },
     submitButtonContainer: {
         alignItems: 'flex-end',

@@ -27,7 +27,7 @@ function SelectMoodTab() {
       snapPoints={snapPoints}
       enableDynamicSizing={false}
     >
-      <BottomSheetScrollView style={moodSlidingTabStyles.sheet}>
+      <BottomSheetScrollView style={moodSlidingTabStyles.sheetView}>
         <View>
           <Text style={moodSlidingTabStyles.headerTitle}>무드미터선택</Text>
         </View>
