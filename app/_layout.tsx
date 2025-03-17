@@ -5,7 +5,7 @@ import SplashScreen from "./splash";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
-  const [isSplashVisible, setSplashVisible] = useState(true);
+  const [isSplashVisible, setSplashVisible] = useState(true);  
 
   useEffect(() => {
     async function loadFonts() {
@@ -38,7 +38,8 @@ export default function RootLayout() {
   ) : (
     <Stack>
       <Stack.Screen name="signIn" />
-      <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+      <Stack.Screen name="SignUp" />
+      <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
       <Stack.Screen name="+not-found" />
     </Stack>
   );
