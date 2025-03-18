@@ -71,6 +71,7 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+        // 무드미터 색상으로 바꾸기
         color: '#2d4150',
       },
       modalDate: {
