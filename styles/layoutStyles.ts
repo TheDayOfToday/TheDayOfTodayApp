@@ -3,13 +3,25 @@ import { StyleSheet } from 'react-native';
 export const layoutStyles = StyleSheet.create({
     tabBar: {
         height: 80,
-        borderTopWidth: 0, // 상단 테두리 제거
+        borderTopWidth: 1, // 상단 테두리 제거
         elevation: 0, // Android 그림자 제거
         shadowOpacity: 0, // iOS 그림자 제거
     },
+    recordHeaderContainer: {
+        backgroundColor: '#0e0c26',
+        borderBottomWidth: 0.5,
+    },
+    recordHeaderTitle: {
+        fontFamily: 'NanumSquare3',
+        fontSize: 20,
+        color: '#fff',
+    },
+    headerContainer: {
+        backgroundColor: '#fff',
+    },
     headerTitle: {
         fontFamily: 'NanumSquare4',
-        fontSize: 24,
+        fontSize: 20,
         color: '#0e0c26',
     },
     tabBarLabel: {

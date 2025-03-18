@@ -18,9 +18,6 @@ function RecordingScreen() {
 
   return (
     <GestureHandlerRootView style={recordingScreenStyles.container}>
-      <View style={recordingScreenStyles.messageContainer}>
-        <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
-      </View>
       <SelectModeTab selectMode={handleModeSelect} />
     </GestureHandlerRootView>
   );

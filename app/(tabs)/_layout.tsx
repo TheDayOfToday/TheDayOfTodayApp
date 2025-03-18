@@ -2,37 +2,44 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
 import { Text, View } from 'react-native';
 import { layoutStyles } from '../../styles/layoutStyles';
 
-const SettingButton = ({ navigation }: { navigation: any }) => (
-  <Text
-    style={layoutStyles.settingButton}
-    onPress={() => navigation.navigate('setting')}
-  >
-    <Ionicons name="settings-outline" size={24} color="black" />
-  </Text>
-);
-
 function TabLayout() {
+  const SettingButton = ({ navigation }: { navigation: any }) => (
+    <Text
+      style={layoutStyles.settingButton}
+      onPress={() => navigation.navigate('setting')}
+    >
+      <Ionicons
+        name="settings-outline"
+        size={24}
+        color={isRecording ? 'white' : 'black'}
+      />
+    </Text>
+  );
+
+  const pathname = usePathname();
+  const isRecording = pathname === "/recording/conversation" || pathname === "/recording/monologue";
+
   return (
     <Tabs
       screenOptions={({ navigation }) => ({
-        headerShown: true,
+        headerShown: isRecording ? false : true,
+        headerTitle: '오늘의 하루',
+        headerTitleStyle: layoutStyles.headerTitle,
+        headerRight: () => <SettingButton navigation={navigation} />,
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
         tabBarIconStyle: layoutStyles.tabBarIcon,
         tabBarActiveTintColor: '#0e0c26',
         tabBarInactiveTintColor: '#cecfd5',
-        headerRight: () => <SettingButton navigation={navigation} />,
       })}
     >
       <Tabs.Screen
         name="index"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Calendar',
           tabBarIcon: ({ focused, color }) => (
             <AntDesign 
@@ -46,8 +53,6 @@ function TabLayout() {
       <Tabs.Screen
         name="recording"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           tabBarLabel: '',
           tabBarIcon: ({ focused, color }) => (
             <View
@@ -77,8 +82,6 @@ function TabLayout() {
       <Tabs.Screen
         name="analysis"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Analysis',
           tabBarIcon: ({focused, color }) => (
             <MaterialIcons 
