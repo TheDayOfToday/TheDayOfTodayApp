@@ -1,14 +1,37 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
+import { useState } from 'react';
 
 function SignInScreen() {
-  const router = useRouter(); // 라우터 훅
-  
-  const handleLogin = () => {
-    router.replace('/(tabs)');
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');  
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      window.alert('이메일과 비밀번호를 모두 입력해주세요.');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://thedayoftoday.kro.kr/signup', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {            
+        router.replace('/(tabs)');
+      } else {        
+        window.alert('이메일 또는 비밀번호를 확인해주세요.');
+      }
+    } catch (error) {           
+      window.alert('서버와의 연결에 실패했습니다.');
+    }
   };
+
   const handleSignUp = () => {
     router.push('/signUp');
   };
@@ -19,11 +42,32 @@ function SignInScreen() {
 
       <Text style={styles.loginLabel}>로그인</Text>
 
-      <TextInput placeholder="이메일" style={styles.input} />
+      <TextInput
+        placeholder="이메일"
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+
       <View style={styles.passwordContainer}>
-        <TextInput placeholder="비밀번호" secureTextEntry style={styles.inputPassword} />
-        <Ionicons name="eye-off-outline" size={20} color="#aaa" />
-      </View>    
+        <TextInput
+          placeholder="비밀번호"
+          style={styles.inputPassword}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!passwordVisible}
+        />
+        
+        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+          <Ionicons 
+            name={passwordVisible ? 'eye-outline' : 'eye-off-outline'} 
+            size={20} 
+            color="#aaa" 
+          />
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Login</Text>

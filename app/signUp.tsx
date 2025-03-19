@@ -4,39 +4,47 @@ import { useState } from 'react';
 
 function SignUpScreen() {
   const router = useRouter();
-
-  // 입력 값 관리
-  const [nickname, setNickname] = useState('');
+    
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  // 가입 or 로그인 버튼 눌렀을 때 (예시)
-  const handleSubmit = () => {
-    const userData = {
-      nickname,
+  
+  const handleSubmit = async () => {
+    const userData = {      
       name,
       email,
       password,
       phoneNumber,
     };
-
-    console.log('입력 데이터:', userData); // 실제로는 서버로 전송
-    // 서버로 요청 전송 코드 추가 가능
-    router.replace('/signIn'); // 가입 성공 시 홈으로 이동 (예시)
+  
+    if (!name || !email || !password || !phoneNumber) {
+      window.alert('모든 항목을 입력해주세요.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('https://thedayoftoday.kro.kr/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },        
+        body: JSON.stringify(userData),
+      });
+  
+      if (response.ok) {             
+        window.alert('회원가입이 완료되었습니다!');
+        router.replace('/signIn'); 
+      } else {        
+        window.alert('회원가입 실패. 다시 시도해주세요.');
+      }
+    } catch (error) {      
+      window.alert('서버 연결 실패');
+    }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>오늘의 하루 - 회원가입</Text>
-
-      <TextInput
-        placeholder="닉네임"
-        style={styles.input}
-        value={nickname}
-        onChangeText={setNickname}
-      />
+      
       <TextInput
         placeholder="이름"
         style={styles.input}
@@ -64,7 +72,7 @@ function SignUpScreen() {
         value={phoneNumber}
         onChangeText={setPhoneNumber}
         keyboardType="phone-pad"
-      />
+      />      
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>가입하기</Text>

@@ -15,7 +15,7 @@ function SettingScreen() {
     <View style={commonStyles.container}>
       <Text style={commonStyles.text}>설정 화면</Text>
       
-      <Button title="로그아웃" onPress={handleLogout} color="red" />
+      <Button title="로그아웃" onPress={handleLogout} color="green" />
     </View>
   );
 }
