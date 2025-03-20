@@ -38,7 +38,8 @@
         {
           "calendarPermission": "오늘의 하루가 캘린더에 접근하도록 허용하시겠습니까?"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

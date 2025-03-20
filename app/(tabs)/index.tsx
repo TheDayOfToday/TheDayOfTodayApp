@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, SafeAreaView, Modal, TouchableOpacity, Pressabl
 import {Calendar} from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
-import { AnimateToPositionType } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/types';
 
 const BACKCOLOR = '#F3F2ED';
 
