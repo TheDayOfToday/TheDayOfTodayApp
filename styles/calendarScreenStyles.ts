@@ -3,27 +3,22 @@ import { StyleSheet } from 'react-native';
 const BACKCOLOR = '#F3F2ED';
 
 export const styles = StyleSheet.create({        
-    safeArea: {
-        flex: 1,
-        // backgroundColor: BACKCOLOR,
+      safeArea: {
+        flex: 1,        
       },
       container: {
         flex: 1,
-        // backgroundColor: BACKCOLOR,
       },      
-      calendar: {
-        // flex: 1,
+      calendar: {        
         paddingHorizontal: 10,
-        paddingVertical: 10,
-        // backgroundColor: BACKCOLOR,
+        paddingVertical: 10,     
       },
       dayContainer: {        
         width: 50,
         height: 60,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingBottom: 4,
-        // backgroundColor: BACKCOLOR,
+        paddingBottom: 4,     
       },
       dayText: {
         fontSize: 16,
