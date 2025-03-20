@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { recordScreenStyles } from '@/styles/recordScreenStyles';
-import SelectMoodTab from './SelectMoodtab';
+import SelectMoodTab from './SelectMoodTab';
 
 interface MonologueProps {
   setMode: (mode: string) => void;

@@ -5,7 +5,7 @@ import SplashScreen from "./splash";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
-  const [isSplashVisible, setSplashVisible] = useState(true);  
+  const [isSplashVisible, setSplashVisible] = useState(true);
 
   useEffect(() => {
     async function loadFonts() {
