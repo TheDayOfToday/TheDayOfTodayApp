@@ -15,20 +15,23 @@ function TabLayout() {
       <Ionicons
         name="settings-outline"
         size={24}
-        color={isRecording ? 'white' : 'black'}
+        color="white"
       />
     </Text>
   );
 
   const pathname = usePathname();
+  const isModeTab = pathname === "/recording";
   const isRecording = pathname === "/recording/conversation" || pathname === "/recording/monologue";
 
   return (
     <Tabs
       screenOptions={({ navigation }) => ({
         headerShown: isRecording ? false : true,
+        headerStyle: layoutStyles.header,
         headerTitle: '오늘의 하루',
         headerTitleStyle: layoutStyles.headerTitle,
+        headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
         headerRight: () => <SettingButton navigation={navigation} />,
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
