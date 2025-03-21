@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
       container: {
         flex: 1,
       },      
-      calendar: {
-        // flex: 1,
+      calendar: {        
         paddingHorizontal: 10,
         paddingVertical: 10,
       },
