@@ -1,23 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const calendarModalStyles = StyleSheet.create({
-    modalOverlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      modalContent: {
-        width: 320,
-        padding: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
-      },
-      modalTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
       tabContainer: {
         flexDirection: 'row',
         width: '100%',
@@ -35,29 +18,32 @@ export const calendarModalStyles = StyleSheet.create({
         borderBottomColor: '#0e0c26',
       },
       tabText: {
+        fontFamily: 'Pretendard4',
         fontSize: 16,
         color: '#999',
       },
       selectedTabText: {
         color: '#0e0c26',
-        fontWeight: 'bold',
+        fontFamily: 'Pretendard7',
       },
       tabContent: {
         paddingVertical: 15,
         width: '100%',
       },
       diaryTitle: {
+        fontFamily: 'Pretendard7',
         fontSize: 18,
-        fontWeight: 'bold',
         marginBottom: 5,
       },
       diaryText: {
+        fontFamily: 'pretendard4',
         fontSize: 14,
         color: '#333',
       },
       analysisText: {
+        fontFamily: 'pretendard5',
         fontSize: 14,
-        color: '#666',
+        color: '#333',
       },
       modalButton: {
         marginTop: 15,
@@ -68,7 +54,8 @@ export const calendarModalStyles = StyleSheet.create({
         width: '100%',
       },
       modalButtonText: {
-        color: 'white',
+        fontFamily: 'pretendard5',
         fontSize: 16,
+        color: 'white',
       },
 });

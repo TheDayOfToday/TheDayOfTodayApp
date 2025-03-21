@@ -16,7 +16,7 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
 
   },
   finishButtonText: {
-    fontFamily: 'NanumSquare3',
+    fontFamily: 'Pretendard5',
     fontSize: 16,
     borderBottomWidth: 2,
     borderBottomColor: '#e5e5e5',
@@ -24,8 +24,8 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
   },
   title: {
     padding: 5,
-    fontFamily: 'MaruBuri3',
-    fontSize: 20,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 22,
     color: '#132a9e',
   },
   resultContainer: {
@@ -38,7 +38,7 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
     padding: 15,
   },
   resultText: {
-    fontFamily: 'MaruBuri3',
-    fontSize: 16,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 18,
   },
 });

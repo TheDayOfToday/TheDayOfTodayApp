@@ -16,7 +16,7 @@ export const recordingResultStyles = StyleSheet.create({
 
   },
   nextButtonText: {
-    fontFamily: 'NanumSquare3',
+    fontFamily: 'Pretendard5',
     fontSize: 16,
     borderBottomWidth: 2,
     borderBottomColor: '#e5e5e5',
@@ -24,8 +24,8 @@ export const recordingResultStyles = StyleSheet.create({
   },
   title: {
     padding: 5,
-    fontFamily: 'MaruBuri3',
-    fontSize: 20,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 22,
     color: '#132a9e',
   },
   resultContainer: {
@@ -38,8 +38,8 @@ export const recordingResultStyles = StyleSheet.create({
     padding: 15,
   },
   resultText: {
-    fontFamily: 'MaruBuri3',
-    fontSize: 16,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 18,
   },
   saveButtonContainer: {
     alignItems: 'flex-end',
@@ -52,7 +52,7 @@ export const recordingResultStyles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   saveButtonText: {
-    fontFamily: 'NanumSquare2',
+    fontFamily: 'Pretendard4',
     fontSize: 16,
     color: '#333',
   },

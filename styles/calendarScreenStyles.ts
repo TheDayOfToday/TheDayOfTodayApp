@@ -1,21 +1,17 @@
 import { StyleSheet } from 'react-native';
 
-const BACKCOLOR = '#F3F2ED';
-
 export const styles = StyleSheet.create({        
     safeArea: {
         flex: 1,
-        // backgroundColor: BACKCOLOR,
+        backgroundColor: '#fff',
       },
       container: {
         flex: 1,
-        // backgroundColor: BACKCOLOR,
       },      
       calendar: {
         // flex: 1,
         paddingHorizontal: 10,
         paddingVertical: 10,
-        // backgroundColor: BACKCOLOR,
       },
       dayContainer: {        
         width: 50,
@@ -23,9 +19,9 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingBottom: 4,
-        // backgroundColor: BACKCOLOR,
       },
       dayText: {
+        fontFamily: 'Pretendard4',
         fontSize: 16,
         color: '#2d4150',
         marginTop: 32,        
@@ -34,8 +30,8 @@ export const styles = StyleSheet.create({
         color: '#b9babd',
       },
       selectedDayText: {
+        fontFamily: 'Pretendard9',
         color: '#0e0c26',
-        fontWeight: 'bold',
       },
       circleIcon: {
         position: 'absolute',
@@ -68,26 +64,10 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
       },
       modalTitle: {
+        fontFamily: 'Pretendard4',
         fontSize: 18,
-        fontWeight: 'bold',
         marginBottom: 10,
         // 무드미터 색상으로 바꾸기
         color: '#2d4150',
-      },
-      modalDate: {
-        fontSize: 16,
-        color: '#666',
-        marginBottom: 20,
-      },
-      modalButton: {
-        backgroundColor: '#0e0c26',
-        padding: 10,
-        borderRadius: 10,
-        marginTop: 20,
-      },
-      modalButtonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: '600',
       },
 });
