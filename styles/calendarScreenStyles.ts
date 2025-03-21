@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
       },
       selectedDayText: {
         fontFamily: 'Pretendard9',
-        color: '#0e0c26',
+        color: '#001D6E',
       },
       circleIcon: {
         position: 'absolute',
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#E8E8E8',
       },
       markedCircle: {
-        backgroundColor: '#0e0c26',
+        backgroundColor: '#001D6E',
       },
       modalOverlay: {
         flex: 1,

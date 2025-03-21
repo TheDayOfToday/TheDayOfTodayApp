@@ -10,6 +10,6 @@ export const commonStyles = StyleSheet.create({
     text: {
         fontFamily: 'Pretendard4',
         fontSize: 24,
-        color: '#0e0c26',
+        color: '#001D6E',
     },
 });

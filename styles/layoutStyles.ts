@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export const layoutStyles = StyleSheet.create({
-    header: {
+    modeTabHeader: {
         backgroundColor: '#0e0c26',
+        borderBottomWidth: 0,
+    },
+    header: {
+        backgroundColor: '#001D6E',
         borderBottomWidth: 0,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
@@ -25,7 +29,7 @@ export const layoutStyles = StyleSheet.create({
         shadowOpacity: 0, // iOS 그림자 제거
     },
     recordHeaderContainer: {
-        backgroundColor: '#0e0c26',
+        backgroundColor: '#001D6E',
         borderBottomWidth: 0.5,
     },
     tabBarLabel: {
@@ -41,12 +45,12 @@ export const layoutStyles = StyleSheet.create({
     recordButtonContainer: {
         width: 65,
         height: 65,
-        backgroundColor:'#0e0c26',
+        backgroundColor:'#001D6E',
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 30,
-        shadowColor: '#000',
+        shadowColor: '#001D6E',
         shadowOffset: {
             width: 0,
             height: 2,

@@ -15,7 +15,7 @@ export const calendarModalStyles = StyleSheet.create({
       },
       selectedTab: {
         borderBottomWidth: 2,
-        borderBottomColor: '#0e0c26',
+        borderBottomColor: '#001D6E',
       },
       tabText: {
         fontFamily: 'Pretendard4',
@@ -23,7 +23,7 @@ export const calendarModalStyles = StyleSheet.create({
         color: '#999',
       },
       selectedTabText: {
-        color: '#0e0c26',
+        color: '#001D6E',
         fontFamily: 'Pretendard7',
       },
       tabContent: {
@@ -48,7 +48,7 @@ export const calendarModalStyles = StyleSheet.create({
       modalButton: {
         marginTop: 15,
         padding: 10,
-        backgroundColor: '#0e0c26',
+        backgroundColor: '#001D6E',
         borderRadius: 5,
         alignItems: 'center',
         width: '100%',

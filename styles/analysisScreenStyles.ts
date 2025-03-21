@@ -20,6 +20,7 @@ export const analysisScreenStyles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: '#fafafa',
+    borderColor: '#fff',
     borderWidth: 2,
     borderRadius: 15,
     padding: 25,
