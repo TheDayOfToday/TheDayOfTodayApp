@@ -46,7 +46,7 @@ function SignInScreen() {
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
       <View style={styles.signUpContainer}>
-        <Text>회원이 아니신가요? </Text>
+        <Text style={styles.signUpLabelText}>회원이 아니신가요? </Text>
         <TouchableOpacity onPress={goToSignUp}>
           <Text style={styles.signUpText}>회원가입하기</Text>
         </TouchableOpacity>

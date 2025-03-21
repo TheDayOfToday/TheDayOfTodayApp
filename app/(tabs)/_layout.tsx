@@ -28,7 +28,7 @@ function TabLayout() {
     <Tabs
       screenOptions={({ navigation }) => ({
         headerShown: isRecording ? false : true,
-        headerStyle: layoutStyles.header,
+        headerStyle: isModeTab? layoutStyles.modeTabHeader : layoutStyles.header,
         headerTitle: '오늘의 하루',
         headerTitleStyle: layoutStyles.headerTitle,
         headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
@@ -36,7 +36,7 @@ function TabLayout() {
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
         tabBarIconStyle: layoutStyles.tabBarIcon,
-        tabBarActiveTintColor: '#0e0c26',
+        tabBarActiveTintColor: '#001D6E',
         tabBarInactiveTintColor: '#cecfd5',
       })}
     >
@@ -48,7 +48,7 @@ function TabLayout() {
             <AntDesign 
               name="calendar" 
               size={24} 
-              color={focused ? '#0e0c26' : '#cecfd5'}
+              color={focused ? '#001D6E' : '#cecfd5'}
             />
           ),
         }}
@@ -69,7 +69,7 @@ function TabLayout() {
               size={32} 
               style={[
                 layoutStyles.recordButton,
-                focused && { color: '#0e0c26' },
+                focused && { color: '#001D6E' },
               ]}
             />
             </View>
@@ -90,7 +90,7 @@ function TabLayout() {
             <MaterialIcons 
               name="menu-book" 
               size={24}
-              color={focused ? '#0e0c26' : '#cecfd5'}
+              color={focused ? '#001D6E' : '#cecfd5'}
             />
           ),
         }}

@@ -11,7 +11,7 @@ function AnalysisScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={analysisScreenStyles.headerContainer}>
-        <FontAwesome name="circle-thin" size={200} color="black" />
+        <FontAwesome name="circle-thin" size={200} color="#001D6E" />
         <Text style={analysisScreenStyles.headerText}>일주일 한 줄 요약</Text>
       </View>
       <View style={analysisScreenStyles.contentContainer}>
