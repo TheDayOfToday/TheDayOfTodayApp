@@ -9,10 +9,16 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     title: {
-        fontFamily: 'Pretendard7',
-        fontSize: 28,
+        fontFamily: 'Hakgyoansim',
+        fontSize: 44,
         marginBottom: 20,
         color: '#001D6E',
+    },
+    signUpLabel: {
+        fontFamily: 'Pretendard2',
+        alignSelf: 'flex-start',
+        fontSize: 18,
+        marginBottom: 10,
     },
     input: {
         fontFamily: 'Pretendard4',

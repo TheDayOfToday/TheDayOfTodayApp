@@ -6,7 +6,7 @@ export const layoutStyles = StyleSheet.create({
         borderBottomWidth: 0,
     },
     header: {
-        backgroundColor: '#001D6E',
+        backgroundColor: '#191d42',
         borderBottomWidth: 0,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
@@ -18,7 +18,7 @@ export const layoutStyles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     headerTitle: {
-        fontFamily: 'Pretendard6',
+        fontFamily: 'Pretendard4',
         fontSize: 20,
         color: '#fff',
     },
