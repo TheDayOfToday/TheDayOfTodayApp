@@ -1,16 +1,44 @@
 import { StyleSheet } from "react-native";
 
 export const dailyAnalysisScreenStyles = StyleSheet.create({
-  container: {
+  Screen: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
-  text: {
-    padding: 10,
-    fontFamily: 'NanumSquare5',
-    fontSize: 24,
-    color: '#0e0c26',
+  container: {
+    padding: 30,
+    gap: 20,
+  },
+  finishButtonContainer: {
+    alignItems: 'flex-end',
+  },
+  finishButton: {
+
+  },
+  finishButtonText: {
+    fontFamily: 'Pretendard5',
+    fontSize: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: '#e5e5e5',
+    paddingBottom: 4,
+  },
+  title: {
+    padding: 5,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 22,
+    color: '#132a9e',
+  },
+  resultContainer: {
+    flexWrap: "wrap",
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 15,
+    // 무드미터 색으로 변경하기
+    borderColor: '#132a9e',
+    padding: 15,
+  },
+  resultText: {
+    fontFamily: 'Hakgyoansim',
+    fontSize: 18,
   },
 });

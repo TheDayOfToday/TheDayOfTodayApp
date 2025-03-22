@@ -11,15 +11,11 @@ function AnalysisScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={analysisScreenStyles.headerContainer}>
-        <FontAwesome name="circle-thin" size={200} color="black" />
-        <Text style={analysisScreenStyles.headerText}>일주일 한 줄 요약</Text>
+        <FontAwesome name="circle-thin" size={200} color="#191d42" />
+        <Text style={analysisScreenStyles.headerText}>이번 주 일기 분석</Text>
       </View>
       <View style={analysisScreenStyles.contentContainer}>
         <Text style={analysisScreenStyles.contentText}>
-          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
-          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
-          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
-          분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
           분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
           분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용
           분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용분석내용

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { commonStyles } from '../styles/common';
 import { useRouter } from 'expo-router';
+import { settingScreenStyles } from '@/styles/settingScreenStyles';
 
 function SettingScreen() {
   const router = useRouter();
@@ -13,29 +14,12 @@ function SettingScreen() {
 
   return (
     <View style={commonStyles.container}>
-      <Text style={commonStyles.text}>설정 화면</Text>      
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>로그아웃</Text>
+      <Text style={commonStyles.text}>마이페이지</Text>      
+      <TouchableOpacity style={settingScreenStyles.logoutButton} onPress={handleLogout}>
+        <Text style={settingScreenStyles.logoutText}>로그아웃</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  logoutButton: {
-    position: 'absolute',
-    bottom: 30,
-    right: 20,
-    backgroundColor: 'lightgreen',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  logoutText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 12,
-  },
-});
 
 export default SettingScreen;

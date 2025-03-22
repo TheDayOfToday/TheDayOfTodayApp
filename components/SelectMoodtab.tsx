@@ -6,7 +6,7 @@ import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
 
 function SelectMoodTab() {
   const moodSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["10%", "100%"], []);
+  const snapPoints = useMemo(() => ["13%", "80%"], []);
   const router = useRouter();
 
   // 완료 버튼 클릭 시 탭 닫힘
@@ -35,7 +35,7 @@ function SelectMoodTab() {
           <Pressable
             onPress={onPressMood}
           >
-            <Text>무드미터</Text>
+            <Text>무드미터들</Text>
           </Pressable>
         </View>
         <View style={moodSlidingTabStyles.submitButtonContainer}>

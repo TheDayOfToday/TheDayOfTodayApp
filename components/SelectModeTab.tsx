@@ -36,19 +36,18 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
   }, [selectMode]);
 
   // 대화 버튼 클릭 시 핸들러 함수
-
   const onPressConversation = useCallback(() => {
     selectMode('ConversationMode');
     sheetRef.current?.close();
   }, [selectMode]);
 
   // 다른 탭으로 이동 시 슬라이딩 탭 닫힘
-  useEffect(() => {
-    if (currentRoute !== 'recording') {
-      sheetRef.current?.close();
-      selectMode('');
-    }
-  }, [currentRoute]);
+  // useEffect(() => {
+  //   if (currentRoute !== 'recording') {
+  //     sheetRef.current?.close();
+  //     selectMode('');
+  //   }
+  // }, [currentRoute]);
 
   return (
       <BottomSheet
@@ -56,6 +55,7 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
         snapPoints={snapPoints}
         enableDynamicSizing={false} // snapPoints로 시트 크기 고정
         style={modeSlidingTabStyles.sheet}
+        backgroundStyle={modeSlidingTabStyles.backgroundSheet}
       >
         <BottomSheetView style={modeSlidingTabStyles.sheetView}>
           <View style={modeSlidingTabStyles.sheetHeaderContainer}>

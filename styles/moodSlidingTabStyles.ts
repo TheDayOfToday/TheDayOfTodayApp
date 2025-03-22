@@ -5,7 +5,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
         padding: 25,
     },
     headerTitle: {
-        fontFamily: 'NanumSquare4',
+        fontFamily: 'Pretendard6',
         fontSize: 20,
         textAlign: 'left',
         width: '100%',
@@ -24,7 +24,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
     },
     submitButtonText: {
-        fontFamily: 'NanumSquare2',
+        fontFamily: 'Pretendard3',
         fontSize: 16,
         color: '#333',
     },

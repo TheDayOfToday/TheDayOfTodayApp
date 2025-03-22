@@ -4,6 +4,9 @@ export const modeSlidingTabStyles = StyleSheet.create({
     sheet: {
         paddingHorizontal: 25,
     },
+    backgroundSheet: {
+        //add
+    },
     sheetView: {
         //add
     },
@@ -12,7 +15,7 @@ export const modeSlidingTabStyles = StyleSheet.create({
         marginVertical: 10,
     },
     sheetHeaderTitle: {
-        fontFamily: 'NanumSquare4',
+        fontFamily: 'Pretendard6',
         fontSize: 24,
         textAlign: 'center',
         width: '100%',
@@ -29,27 +32,13 @@ export const modeSlidingTabStyles = StyleSheet.create({
         maxWidth: 180,
         paddingVertical: 12,
         paddingHorizontal: 20,
-        borderRadius: 8,
+        borderRadius: 15,
         marginVertical: 20,
         backgroundColor: '#0e0c26',
     },
     recordButtonText: {
-        fontFamily: 'NanumSquare3',
+        fontFamily: 'Pretendard5',
         fontSize: 16,
         color: '#fff',
-    },
-    cancleButtonContainer: {
-        alignItems: 'flex-end',
-    },
-    cancleButton: {
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderRadius: 130,
-        backgroundColor: '#f7f7f7',
-    },
-    cancleButtonText: {
-        fontFamily: 'NanumSquare2',
-        fontSize: 16,
-        color: '#333',
     },
 });

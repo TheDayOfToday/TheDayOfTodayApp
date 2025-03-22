@@ -3,32 +3,44 @@ import { StyleSheet } from 'react-native';
 export const recordingScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#0e0c26',
     },
     recordScreen: {
+        backgroundColor: '#010717',
         flex: 1,
-        alignItems: 'center',
+        justifyContent: 'space-between',
         gap: 15,
-        paddingVertical: 30,
+        paddingTop: '20%',
         height: '100%',
     },
     messageContainer: {
-        paddingVertical: 100,
         alignItems: 'center',
     },
     message: {
-        fontFamily: 'NanumSquare3',
+        color: '#fff',
+        fontFamily: 'Pretendard3',
         fontSize: 25,
+    },
+    recordingContainer: {
+        alignItems: 'center',
+    },
+    recordingText: {
+        color: '#fff',
+    },
+    submitButtonContainer: {
+        alignItems: 'flex-end',
+        padding: 10,
     },
     submitButton: {
         paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderRadius: 130,
-        backgroundColor: '#fff',
+        paddingHorizontal: 30,
+        borderRadius: 30,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        opacity: 0.7,
     },
     submitButtonText: {
-        fontFamily: 'NanumSquare2',
+        fontFamily: 'Pretendard5',
         fontSize: 16,
-        color: '#333',
+        color: '#fff',
     },
 });

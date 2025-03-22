@@ -15,17 +15,18 @@ export const analysisScreenStyles = StyleSheet.create({
     alignItems: 'center',
   },
   headerText: {
-    fontFamily: 'MaruBuri5',
-    fontSize: 20,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 24,
   },
   contentContainer: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fafafa',
+    borderColor: '#fff',
     borderWidth: 2,
     borderRadius: 15,
     padding: 25,
   },
   contentText: {
-    fontFamily: 'MaruBuri3',
-    fontSize: 17,
+    fontFamily: 'Hakgyoansim',
+    fontSize: 18,
   },
 });

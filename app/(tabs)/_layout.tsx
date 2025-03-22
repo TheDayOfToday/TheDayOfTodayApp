@@ -2,43 +2,53 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
 import { Text, View } from 'react-native';
 import { layoutStyles } from '../../styles/layoutStyles';
 
-const SettingButton = ({ navigation }: { navigation: any }) => (
-  <Text
-    style={layoutStyles.settingButton}
-    onPress={() => navigation.navigate('setting')}
-  >
-    <Ionicons name="settings-outline" size={24} color="black" />
-  </Text>
-);
-
 function TabLayout() {
+  const SettingButton = ({ navigation }: { navigation: any }) => (
+    <Text
+      style={layoutStyles.settingButton}
+      onPress={() => navigation.navigate('setting')}
+    >
+      <Ionicons
+        name="settings-outline"
+        size={24}
+        color="white"
+      />
+    </Text>
+  );
+
+  const pathname = usePathname();
+  const isModeTab = pathname === "/recording";
+  const isRecording = pathname === "/recording/conversation" || pathname === "/recording/monologue";
+
   return (
     <Tabs
       screenOptions={({ navigation }) => ({
-        headerShown: true,
+        headerShown: isRecording ? false : true,
+        headerStyle: isModeTab? layoutStyles.modeTabHeader : layoutStyles.header,
+        headerTitle: '오늘의 하루',
+        headerTitleStyle: layoutStyles.headerTitle,
+        headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
+        headerRight: () => <SettingButton navigation={navigation} />,
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
         tabBarIconStyle: layoutStyles.tabBarIcon,
-        tabBarActiveTintColor: '#0e0c26',
+        tabBarActiveTintColor: '#001D6E',
         tabBarInactiveTintColor: '#cecfd5',
-        headerRight: () => <SettingButton navigation={navigation} />,
       })}
     >
       <Tabs.Screen
         name="index"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Calendar',
           tabBarIcon: ({ focused, color }) => (
             <AntDesign 
               name="calendar" 
               size={24} 
-              color={focused ? '#0e0c26' : '#cecfd5'}
+              color={focused ? '#001D6E' : '#cecfd5'}
             />
           ),
         }}
@@ -46,8 +56,6 @@ function TabLayout() {
       <Tabs.Screen
         name="recording"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           tabBarLabel: '',
           tabBarIcon: ({ focused, color }) => (
             <View
@@ -61,7 +69,7 @@ function TabLayout() {
               size={32} 
               style={[
                 layoutStyles.recordButton,
-                focused && { color: '#0e0c26' },
+                focused && { color: '#001D6E' },
               ]}
             />
             </View>
@@ -77,14 +85,12 @@ function TabLayout() {
       <Tabs.Screen
         name="analysis"
         options={{
-          headerTitle: '오늘의 하루',
-          headerTitleStyle: layoutStyles.headerTitle,
           title: 'Analysis',
           tabBarIcon: ({focused, color }) => (
             <MaterialIcons 
               name="menu-book" 
               size={24}
-              color={focused ? '#0e0c26' : '#cecfd5'}
+              color={focused ? '#001D6E' : '#cecfd5'}
             />
           ),
         }}

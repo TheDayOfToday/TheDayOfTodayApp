@@ -10,16 +10,16 @@ export default function RootLayout() {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        "MaruBuri5": require("../assets/fonts/MaruBuri-Bold.otf"),
-        "MaruBuri4": require("../assets/fonts/MaruBuri-SemiBold.otf"),
-        "MaruBuri3": require("../assets/fonts/MaruBuri-Regular.otf"),
-        "MaruBuri2": require("../assets/fonts/MaruBuri-Light.otf"),
-        "MaruBuri1": require("../assets/fonts/MaruBuri-ExtraLight.otf"),
-        "NanumSquare5": require("../assets/fonts/NanumSquareNeoOTF-Hv.otf"),
-        "NanumSquare4": require("../assets/fonts/NanumSquareNeoOTF-Eb.otf"),
-        "NanumSquare3": require("../assets/fonts/NanumSquareNeoOTF-Bd.otf"),
-        "NanumSquare2": require("../assets/fonts/NanumSquareNeoOTF-Rg.otf"),
-        "NanumSquare1": require("../assets/fonts/NanumSquareNeoOTF-Lt.otf"),
+        "Hakgyoansim": require("../assets/fonts/Hakgyoansim-Geurimilgi.otf"),
+        "Pretendard9": require("../assets/fonts/Pretendard-Black.otf"),
+        "Pretendard8": require("../assets/fonts/Pretendard-ExtraBold.otf"),
+        "Pretendard7": require("../assets/fonts/Pretendard-Bold.otf"),
+        "Pretendard6": require("../assets/fonts/Pretendard-SemiBold.otf"),
+        "Pretendard5": require("../assets/fonts/Pretendard-Medium.otf"),
+        "Pretendard4": require("../assets/fonts/Pretendard-Regular.otf"),
+        "Pretendard3": require("../assets/fonts/Pretendard-Light.otf"),
+        "Pretendard2": require("../assets/fonts/Pretendard-ExtraLight.otf"),
+        "Pretendard1": require("../assets/fonts/Pretendard-Thin.otf"),
       });
       setIsReady(true);
     }
@@ -37,8 +37,8 @@ export default function RootLayout() {
     <SplashScreen onFinish={() => setSplashVisible(false)} />
   ) : (
     <Stack>
-      <Stack.Screen name="signIn" />
-      <Stack.Screen name="SignUp" />
+      <Stack.Screen name="signIn" options={{headerShown: false}}/>
+      <Stack.Screen name="SignUp" options={{headerShown: false}}/>
       <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
       <Stack.Screen name="+not-found" />
     </Stack>

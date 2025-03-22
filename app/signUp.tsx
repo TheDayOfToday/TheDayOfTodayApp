@@ -16,7 +16,8 @@ function SignUpScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>오늘의 하루 - 회원가입</Text>      
+      <Text style={styles.title}>오늘의 하루</Text>
+      <Text style={styles.signUpLabel}>회원가입</Text>  
       <TextInput
         placeholder="이름"
         style={styles.input}

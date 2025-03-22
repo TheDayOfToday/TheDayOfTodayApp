@@ -14,13 +14,20 @@ function Monologue() {
   return(
     <GestureHandlerRootView>
       <View style={recordingScreenStyles.recordScreen}>
-        <Text>{'독백'}</Text>
-        <Pressable
-          style={recordingScreenStyles.submitButton}
-          onPress={onPressSubmitButton}
-        >
-          <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
-        </Pressable>
+        <View style={recordingScreenStyles.messageContainer}>
+          <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
+        </View>
+        <View style={recordingScreenStyles.recordingContainer}>
+          <Text style={recordingScreenStyles.recordingText}>recording...</Text>
+        </View>
+        <View style={recordingScreenStyles.submitButtonContainer}>
+          <Pressable
+            style={recordingScreenStyles.submitButton}
+            onPress={onPressSubmitButton}
+          >
+            <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
+          </Pressable>
+        </View>
       </View>
       {isOpen && <SelectMoodTab />}
     </GestureHandlerRootView>

@@ -14,13 +14,20 @@ function Conversation() {
   return(
     <GestureHandlerRootView>
       <View style={recordingScreenStyles.recordScreen}>
-        <Text>{'대화'}</Text>
-        <Pressable
-          style={recordingScreenStyles.submitButton}
-          onPress={onPressSubmitButton}
-        >
-          <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
-        </Pressable>
+        <View style={recordingScreenStyles.messageContainer}>
+          <Text style={recordingScreenStyles.message}>오늘의 하루는 어땠나요?</Text>
+        </View>
+        <View style={recordingScreenStyles.recordingContainer}>
+          <Text style={recordingScreenStyles.recordingText}>recording...</Text>
+        </View>
+        <View style={recordingScreenStyles.submitButtonContainer}>
+          <Pressable
+            style={recordingScreenStyles.submitButton}
+            onPress={onPressSubmitButton}
+          >
+            <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
+          </Pressable>
+        </View>
       </View>
       {isOpen && <SelectMoodTab />}
     </GestureHandlerRootView>
