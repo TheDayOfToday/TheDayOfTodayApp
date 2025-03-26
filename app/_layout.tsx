@@ -2,10 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import * as Font from "expo-font";
 import SplashScreen from "./splash";
+import Toast, { BaseToastProps } from "react-native-toast-message";
+import CustomToast from '@/components/CustomToast';
+
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const [isSplashVisible, setSplashVisible] = useState(true);
+
+  const toastConfig = {
+    success: (props: BaseToastProps) => <CustomToast {...props} type="success" />,
+    error: (props: BaseToastProps) => <CustomToast {...props} type="error" />,
+    info: (props: BaseToastProps) => <CustomToast {...props} type="info" />,
+  }
 
   useEffect(() => {
     async function loadFonts() {
@@ -36,11 +45,14 @@ export default function RootLayout() {
   return isSplashVisible ? (
     <SplashScreen onFinish={() => setSplashVisible(false)} />
   ) : (
-    <Stack>
-      <Stack.Screen name="signIn" options={{headerShown: false}}/>
-      <Stack.Screen name="SignUp" options={{headerShown: false}}/>
-      <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <>
+      <Stack>
+        {/* <Stack.Screen name="signIn" options={{headerShown: false}}/>
+        <Stack.Screen name="SignUp" options={{headerShown: false}}/> */}
+        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <Toast config={toastConfig} />
+    </>
   );
 }

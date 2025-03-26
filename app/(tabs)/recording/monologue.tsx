@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from '@/components/SelectMoodTab';
+import SelectMoodTab from '@/components/SelectMoodMeterTab';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 
 function Monologue() {
