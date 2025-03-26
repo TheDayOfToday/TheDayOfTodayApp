@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
-import { recordingResultStyles } from "@/styles/recordingResultStyles";
-import { useRouter } from "expo-router";
 import { ScrollView, View, Text, Pressable, TextInput } from "react-native";
+import { useRouter } from "expo-router";
+import useShowToast from '@/hooks/useShowToast';
+import { recordingResultStyles } from "@/styles/recordingResultStyles";
 
 function ResultScreen() {
   const router = useRouter();
   const [text, onChangeText] = useState('');
+  const showToast = useShowToast();
 
   const handleNextButtonPress = useCallback(() => {
     router.push('/recording/daily-analysis');
   }, []);
 
   const handleSaveButtonPress = useCallback(() => {
-
+    showToast('success', '저장 완료', '오늘의 일기가 저장되었습니다.');
   }, []);
 
   return (
