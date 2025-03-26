@@ -21,6 +21,7 @@ export const useSignUp = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
         body: JSON.stringify(userData),
+        credentials: 'include'
       });
 
       if (response.ok) {
