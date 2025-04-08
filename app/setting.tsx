@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
@@ -8,20 +8,54 @@ function SettingScreen() {
   const router = useRouter();
   const showToast = useShowToast();
 
+  // 서버에서 받아올 유저 정보 state
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    profileImage: '',
+  });
+
+  // 마이페이지 진입 시 유저 정보 API 호출
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const token = localStorage.getItem('accessToken');
+      console.log('getItem token: ', token);
+      if (!token) {
+        console.warn('토큰이 없음');
+        return;
+      }
+
+      try {
+        const response = await fetch('https://thedayoftoday.kro.kr/setting', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error('유저 정보 불러오기 실패');
+        }
+
+        const data = await response.json();
+        console.log('유저 정보:', data);
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    const check = localStorage.getItem('accessToken');
-    console.log('✅ accessToken가 null이면 삭제 완료된 거에용~:', check);  
-    showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');    
+    console.log('accessToken 삭제 완료');
+    showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');
     router.replace('/signIn');
-  };
-
-  // 임시 유저 정보 (API 연결 가능)
-  const user = {
-    name: '홍길동',
-    email: 'gildong@email.com',
-    phone: '010-1234-5678',
-    profileImage: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',    
   };
 
   return (
@@ -30,13 +64,10 @@ function SettingScreen() {
 
       {/* 상단 프로필 */}
       <View style={styles.profileSection}>
-        <Image source={{ uri: user.profileImage }} style={styles.profileImage} />
+        <Image source={{ uri: user.profileImage || 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.profileImage} />
         <View style={{ flex: 1 }}>
           <View style={styles.nameRow}>
             <Text style={styles.userName}>{user.name}</Text>
-            {/* <View style={styles.badge}>
-              <Text style={styles.badgeText}>{user.grade}</Text>
-            </View> */}
           </View>
           <TouchableOpacity onPress={handleLogout}>
             <Text style={styles.logoutText}>로그아웃</Text>

@@ -46,9 +46,9 @@ export default function RootLayout() {
     <SplashScreen onFinish={() => setSplashVisible(false)} />
   ) : (
     <>
-      <Stack>
-        {/* <Stack.Screen name="signIn" options={{headerShown: false}}/>
-        <Stack.Screen name="SignUp" options={{headerShown: false}}/> */}
+      <Stack>         
+        {/*<Stack.Screen name="SignUp" options={{headerShown: false}}/> */}
+        <Stack.Screen name="signIn" options={{headerShown: false}}/>
         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
         <Stack.Screen name="+not-found" />
       </Stack>

@@ -1,38 +1,103 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import React, { useEffect, useState } from 'react';
+import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
+import { Calendar } from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
-
-const BACKCOLOR = '#F3F2ED';
+import { Ionicons } from '@expo/vector-icons';
 
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDateObj, setSelectedDateObj] = useState(new Date());
+  const selectedDate = selectedDateObj.toISOString().split('T')[0];
+
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
-  const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary'); // 현재 선택된 탭 상태
+  const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
 
-  // 날짜를 클릭할 때 실행되는 함수
+  const [diaryData, setDiaryData] = useState<{ title: string, content: string } | null>(null);
+  const [analysisData, setAnalysisData] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);  
+
+  // 모달 폼 내에서 날짜 옮기는 함수
+  const moveDate = (direction: 'prev' | 'next') => {
+    const newDate = new Date(selectedDateObj);
+    newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
+    setSelectedDateObj(newDate);
+  };
+
+  // 날짜 클릭 시 해당 날짜 선택 및 모달 폼 여는 함수
   const handleDayPress = (day: any) => {
-    setSelectedDate(day.dateString);
-
-    // 선택한 날짜의 스타일을 업데이트
-    setMarkedDates({
-      [day.dateString]: {
-        selected: true,
-        selectedTextColor: 'skyblue', // 선택된 날짜의 텍스트 색상을 하늘색으로 설정
-        marked: true,
-      },
-    });
-
+    const date = day.dateString;
+    setSelectedDateObj(new Date(date));
     setModalVisible(true);
   };
 
+  // 모달 폼 열릴 때 해당 날짜의 일기 및 분석 내용 데이터 요청
+  useEffect(() => {
+    const fetchDiaryAndAnalysis = async () => {
+      setIsLoading(true);
+      setDiaryData(null);
+      setAnalysisData(null);
+      setError(null); 
 
-  // 캘린더의 날짜 위에 위치할 동그라미 아이콘을 랜더링하는 컴포넌트
-  const CustomDay = ({ date, state, marking, onPress } : any) => {
+      const accessToken = localStorage.getItem('accessToken');
+      console.log('accessToken : ', accessToken);
+
+      if (!accessToken) {
+        setError('로그인 정보가 없습니다.');
+        setIsLoading(false);
+        return;
+      }
+
+      const [year, month, day] = selectedDate.split('-');
+
+      try {
+        const [diaryRes, analysisRes] = await Promise.all([
+          fetch(`https://thedayoftoday.kro.kr/calendar/diary/${year}/${month}/${day}`, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }),
+          fetch(`https://thedayoftoday.kro.kr/calendar/analysis/${year}/${month}/${day}`, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }),
+        ]);
+
+        if (!diaryRes.ok || !analysisRes.ok) throw new Error('데이터 요청 실패');
+        else console.log('정상 연결됨');
+
+        const diaryJson = await diaryRes.json();
+        const analysisJson = await analysisRes.json();
+
+        setDiaryData(diaryJson);
+        setAnalysisData(analysisJson.analysis);
+      } catch (err: any) {
+        setError(err.message || '에러 발생');
+      } finally {
+        setIsLoading(false);
+      }
+
+      setMarkedDates({
+        [selectedDate]: {
+          selected: true,
+          selectedTextColor: 'skyblue',
+          marked: true,
+        },
+      });
+    };
+
+    if (modalVisible) {
+      fetchDiaryAndAnalysis();
+    }
+  }, [selectedDateObj]);
+
+  // 날짜 커스텀
+  const CustomDay = ({ date, state, marking }: any) => {
     const isSelected = marking?.selected;
-    
     return (
       <View style={styles.dayContainer}>
         <Text style={[
@@ -43,14 +108,8 @@ function CalendarScreen() {
         ]}>
           {date.day}
         </Text>
-        <Pressable
-          onPress={() => handleDayPress(date)}
-          style={styles.circleIcon}
-        >
-          <View style={[
-            styles.circle,
-            marking?.marked && styles.markedCircle
-          ]} />
+        <Pressable onPress={() => handleDayPress(date)} style={styles.circleIcon}>
+          <View style={[styles.circle, marking?.marked && styles.markedCircle]} />
         </Pressable>
       </View>
     );
@@ -62,32 +121,13 @@ function CalendarScreen() {
         <Calendar
           style={styles.calendar}
           current={'2025-01-01'}
-          // 날짜를 눌렀을 때 처리하는 콜백 함수
           onDayPress={handleDayPress}
-          monthFormat={'MMM yyyy'}
-          // 월 페이지에 다른 달의 날짜를 보여주지 않음(true) 또는 보여줌(false)
-          hideExtraDays={false}
-          // firstDay=1이면 주는 월요일부터 시작.
-          firstDay={0}
-          dayComponent={CustomDay}
-
-          markingType={'custom'}
+          markingType="custom"
           markedDates={markedDates}
-
-          theme={{            
-            textSectionTitleColor: '#999999',
-            dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e1e8',
-            arrowColor: '#999999',
-            monthTextColor: '#2d4150',
-            textMonthFontWeight: '600',
-            textDayFontSize: 16,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 13,            
-          }}          
+          dayComponent={CustomDay}
         />
 
-        {/* 날짜 클릭 시 생성되는 모달 폼 구현 코드 */}
+        {/* 모달 */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -96,9 +136,33 @@ function CalendarScreen() {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>{selectedDate}</Text>
-              
-              {/* 📌 탭 UI */}
+              {/* 날짜 + 화살표 */}
+              <View style={calendarModalStyles.dateRow}>
+                <TouchableOpacity onPress={() => moveDate('prev')}>
+                  <Ionicons
+                    name="chevron-back"
+                    size={20}
+                    color="#00BFFF"
+                    style={calendarModalStyles.arrowIcon}
+                  />
+                </TouchableOpacity>
+                <Text style={calendarModalStyles.dateText}>
+                  {new Date(selectedDate).toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </Text>
+                <TouchableOpacity onPress={() => moveDate('next')}>
+                  <Ionicons
+                    name="chevron-forward"
+                    size={20}
+                    color='#00BFFF'
+                    style={calendarModalStyles.arrowIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* 탭 */}
               <View style={calendarModalStyles.tabContainer}>
                 <TouchableOpacity
                   style={[calendarModalStyles.tabButton, selectedTab === 'diary' && calendarModalStyles.selectedTab]}
@@ -116,27 +180,26 @@ function CalendarScreen() {
                     AI 분석
                   </Text>
                 </TouchableOpacity>
-              </View>            
-
-              {/* 📌 탭 내용 */}
-              {selectedTab === 'diary' ? (
-                <View style={calendarModalStyles.tabContent}>
-                  <Text style={calendarModalStyles.diaryTitle}>술 좀 그만 먹자</Text>
-                  <Text style={calendarModalStyles.diaryText}>
-                    어제 술을 왕창 마시고 잠들어서 그런지 눈을 떠보니 수업 10분 전이었다. 
-                    부랴부랴 짐을 챙기고 신발을 신고 뛰쳐나갔다.
-                  </Text>
-                </View>
+              </View>
+              {/* 내용 */}
+              {isLoading ? (
+                <Text>불러오는 중...</Text>
+              ) : error ? (
+                <Text style={{ color: 'red' }}>{error}</Text>
+              ) : selectedTab === 'diary' ? (
+                diaryData ? (
+                  <View style={calendarModalStyles.tabContent}>
+                    <Text style={calendarModalStyles.diaryTitle}>{diaryData.title}</Text>
+                    <Text style={calendarModalStyles.diaryText}>{diaryData.content}</Text>
+                  </View>
+                ) : (
+                  <Text>일기 없음</Text>
+                )
               ) : (
                 <View style={calendarModalStyles.tabContent}>
-                  <Text style={calendarModalStyles.analysisText}>
-                    전날 과음을 하여 숙취의 여파가 컸던 하루였습니다. 
-                    더군다나 휴강과 비 소식 등 기운 빠지게 하는 일들의 영향을 받아 
-                    전반적으로 기분이 가라앉은 날이었습니다.
-                  </Text>
+                  <Text style={calendarModalStyles.analysisText}>{analysisData ?? '분석 없음'}</Text>
                 </View>
               )}
-
               <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
                 <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
               </TouchableOpacity>
@@ -146,6 +209,6 @@ function CalendarScreen() {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 export default CalendarScreen;
