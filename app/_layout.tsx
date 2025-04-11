@@ -4,7 +4,9 @@ import * as Font from "expo-font";
 import SplashScreen from "./splash";
 import Toast, { BaseToastProps } from "react-native-toast-message";
 import CustomToast from '@/components/CustomToast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
@@ -45,7 +47,7 @@ export default function RootLayout() {
   return isSplashVisible ? (
     <SplashScreen onFinish={() => setSplashVisible(false)} />
   ) : (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Stack>
         {/* <Stack.Screen name="signIn" options={{headerShown: false}}/>
         <Stack.Screen name="SignUp" options={{headerShown: false}}/> */}
@@ -53,6 +55,6 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
       <Toast config={toastConfig} />
-    </>
+    </QueryClientProvider>
   );
 }
