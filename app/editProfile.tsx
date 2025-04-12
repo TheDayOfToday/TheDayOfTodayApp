@@ -7,11 +7,9 @@ import { styles } from '@/styles/editProfileStyles';
 const EditProfile = () => {
   const router = useRouter();
   const showToast = useShowToast();
-
-  // 하드코딩
-  const [name, setName] = useState('홍길동');
-  const [email, setEmail] = useState('gildong@email.com');
-  const [phone, setPhone] = useState('010-1234-5678');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleSave = () => {    
     showToast('success', '회원정보가 수정되었습니다.', '로그인 페이지로 돌아갑니다.');

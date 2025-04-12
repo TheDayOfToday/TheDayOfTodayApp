@@ -68,7 +68,7 @@ function CalendarScreen() {
         ]);
 
         if (!diaryRes.ok || !analysisRes.ok) throw new Error('데이터 요청 실패');
-        else console.log('정상 연결됨');
+        else console.log('정상 연결됨');        
 
         const diaryJson = await diaryRes.json();
         const analysisJson = await analysisRes.json();

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import { styles } from '@/styles/settingScreenStyles';
+import useToken from '@/hooks/useToken';
 
 function SettingScreen() {
   const router = useRouter();
@@ -14,6 +15,7 @@ function SettingScreen() {
     email: '',
     phone: '',
     profileImage: '',
+    password: '',
   });
 
   // 마이페이지 진입 시 유저 정보 API 호출
@@ -27,14 +29,14 @@ function SettingScreen() {
       }
 
       try {
-        const response = await fetch('https://thedayoftoday.kro.kr/setting', {
-          method: 'POST',
+        const response = await fetch('https://thedayoftoday.kro.kr/user/info', {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
           credentials: 'include',
-        });
+        });        
 
         if (!response.ok) {
           throw new Error('유저 정보 불러오기 실패');
@@ -87,11 +89,7 @@ function SettingScreen() {
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이름</Text>
           <Text style={styles.infoValue}>{user.name}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>비밀번호</Text>
-          <Text style={styles.infoValue}>********</Text>
-        </View>
+        </View>        
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이메일</Text>
           <Text style={styles.infoValue}>{user.email}</Text>
