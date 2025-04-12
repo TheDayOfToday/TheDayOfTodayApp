@@ -1,4 +1,3 @@
-// api/mood/useMoodMeters.ts
 import { useQuery } from '@tanstack/react-query';
 import { getMoodMeters } from '../api/record';
 

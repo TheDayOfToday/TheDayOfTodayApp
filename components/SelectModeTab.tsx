@@ -41,14 +41,6 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
     sheetRef.current?.close();
   }, [selectMode]);
 
-  // 다른 탭으로 이동 시 슬라이딩 탭 닫힘
-  // useEffect(() => {
-  //   if (currentRoute !== 'recording') {
-  //     sheetRef.current?.close();
-  //     selectMode('');
-  //   }
-  // }, [currentRoute]);
-
   return (
       <BottomSheet
         ref={sheetRef}
