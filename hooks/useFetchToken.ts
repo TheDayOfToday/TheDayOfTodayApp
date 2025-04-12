@@ -18,7 +18,7 @@ export const useFetchToken = () => {
         headers: { 'Content-Type': 'application/json',},
         credentials: 'include',
         body: JSON.stringify({ email, password }),
-      });
+      }); 
       console.log('Authorization:', response.headers.get('Authorization'));
       
       const authHeader = response.headers.get('Authorization');      
@@ -28,7 +28,7 @@ export const useFetchToken = () => {
       const accessToken = authHeader.replace('Bearer', '');
       console.log('Access Token:', accessToken);
 
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('accessToken', accessToken);      
 
       if (!response.ok) {
         const errorData = await response.json();
