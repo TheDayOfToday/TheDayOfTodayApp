@@ -7,13 +7,17 @@ import useMoodMeters from '@/hooks/useMoodMeters';
 import useShowToast from '@/hooks/useShowToast';
 import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
 
-function SelectMoodTab() {
+interface SelectMoodTabProps {
+  diaryId: number;
+}
+
+function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
   const showToast = useShowToast();
   const moodSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["13%", "80%"], []);
   const router = useRouter();
 
-  const { data, loading, error } = useMoodMeters();
+  const { moodCategories, diaryMood, loading, error } = useMoodMeters();
   const [selectedMoodName, setSelectedMoodName] = useState<string | null>(null);
   
   if (error) {
@@ -46,7 +50,7 @@ function SelectMoodTab() {
         </View>
         {loading && <Text>로딩 중...</Text>}
         <View style={moodSlidingTabStyles.content}>
-          {data?.map((item) => (
+          {moodCategories.map((item) => (
             <View key={item.degree} style={moodSlidingTabStyles.moodContainer}>
               <Text style={moodSlidingTabStyles.moodDegreeText}>{item.degree}</Text>
               <View style={moodSlidingTabStyles.moodButtonContainer}>

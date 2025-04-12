@@ -29,7 +29,7 @@ function Conversation() {
           </Pressable>
         </View>
       </View>
-      {isOpen && <SelectMoodTab />}
+      {/* {isOpen && <SelectMoodTab diaryId={diaryId} />} */}
     </GestureHandlerRootView>
   );
 };

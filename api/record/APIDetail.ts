@@ -54,11 +54,13 @@ export class PostEndConversation<R extends EndConversationResponse> implements A
 
 export class PostEndMonologue<R extends EndMonologueResponse> implements APIRequest<R> {
   method = HTTP_METHOD.POST;
-  path: string;
+  path = '/diary/monologue/start';
   response!: R;
   auth = true;
-  constructor(public authorization: string, public file: File) {
-    this.path = `/diary/monologue/start?file=${file}`;
+  body: FormData;
+
+  constructor(public authorization: string, data: FormData) {
+    this.body = data;
   }
 }
 

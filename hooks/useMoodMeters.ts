@@ -8,7 +8,8 @@ const useMoodMeters = () => {
   });
 
   return {
-    data: data ?? [],
+    diaryMood: data?.diaryMood,
+    moodCategories: data?.moodCategory ?? [],
     loading: isLoading,
     error,
   };
