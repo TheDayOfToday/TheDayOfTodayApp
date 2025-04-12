@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   editText: { 
     color: '#5DA3FA', 
-    fontSize: 14 
+    fontSize: 15 
   },
   infoRow: { 
     flexDirection: 'row', 
