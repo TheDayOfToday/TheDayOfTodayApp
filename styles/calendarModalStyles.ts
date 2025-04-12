@@ -58,4 +58,19 @@ export const calendarModalStyles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
       },
+      dateRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 12,
+      },      
+      arrowIcon: {
+        alignSelf: 'center',
+        marginTop: 4,
+      },      
+      dateText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginHorizontal: 12,
+      },
 });
