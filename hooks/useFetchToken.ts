@@ -18,7 +18,7 @@ export const useFetchToken = () => {
         headers: { 'Content-Type': 'application/json',},
         credentials: 'include',
         body: JSON.stringify({ email, password }),
-      });
+      }); 
       console.log('Authorization:', response.headers.get('Authorization'));
       
       const authHeader = response.headers.get('Authorization');      
