@@ -72,8 +72,18 @@ function CalendarScreen() {
 
         const diaryJson = await diaryRes.json();
         const analysisJson = await analysisRes.json();
+        console.log('일기 데이터:', diaryJson);
+        console.log('AI 분석 데이터:', analysisJson);
 
-        setDiaryData(diaryJson);
+        // 📌 entries에서 첫 번째 일기만 추출해서 set
+        if (diaryJson.entries && diaryJson.entries.length > 0) {
+          setDiaryData({
+            title: diaryJson.entries[0].title,
+            content: diaryJson.entries[0].content
+          });
+        } else {
+          setDiaryData(null);
+        }
         setAnalysisData(analysisJson.analysis);
       } catch (err: any) {
         setError(err.message || '에러 발생');
