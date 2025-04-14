@@ -32,7 +32,7 @@ function CalendarScreen() {
     setModalVisible(true);
   };
 
-  // 모달 폼 열릴 때 해당 날짜의 일기 및 분석 내용 데이터 요청
+  // 모달 폼 열릴 때(useEffect로 날짜(selectedDateObj)가 변경될 때마다) 해당 날짜의 일기 및 분석 내용 데이터 요청
   useEffect(() => {
     const fetchDiaryAndAnalysis = async () => {
       setIsLoading(true);
