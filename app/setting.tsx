@@ -26,8 +26,7 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = localStorage.getItem('accessToken');
-      console.log('getItem token: ', token);
+      const token = localStorage.getItem('accessToken');      
       if (!token) {
         console.warn('토큰이 없음');
         return;
