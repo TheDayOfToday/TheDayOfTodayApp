@@ -15,6 +15,7 @@ function CalendarScreen() {
   const [analysisData, setAnalysisData] = useState<{ content: string, moodName: string, moodColor: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [moodColorsReady, setMoodColorsReady] = useState(false);
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -27,6 +28,55 @@ function CalendarScreen() {
     setSelectedDateObj(new Date(date));
     setModalVisible(true);
   };
+
+  useEffect(() => {
+    const fetchMoodColorsFromFeb2025 = async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) return;
+  
+      const startDate = new Date(2025, 1, 1);
+      const today = new Date();
+      const newMarked: { [key: string]: any } = {};
+      const requests: Promise<void>[] = [];
+  
+      const formatDate = (d: Date) => d.toISOString().split('T')[0];
+  
+      while (startDate <= today) {
+        const dateStr = formatDate(startDate);
+        const [year, month, day] = dateStr.split('-');
+  
+        const url = `https://thedayoftoday.kro.kr/calendar/analysis/${year}/${month}/${day}`;
+  
+        const req = fetch(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then(res => res.ok ? res.json() : null)
+          .then(data => {
+            const result = data?.analysisResults?.[0];
+            const moodColor = result?.diaryMood?.moodColor;
+            if (moodColor) {
+              newMarked[dateStr] = {
+                marked: true,
+                dotColor: moodColor,
+              };
+            }
+          })
+          .catch(err => console.warn(`❌ ${dateStr} 불러오기 실패`, err));
+  
+        requests.push(req);
+        startDate.setDate(startDate.getDate() + 1);
+      }
+  
+      await Promise.all(requests);
+      setMarkedDates(newMarked);
+      setMoodColorsReady(true); // ✅ 완료 표시
+    };
+  
+    fetchMoodColorsFromFeb2025();
+  }, []);    
 
   useEffect(() => {
     const fetchDiaryAndAnalysis = async () => {
@@ -64,8 +114,6 @@ function CalendarScreen() {
 
         const diaryJson = await diaryRes.json();
         const analysisJson = await analysisRes.json();
-        console.log('일기 데이터:', diaryJson);
-        console.log('AI 분석 데이터:', analysisJson);
 
         if (diaryJson.entries && diaryJson.entries.length > 0) {
           setDiaryData({
@@ -90,21 +138,12 @@ function CalendarScreen() {
           setMarkedDates((prev) => ({
             ...prev,
             [selectedDate]: {
-              selected: true,
-              selectedTextColor: 'white',
               marked: true,
               dotColor: result.diaryMood.moodColor,
             },
-          }));          
+          }));
         } else {
           setAnalysisData(null);
-          setMarkedDates({
-            [selectedDate]: {
-              selected: true,
-              selectedTextColor: 'skyblue',
-              marked: true,
-            },
-          });
         }
       } catch (err: any) {
         setError(err.message || '에러 발생');
@@ -119,8 +158,6 @@ function CalendarScreen() {
   }, [selectedDateObj]);
 
   const CustomDay = ({ date, state, marking }: any) => {
-    // const isSelected = marking?.selected;
-  
     return (
       <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
         <View style={styles.circleIcon}>
@@ -133,8 +170,8 @@ function CalendarScreen() {
         </View>
         <Text
           style={[
-            styles.dayText,            
-            state === 'disabled' && styles.disabledText,            
+            styles.dayText,
+            state === 'disabled' && styles.disabledText,
           ]}
         >
           {date.day}
@@ -142,20 +179,22 @@ function CalendarScreen() {
       </Pressable>
     );
   };
-  
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Calendar
-          style={styles.calendar}
-          current={'2025-02-01'}
-          onDayPress={handleDayPress}
-          markingType="custom"
-          markedDates={markedDates}
-          dayComponent={CustomDay}
-        />
-
+        {moodColorsReady ? (
+          <Calendar
+            style={styles.calendar}
+            current={new Date().toISOString().split('T')[0]}
+            onDayPress={handleDayPress}
+            markingType="custom"
+            markedDates={markedDates}
+            dayComponent={CustomDay}
+          />
+        ) : (
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>달력 준비 중...</Text>
+        )}
         <Modal
           animationType="slide"
           transparent={true}
@@ -236,4 +275,4 @@ function CalendarScreen() {
   );
 }
 
-export default CalendarScreen;
+export default CalendarScreen; 
