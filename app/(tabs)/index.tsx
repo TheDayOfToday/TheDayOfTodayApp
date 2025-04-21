@@ -119,7 +119,7 @@ function CalendarScreen() {
   }, [selectedDateObj]);
 
   const CustomDay = ({ date, state, marking }: any) => {
-    const isSelected = marking?.selected;
+    // const isSelected = marking?.selected;
   
     return (
       <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>

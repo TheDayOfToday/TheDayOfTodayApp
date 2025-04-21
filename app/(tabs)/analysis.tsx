@@ -72,9 +72,9 @@ function AnalysisScreen() {
           <Text style={{ color: 'red' }}>{error}</Text>
         ) : (
           <>
-            <Text style={analysisScreenStyles.contentTitle}>{title}</Text>
+            <Text style={analysisScreenStyles.contentTitle}>제목: {title}</Text>
             <Text style={analysisScreenStyles.contentDegree}>감정 상태: {degree}</Text>
-            <Text style={analysisScreenStyles.contentFeedback}>{feedback}</Text>
+            <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {feedback}</Text>
             <Text style={analysisScreenStyles.contentDate}>분석 기간: {dateRange}</Text>
           </>
         )}
