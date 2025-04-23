@@ -1,3 +1,4 @@
+import EditPassword from '@/app/editPassword';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -76,5 +77,13 @@ export const styles = StyleSheet.create({
   infoValue: { 
     fontSize: 15, 
     color: '#666' 
+  },
+  logoutButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  editPasswordButton: {
+    paddingVertical: 10, 
+    paddingHorizontal: 16,
   },
 });
