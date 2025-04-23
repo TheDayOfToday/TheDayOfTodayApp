@@ -48,7 +48,7 @@ export type Mood = {
 
 export interface MoodMetersResponse extends APIResponse {
   diaryMood: DiarySuggestionMood;
-  moodCategory: MoodCategory[];
+  moodCategories: MoodCategory[];
 };
 
 // 무드미터 저장

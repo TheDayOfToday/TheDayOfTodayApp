@@ -17,7 +17,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
   const snapPoints = useMemo(() => ["13%", "80%"], []);
   const router = useRouter();
 
-  const { moodCategories, diaryMood, loading, error } = useMoodMeters();
+  const { moodCategories, diaryMood, loading, error } = useMoodMeters(0);
   const [selectedMoodName, setSelectedMoodName] = useState<string | null>(null);
   
   if (error) {

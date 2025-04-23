@@ -54,8 +54,8 @@ function Monologue() {
   const stopRecording = async (): Promise<string | null> => {
     if (!recording) return null;
     const status = await recording.getStatusAsync();
-  if (!status.isRecording && status.isDoneRecording) {
-    return recording.getURI();
+    if (!status.isRecording && status.isDoneRecording) {
+      return recording.getURI();
   }
 
   await recording.stopAndUnloadAsync();
@@ -64,24 +64,24 @@ function Monologue() {
 
   const onPressSubmitButton = async () => {
     setIsOpen(true);
-    // const uri = await stopRecording();
-    // if (uri) {
-    //   sendMonologue(uri);
-    // }
+    const uri = await stopRecording();
+    if (uri) {
+      sendMonologue(uri);
+    }
   };
 
-  // useEffect(() => {
-  //   startRecording();
-  //   return () => {
-  //     stopRecording();
-  //   }
-  // }, []);
+  useEffect(() => {
+    startRecording();
+    return () => {
+      stopRecording();
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (isSuccess && data?.diaryId) {
-  //     setIsOpen(true);
-  //   }
-  // }, [isSuccess, data]);
+  useEffect(() => {
+    if (isSuccess && data?.diaryId) {
+      setIsOpen(true);
+    }
+  }, [isSuccess, data]);
 
   return(
     <GestureHandlerRootView>
@@ -101,9 +101,9 @@ function Monologue() {
           </Pressable>
         </View>
       </View>
-      {isOpen && (
+      {/* {isOpen && (
         <SelectMoodTab diaryId={1234}/>
-      )}
+      )} */}
     </GestureHandlerRootView>
   );
 };

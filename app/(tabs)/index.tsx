@@ -4,6 +4,7 @@ import { Calendar } from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,7 +41,8 @@ function CalendarScreen() {
       setAnalysisData(null);
       setError(null); 
 
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = AsyncStorage.getItem('accessToken');
+      // const accessToken = localStorage.getItem('accessToken');
       console.log('accessToken : ', accessToken);
 
       if (!accessToken) {

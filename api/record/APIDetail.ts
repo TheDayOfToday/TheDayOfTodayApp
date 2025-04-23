@@ -57,26 +57,31 @@ export class PostEndMonologue<R extends EndMonologueResponse> implements APIRequ
   path = '/diary/monologue/start';
   response!: R;
   auth = true;
-  body: FormData;
+  data: FormData;
 
   constructor(public authorization: string, data: FormData) {
-    this.body = data;
+    this.data = data;
   }
 }
 
 export class GetMoodMeters<R extends MoodMetersResponse> implements APIRequest<R> {
   method = HTTP_METHOD.GET;
-  path = '/diary/moodmeter';
+  path: string;
   response!: R;
   auth = true;
+  constructor(public authorization: string, public diaryId: number) {
+    this.path = `/diary/moodmeter?diaryId=${diaryId}`;
+  }
 }
 
 export class PostMoodMeters<R extends UpdateMoodResponse> implements APIRequest<R> {
   method = HTTP_METHOD.POST;
-  path = '/diary/moodmeter';
+  path: string;
   response!: R;
   auth = true;
-  constructor(public data: UpdateMoodRequest) { }
+  constructor(public data: UpdateMoodRequest, public diaryId: number) {
+    this.path = `/diary/moodmeter?diaryId=${diaryId}`;
+  }
 }
 
 export class PutUpdateDiary<R extends UpdateDiaryResponse> implements APIRequest<R> {

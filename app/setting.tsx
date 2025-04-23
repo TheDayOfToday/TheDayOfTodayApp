@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
 
 function SettingScreen() {
@@ -19,7 +20,8 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = localStorage.getItem('accessToken');
+      const token = AsyncStorage.getItem('accessToken');
+      // const token = localStorage.getItem('accessToken');
       console.log('getItem token: ', token);
       if (!token) {
         console.warn('토큰이 없음');
@@ -52,7 +54,8 @@ function SettingScreen() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
+    AsyncStorage.removeItem('accessToken');
+    // localStorage.removeItem('accessToken');
     console.log('accessToken 삭제 완료');
     showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');
     router.replace('/signIn');

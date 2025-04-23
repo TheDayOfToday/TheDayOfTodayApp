@@ -1,4 +1,3 @@
-// utils/ts/apiClient.ts (React Native 용)
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { APIRequest, HTTP_METHOD } from './APIRequest';
 import { APIResponse } from './APIResponse';
@@ -59,8 +58,11 @@ export default class APIClient {
     }
 
     if (
-      request.method === HTTP_METHOD.POST ||
-      request.method === HTTP_METHOD.PUT
+      (
+        request.method === HTTP_METHOD.POST ||
+        request.method === HTTP_METHOD.PUT
+      ) &&
+      !(request.data instanceof FormData)
     ) {
       headers['Content-Type'] = 'application/json';
     }
