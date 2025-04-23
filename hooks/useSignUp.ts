@@ -17,7 +17,7 @@ export const useSignUp = () => {
     }
 
     try {
-      const response = await fetch('https://thedayoftoday.kro.kr/signup', {
+      const response = await fetch('https://thedayoftoday.kro.kr/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
         body: JSON.stringify(userData),
