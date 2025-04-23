@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import { styles } from '@/styles/editProfileStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditPassword = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const EditPassword = () => {
       return;
     }
 
-    const token = localStorage.getItem('accessToken');
+    const token = AsyncStorage.getItem('accessToken');
     if (!token) {
       showToast('error', '인증 오류', '다시 로그인해주세요.');
       return;

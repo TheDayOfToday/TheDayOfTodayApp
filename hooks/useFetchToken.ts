@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface TokenResponse {
   accessToken: string;
@@ -28,7 +29,7 @@ export const useFetchToken = () => {
       const accessToken = authHeader.replace('Bearer', '');
       console.log('Access Token:', accessToken);
 
-      localStorage.setItem('accessToken', accessToken);      
+      await AsyncStorage.setItem('accessToken', accessToken);      
 
       if (!response.ok) {
         const errorData = await response.json();

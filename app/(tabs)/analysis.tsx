@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AnalysisScreen() {
   const [title, setTitle] = useState('');
@@ -23,7 +24,7 @@ function AnalysisScreen() {
 
   useEffect(() => {
     const fetchWeeklyAnalysis = async () => {
-      const token = localStorage.getItem('accessToken');
+      const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
         setError('토큰이 없습니다.');
         return;
@@ -64,15 +65,14 @@ function AnalysisScreen() {
     >
       <View style={analysisScreenStyles.headerContainer}>
         <FontAwesome name="circle-thin" size={200} color="#191d42" />
-        <Text style={analysisScreenStyles.headerText}>이번 주 일기 분석</Text>
+        <Text style={analysisScreenStyles.headerText}>제목: {title}</Text>
       </View>
 
       <View style={analysisScreenStyles.contentContainer}>
         {error ? (
           <Text style={{ color: 'red' }}>{error}</Text>
         ) : (
-          <>
-            <Text style={analysisScreenStyles.contentTitle}>제목: {title}</Text>
+          <>            
             <Text style={analysisScreenStyles.contentDegree}>감정 상태: {degree}</Text>
             <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {feedback}</Text>
             <Text style={analysisScreenStyles.contentDate}>분석 기간: {dateRange}</Text>

@@ -4,6 +4,7 @@ import { Calendar } from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,7 +32,7 @@ function CalendarScreen() {
 
   useEffect(() => {
     const fetchMoodColorsFromFeb2025 = async () => {
-      const token = localStorage.getItem('accessToken');
+      const token = await AsyncStorage.getItem('accessToken');
       if (!token) return;
   
       const startDate = new Date(2025, 1, 1);
@@ -64,7 +65,7 @@ function CalendarScreen() {
               };
             }
           })
-          .catch(err => console.warn(`❌ ${dateStr} 불러오기 실패`, err));
+          .catch(err => console.warn(`${dateStr} 불러오기 실패`, err));
   
         requests.push(req);
         startDate.setDate(startDate.getDate() + 1);
@@ -72,7 +73,7 @@ function CalendarScreen() {
   
       await Promise.all(requests);
       setMarkedDates(newMarked);
-      setMoodColorsReady(true); // ✅ 완료 표시
+      setMoodColorsReady(true);
     };
   
     fetchMoodColorsFromFeb2025();
@@ -85,7 +86,7 @@ function CalendarScreen() {
       setAnalysisData(null);
       setError(null);
 
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = await AsyncStorage.getItem('accessToken');
       if (!accessToken) {
         setError('로그인 정보가 없습니다.');
         setIsLoading(false);
