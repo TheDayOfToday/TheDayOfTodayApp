@@ -79,7 +79,7 @@ function SettingScreen() {
           <View style={styles.nameRow}>
             <Text style={styles.userName}>{user.name}</Text>
           </View>
-          <TouchableOpacity onPress={handleLogout}>
+          <TouchableOpacity onPress={handleLogout} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.logoutButton}>
             <Text style={styles.logoutText}>로그아웃</Text>
           </TouchableOpacity>
         </View>
@@ -89,8 +89,8 @@ function SettingScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => router.push('/editPassword')}>
-            <Text style={styles.editText}>비밀번호 수정</Text>            
+          <TouchableOpacity onPress={() => { router.push('/editPassword') }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
+            <Text style={styles.editText}>비밀번호 수정</Text>
           </TouchableOpacity>
         </View>
 
