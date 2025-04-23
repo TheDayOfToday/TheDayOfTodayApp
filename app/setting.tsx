@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,10 +12,17 @@ function SettingScreen() {
   // 서버에서 받아올 유저 정보 state
   const [user, setUser] = useState({
     name: '',
-    email: '',
-    phone: '',
+    email: '',    
     profileImage: '',
+    phoneNumber: '',
   });
+
+  // 전화번호 포맷팅 함수
+  // 010-1234-5678 형태로 변환
+  const formatPhoneNumber = (number: string) => {
+    if (!number) return '';
+    return number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+  };
 
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
@@ -29,14 +36,14 @@ function SettingScreen() {
       }
 
       try {
-        const response = await fetch('https://thedayoftoday.kro.kr/setting', {
-          method: 'POST',
+        const response = await fetch('https://thedayoftoday.kro.kr/user/info', {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
           credentials: 'include',
-        });
+        });        
 
         if (!response.ok) {
           throw new Error('유저 정보 불러오기 실패');
@@ -82,27 +89,23 @@ function SettingScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => router.push('/editProfile')}>
-            <Text style={styles.editText}>회원정보 수정</Text>
+          <TouchableOpacity onPress={() => router.push('/editPassword')}>
+            <Text style={styles.editText}>비밀번호 수정</Text>            
           </TouchableOpacity>
         </View>
 
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이름</Text>
           <Text style={styles.infoValue}>{user.name}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>비밀번호</Text>
-          <Text style={styles.infoValue}>********</Text>
-        </View>
+        </View>        
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이메일</Text>
           <Text style={styles.infoValue}>{user.email}</Text>
         </View>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>연락처</Text>
-          <Text style={styles.infoValue}>{user.phone}</Text>
-        </View>
+          <Text style={styles.infoLabel}>전화번호</Text>
+          <Text style={styles.infoValue}>{formatPhoneNumber(user.phoneNumber)}</Text>
+        </View>       
       </View>
     </View>
   );
