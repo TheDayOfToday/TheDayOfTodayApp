@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SelectMoodTab from '@/components/SelectMoodMeterTab';
 import useMonologue from '@/hooks/useMonologue';
 import { Audio } from 'expo-av';
+import LottieView from 'lottie-react-native';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 
 const recordingOptions = {
@@ -70,18 +71,18 @@ function Monologue() {
     }
   };
 
-  useEffect(() => {
-    startRecording();
-    return () => {
-      stopRecording();
-    }
-  }, []);
+  // useEffect(() => {
+  //   startRecording();
+  //   return () => {
+  //     stopRecording();
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (isSuccess && data?.diaryId) {
-      setIsOpen(true);
-    }
-  }, [isSuccess, data]);
+  // useEffect(() => {
+  //   if (isSuccess && data?.diaryId) {
+  //     setIsOpen(true);
+  //   }
+  // }, [isSuccess, data]);
 
   return(
     <GestureHandlerRootView>
@@ -89,6 +90,12 @@ function Monologue() {
         <View style={recordingScreenStyles.messageContainer}>
           <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
         </View>
+        <LottieView
+          source={require('@/assets/RecordingAnimation.json')}
+          autoPlay
+          loop
+          style={{ width: 200, height: 200 }}
+        />
         <View style={recordingScreenStyles.recordingContainer}>
           <Text style={recordingScreenStyles.recordingText}>recording...</Text>
         </View>
@@ -101,9 +108,9 @@ function Monologue() {
           </Pressable>
         </View>
       </View>
-      {/* {isOpen && (
+      {isOpen && (
         <SelectMoodTab diaryId={1234}/>
-      )} */}
+      )}
     </GestureHandlerRootView>
   );
 };

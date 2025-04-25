@@ -13,8 +13,6 @@ const useMonologue = () => {
       if (!token) {
         throw new Error('토큰이 없습니다.');
       }
-      console.log('📌 audioUri 타입:', typeof audioUri); // 'string' 또는 'object'
-      console.log('📌 audioUri:', audioUri);
       const formData = new FormData();
       formData.append('file', {
         uri: audioUri,
