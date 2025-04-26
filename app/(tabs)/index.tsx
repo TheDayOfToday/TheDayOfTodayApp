@@ -46,9 +46,7 @@ function CalendarScreen() {
         const dateStr = formatDate(startDate);
         const [year, month, day] = dateStr.split('-');
   
-        const url = `https://thedayoftoday.kro.kr/calendar/analysis/${year}/${month}/${day}`;
-  
-        const req = fetch(url, {
+        const req = fetch(`https://thedayoftoday.kro.kr/calendar/analysis/${year}/${month}/${day}`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
