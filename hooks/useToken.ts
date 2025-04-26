@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 function useToken() {
-    const token = localStorage.getItem("accessToken");
+    const token = AsyncStorage.removeItem('accessToken');
     return token;
 }
 

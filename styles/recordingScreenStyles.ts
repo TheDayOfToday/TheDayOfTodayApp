@@ -22,10 +22,13 @@ export const recordingScreenStyles = StyleSheet.create({
         fontSize: 25,
     },
     recordingContainer: {
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    recordingText: {
-        color: '#fff',
+    lottie: {
+        width: '100%',
+        height: '100%',
     },
     submitButtonContainer: {
         alignItems: 'flex-end',

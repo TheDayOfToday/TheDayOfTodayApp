@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { SafeAreaView, View, Text, Pressable } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SelectMoodTab from '@/components/SelectMoodMeterTab';
 import useMonologue from '@/hooks/useMonologue';
@@ -90,15 +90,15 @@ function Monologue() {
         <View style={recordingScreenStyles.messageContainer}>
           <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
         </View>
-        <LottieView
-          source={require('@/assets/RecordingAnimation.json')}
-          autoPlay
-          loop
-          style={{ width: 200, height: 200 }}
-        />
-        <View style={recordingScreenStyles.recordingContainer}>
-          <Text style={recordingScreenStyles.recordingText}>recording...</Text>
-        </View>
+        <SafeAreaView style={recordingScreenStyles.recordingContainer}>
+          <LottieView
+            source={require('../../../assets/RecordingAnimation.json')}
+            autoPlay
+            loop
+            speed={3}
+            style={recordingScreenStyles.lottie}
+          />
+        </SafeAreaView>
         <View style={recordingScreenStyles.submitButtonContainer}>
           <Pressable
             style={recordingScreenStyles.submitButton}

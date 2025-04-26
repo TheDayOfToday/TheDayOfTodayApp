@@ -8,11 +8,12 @@ export const analysisScreenStyles = StyleSheet.create({
   container: {
     alignItems: 'center',
     padding: 30,
-    gap: 10,
+    gap: 20,
   },
   headerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 30,
   },
   headerText: {
     fontFamily: 'Hakgyoansim',
