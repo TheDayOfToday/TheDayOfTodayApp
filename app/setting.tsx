@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SettingScreen() {
   const router = useRouter();
@@ -27,11 +28,10 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = AsyncStorage.getItem('accessToken');
-      // const token = localStorage.getItem('accessToken');
-      console.log('getItem token: ', token);
+      const token = await AsyncStorage.getItem('accessToken');      
       if (!token) {
-        console.warn('토큰이 없음');
+        console.warn('토큰이 없습니다. 로그인을 해주세요.');
+        showToast('error', '로그인 필요', '로그인이 필요합니다.');
         return;
       }
 
@@ -60,9 +60,8 @@ function SettingScreen() {
     fetchUserInfo();
   }, []);
 
-  const handleLogout = () => {
-    AsyncStorage.removeItem('accessToken');
-    // localStorage.removeItem('accessToken');
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('accessToken');
     console.log('accessToken 삭제 완료');
     showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');
     router.replace('/signIn');

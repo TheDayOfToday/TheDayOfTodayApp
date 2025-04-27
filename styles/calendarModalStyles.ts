@@ -73,4 +73,10 @@ export const calendarModalStyles = StyleSheet.create({
         fontWeight: 'bold',
         marginHorizontal: 12,
       },
+      moodTag: {
+        fontSize: 14,
+        color: '#666',
+        fontWeight: 'bold',
+        marginBottom: 4,
+      },
 });
