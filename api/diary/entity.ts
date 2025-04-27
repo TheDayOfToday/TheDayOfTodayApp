@@ -12,17 +12,6 @@ export type MoodMeter = {
 
 export type MoodMetersResponse = MoodMeter[];
 
-export type DiaryData = {
-  title: string;
-  content: string;
-};
-
-export type AnalysisData = {  
-  content: string;
-  moodName: string;
-  moodColor: string;
-};
-
 export type CalendarRequest = {
   year: string;
   month: string;
@@ -31,6 +20,16 @@ export type CalendarRequest = {
 
 export interface DiaryResponse extends APIResponse {
   date: string;
-  diary: DiaryData;
-  analysis: AnalysisData;
+  // diary: DiaryData;
+  entries: {
+    title: string;
+    content: string;
+  }[];
+  analysisResults: {
+    content: string;
+    diaryMood: {
+      moodName: string;
+      moodColor: string;
+    };
+  }[];  
 };

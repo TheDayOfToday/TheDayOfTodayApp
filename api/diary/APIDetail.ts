@@ -24,4 +24,4 @@ export class GetAnalysis<R extends DiaryResponse> implements APIRequest<R> {
         const { year, month, day } = data;
         this.path = `/calendar/analysis/${year}/${month}/${day}`;
     }
-  }
+}

@@ -1,4 +1,6 @@
 import APIClient from '../apiClient';
-import { GetMoodMeters } from './APIDetail';
+import { GetDiary, GetAnalysis } from './APIDetail';
 
-export const getMoodMeters = APIClient.of(GetMoodMeters);
+export const getDiary = APIClient.of(GetDiary);
+
+export const getAnalysis = APIClient.of(GetAnalysis);
