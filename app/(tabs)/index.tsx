@@ -31,7 +31,7 @@ function CalendarScreen() {
   };
 
   useEffect(() => {
-    const fetchMoodColorsFromFeb2025 = async () => {
+    const fetchMoodColors = async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) return;
   
@@ -74,7 +74,7 @@ function CalendarScreen() {
       setMoodColorsReady(true);
     };
   
-    fetchMoodColorsFromFeb2025();
+    fetchMoodColors();
   }, []);    
 
   useEffect(() => {
@@ -84,8 +84,7 @@ function CalendarScreen() {
       setAnalysisData(null);
       setError(null);
 
-      const accessToken = AsyncStorage.getItem('accessToken');
-      // const accessToken = localStorage.getItem('accessToken');
+      const accessToken = await AsyncStorage.getItem('accessToken');
       console.log('accessToken : ', accessToken);
 
       if (!accessToken) {
@@ -116,6 +115,8 @@ function CalendarScreen() {
 
         const diaryJson = await diaryRes.json();
         const analysisJson = await analysisRes.json();
+        console.log('diaryJson:', diaryJson);
+        console.log('analysisJson:', analysisJson);
 
         if (diaryJson.entries && diaryJson.entries.length > 0) {
           setDiaryData({
