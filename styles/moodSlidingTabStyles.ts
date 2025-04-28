@@ -49,6 +49,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
         color: '#000',
     },
     submitButtonContainer: {
+        marginBottom: '15%',
         alignItems: 'flex-end',
     },
     submitButton: {
