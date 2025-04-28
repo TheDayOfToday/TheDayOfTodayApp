@@ -4,7 +4,6 @@ import {
   PostStartConversation,
   PostQuestion,
   PostEndConversation,
-  PostEndMonologue,
   GetMoodMeters,
   PostMoodMeters,
   PutUpdateDiary,
@@ -18,8 +17,6 @@ export const postStartConversation = APIClient.of(PostStartConversation);
 export const postQuestion = APIClient.of(PostQuestion);
 
 export const postEndConversation = APIClient.of(PostEndConversation);
-
-export const postEndMonologue = APIClient.of(PostEndMonologue);
 
 export const getMoodMeters = APIClient.of(GetMoodMeters);
 

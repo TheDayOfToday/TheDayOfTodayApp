@@ -5,7 +5,6 @@ import type {
   QuestionRequest,
   QuestionResponse,
   EndConversationResponse,
-  EndMonologueResponse,
   MoodMetersResponse,
   UpdateMoodRequest,
   UpdateMoodResponse,
@@ -49,18 +48,6 @@ export class PostEndConversation<R extends EndConversationResponse> implements A
   auth = true;
   constructor(public authorization: string, public diaryId: number) {
     this.path = `/diary/conversation-mood/complete?diaryId=${diaryId}`;
-  }
-}
-
-export class PostEndMonologue<R extends EndMonologueResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path = '/diary/monologue/start';
-  response!: R;
-  auth = true;
-  data: FormData;
-
-  constructor(public authorization: string, data: FormData) {
-    this.data = data;
   }
 }
 

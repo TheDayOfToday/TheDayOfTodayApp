@@ -1,6 +1,5 @@
 import type { APIResponse } from '../APIResponse';
 
-
 // 일기 삭제
 export interface DeleteResponse extends APIResponse { }
 
@@ -22,11 +21,6 @@ export interface QuestionResponse extends APIResponse {
 
 // 대화 모드 - 종료
 export interface EndConversationResponse extends APIResponse {
-  diaryId: number;
-}
-
-// 독백 보드 - 종료
-export interface EndMonologueResponse extends APIResponse {
   diaryId: number;
 }
 
