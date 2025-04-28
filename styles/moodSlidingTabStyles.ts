@@ -18,6 +18,28 @@ export const moodSlidingTabStyles = StyleSheet.create({
         paddingVertical: 20,
         alignItems: 'center',
     },
+    suggestedMoodContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        padding: '2%',
+    },
+    suggestionLabelText: {
+        fontFamily: 'Pretendard4',
+        fontSize: 18,
+    },
+    suggestedMood: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: '2%',
+        margin: '2%',
+        borderBottomWidth: 1,
+    },
+    suggestedMoodText: {
+        fontFamily: 'Pretendard6',
+        fontSize: 18,
+        color: '#000',
+    },
     moodContainer: {
         width: '100%',
         borderTopWidth: 1,
@@ -35,6 +57,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     moodButton: {
         flexDirection: 'row',
+        alignItems: 'center',
         padding: '4%',
         margin: '2%',
         borderRadius: 30,
