@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
+import useShowToast from './useShowToast';
 
 interface TokenResponse {
   accessToken: string;
@@ -8,6 +9,7 @@ interface TokenResponse {
 export const useFetchToken = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const showToast = useShowToast();
 
   const fetchTokens = async (email: string, password: string): Promise<TokenResponse> => {
     setLoading(true);
@@ -31,7 +33,7 @@ export const useFetchToken = () => {
 
       await AsyncStorage.setItem('accessToken', accessToken);      
 
-      if (!response.ok) {
+      if (!response.ok) {        
         const errorData = await response.json();
         throw new Error(errorData?.message || '응답 에러로 로그인 실패');
       } else {

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getDiary, getAnalysis } from '@/api/diary/index';
-import { CalendarRequest, DiaryResponse } from '@/api/diary/entity';
+import { CalendarRequest } from '@/api/diary/entity';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useCalendarData = (date: CalendarRequest, enabled: boolean) => {

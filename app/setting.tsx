@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
+import { getUserInfo } from '@/api/my';
+import { UserInfoResponse } from '@/api/my/entity';
 
 function SettingScreen() {
   const router = useRouter();
@@ -27,35 +29,22 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = await AsyncStorage.getItem('accessToken');      
+      const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
-        console.warn('토큰이 없습니다. 로그인을 해주세요.');
-        showToast('error', '로그인 필요', '로그인이 필요합니다.');
+        console.error('토큰이 없습니다.');
         return;
       }
-
+  
       try {
-        const response = await fetch('https://thedayoftoday.kro.kr/user/info', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          credentials: 'include',
-        });        
-
-        if (!response.ok) {
-          throw new Error('유저 정보 불러오기 실패');
-        }
-
-        const data = await response.json();
+        const data: UserInfoResponse = await getUserInfo(token);
         console.log('유저 정보:', data);
         setUser(data);
       } catch (err) {
-        console.error(err);
+        console.error('유저 정보 불러오기 실패', err);
+        showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
       }
     };
-
+  
     fetchUserInfo();
   }, []);
 
