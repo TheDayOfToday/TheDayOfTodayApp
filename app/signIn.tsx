@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSignIn } from '../hooks/useSignIn';
 import { styles } from '@/styles/signInStyles';
+import useShowToast from '@/hooks/useShowToast';
 
 function SignInScreen() {
   const { login, goToSignUp, loading } = useSignIn();
@@ -10,10 +11,27 @@ function SignInScreen() {
   const [password, setPassword] = useState('');  
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const showToast = useShowToast();
+  const handleLogin = () => {
+    if (!email || !password) {
+      showToast('error', '입력 오류', '이메일과 비밀번호를 모두 입력하세요.');
+      return;
+    }
+    
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      showToast('error', '이메일 오류', '유효한 이메일 형식을 입력하세요.');
+      return;
+    }    
+
+    login(email, password);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>오늘의 하루</Text>
       <Text style={styles.loginLabel}>로그인</Text>
+
       <TextInput
         placeholder="이메일"
         style={styles.input}
@@ -38,13 +56,15 @@ function SignInScreen() {
           />
         </TouchableOpacity>
       </View>
+
       <TouchableOpacity 
         style={styles.loginButton} 
-        onPress={() => login(email, password)} 
+        onPress={handleLogin}
         disabled={loading}
       >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
+
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpLabelText}>회원이 아니신가요? </Text>
         <TouchableOpacity onPress={goToSignUp}>

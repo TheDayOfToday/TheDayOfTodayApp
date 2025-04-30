@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
+import { getUserInfo } from '@/api/my';
+import { UserInfoResponse } from '@/api/my/entity';
 
 function SettingScreen() {
   const router = useRouter();
@@ -27,42 +29,27 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = AsyncStorage.getItem('accessToken');
-      // const token = localStorage.getItem('accessToken');
-      console.log('getItem token: ', token);
+      const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
-        console.warn('토큰이 없음');
+        console.error('토큰이 없습니다.');
         return;
       }
-
+  
       try {
-        const response = await fetch('https://thedayoftoday.kro.kr/user/info', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          credentials: 'include',
-        });        
-
-        if (!response.ok) {
-          throw new Error('유저 정보 불러오기 실패');
-        }
-
-        const data = await response.json();
+        const data: UserInfoResponse = await getUserInfo(token);
         console.log('유저 정보:', data);
         setUser(data);
       } catch (err) {
-        console.error(err);
+        console.error('유저 정보 불러오기 실패', err);
+        showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
       }
     };
-
+  
     fetchUserInfo();
   }, []);
 
-  const handleLogout = () => {
-    AsyncStorage.removeItem('accessToken');
-    // localStorage.removeItem('accessToken');
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('accessToken');
     console.log('accessToken 삭제 완료');
     showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');
     router.replace('/signIn');
@@ -79,7 +66,7 @@ function SettingScreen() {
           <View style={styles.nameRow}>
             <Text style={styles.userName}>{user.name}</Text>
           </View>
-          <TouchableOpacity onPress={handleLogout}>
+          <TouchableOpacity onPress={handleLogout} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.logoutButton}>
             <Text style={styles.logoutText}>로그아웃</Text>
           </TouchableOpacity>
         </View>
@@ -89,8 +76,8 @@ function SettingScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => router.push('/editPassword')}>
-            <Text style={styles.editText}>비밀번호 수정</Text>            
+          <TouchableOpacity onPress={() => { router.push('/editPassword') }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
+            <Text style={styles.editText}>비밀번호 수정</Text>
           </TouchableOpacity>
         </View>
 

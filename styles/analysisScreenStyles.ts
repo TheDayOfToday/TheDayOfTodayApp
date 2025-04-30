@@ -30,4 +30,25 @@ export const analysisScreenStyles = StyleSheet.create({
     fontFamily: 'Hakgyoansim',
     fontSize: 18,
   },
+
+  contentTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  contentDegree: {
+    fontSize: 16,
+    color: '#0066CC',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  contentFeedback: {
+    fontSize: 16,
+    lineHeight: 22,
+    marginBottom: 8,
+  },
+  contentDate: {
+    fontSize: 14,
+    color: '#999',
+  },
 });
