@@ -66,7 +66,7 @@ export class PostMoodMeters<R extends UpdateMoodResponse> implements APIRequest<
   path: string;
   response!: R;
   auth = true;
-  constructor(public data: UpdateMoodRequest, public diaryId: number) {
+  constructor(public authorization: string, public diaryId: number, public data: UpdateMoodRequest) {
     this.path = `/diary/moodmeter?diaryId=${diaryId}`;
   }
 }

@@ -46,13 +46,10 @@ export interface MoodMetersResponse extends APIResponse {
 };
 
 // 무드미터 저장
-export type DiaryMood = {
-  moodName: string;
-  moodColor: string;
-}
 
 export interface UpdateMoodRequest {
-  diaryMood: DiaryMood;
+  moodName: string;
+  moodColor: string;
 }
 
 export interface UpdateMoodResponse extends APIResponse { }

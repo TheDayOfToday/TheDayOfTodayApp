@@ -4,16 +4,12 @@ import * as FileSystem from 'expo-file-system';
 import useShowToast from '@/hooks/useShowToast';
 import useToken from './useToken';
 
-const useMonologue = () => {
+const usePostMonologue = () => {
   const token  = useToken();
   const showToast = useShowToast();
 
-  return useMutation({
+  const { mutate, data, isSuccess} = useMutation({
     mutationFn: async (audioUri: string) => {
-
-      if (!token) { // 임시 처리
-        throw new Error('토큰이 없습니다.');
-      }
 
       const uploadUrl = Constants.expoConfig?.extra?.API_BASE_URL + '/diary/monologue';
       const result = await FileSystem.uploadAsync(uploadUrl, audioUri, {
@@ -36,6 +32,12 @@ const useMonologue = () => {
       showToast('error', '업로드 실패', '일기 업로드에 실패했습니다.');
     },
   });
+
+  return {
+    mutate,
+    data,
+    isSuccess,
+  };
 };
 
-export default useMonologue;
+export default usePostMonologue;
