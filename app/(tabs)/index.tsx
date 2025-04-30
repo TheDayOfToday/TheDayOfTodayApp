@@ -6,140 +6,117 @@ import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { useCalendarData } from '@/hooks/useCalendarData';
+import { CalendarRequest } from '@/api/diary/entity';
+import { getAnalysis } from '@/api/diary';
+
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
-  const selectedDate = selectedDateObj.toISOString().split('T')[0];
-
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
+  const [moodColorsReady, setMoodColorsReady] = useState(false);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
 
-  const [diaryData, setDiaryData] = useState<{ title: string, content: string } | null>(null);
-  const [analysisData, setAnalysisData] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);  
+  const selectedDate = selectedDateObj.toISOString().split('T')[0];
+  const [year, month, day] = selectedDate.split('-');
 
-  // 모달 폼 내에서 날짜 옮기는 함수
+  const { data, isLoading, error } = useCalendarData({ year, month, day }, modalVisible);
+
+  // 📌 감정 색상 전체 가져오기 
+  useEffect(() => {
+    const fetchMoodColors = async () => {
+      const token = await AsyncStorage.getItem('accessToken');
+      if (!token) return;
+
+      const startDate = new Date(2025, 1, 1);
+      const today = new Date();
+      const newMarked: { [key: string]: any } = {};
+      const requests: Promise<void>[] = [];
+
+      const formatDate = (d: Date) => d.toISOString().split('T')[0];
+
+      while (startDate <= today) {
+        const dateStr = formatDate(startDate);
+        const [y, m, d] = dateStr.split('-');
+
+        const requestData: CalendarRequest = { year: y, month: m, day: d };
+
+        const req = getAnalysis(token, requestData)
+          .then(data => {
+            const result = data?.analysisResults?.[0];
+            const moodColor = result?.diaryMood?.moodColor;
+            if (moodColor) {
+              newMarked[dateStr] = {
+                marked: true,
+                dotColor: moodColor,
+              };
+            }
+          })
+          .catch(err => console.warn(`${dateStr} 불러오기 실패`, err));
+
+        requests.push(req);
+        startDate.setDate(startDate.getDate() + 1);
+      }
+
+      await Promise.all(requests);
+      setMarkedDates(newMarked);
+      setMoodColorsReady(true);
+    };
+
+    fetchMoodColors();
+  }, []);
+
+  // 📌 분석 데이터로 날짜 마킹 업데이트
+  useEffect(() => {
+    if (data?.analysisEntry?.diaryMood?.moodColor) {
+      setMarkedDates(prev => ({
+        ...prev,
+        [selectedDate]: {
+          marked: true,
+          dotColor: data.analysisEntry.diaryMood.moodColor,
+        },
+      }));
+    }
+  }, [data]);
+
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
     newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
     setSelectedDateObj(newDate);
   };
 
-  // 날짜 클릭 시 해당 날짜 선택 및 모달 폼 여는 함수
   const handleDayPress = (day: any) => {
-    const date = day.dateString;
-    setSelectedDateObj(new Date(date));
+    setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
   };
 
-  // 모달 폼 열릴 때(useEffect로 날짜(selectedDateObj)가 변경될 때마다) 해당 날짜의 일기 및 분석 내용 데이터 요청
-  useEffect(() => {
-    const fetchDiaryAndAnalysis = async () => {
-      setIsLoading(true);
-      setDiaryData(null);
-      setAnalysisData(null);
-      setError(null); 
-
-      const accessToken = AsyncStorage.getItem('accessToken');
-      // const accessToken = localStorage.getItem('accessToken');
-      console.log('accessToken : ', accessToken);
-
-      if (!accessToken) {
-        setError('로그인 정보가 없습니다.');
-        setIsLoading(false);
-        return;
-      }
-
-      const [year, month, day] = selectedDate.split('-');
-
-      try {
-        const [diaryRes, analysisRes] = await Promise.all([
-          fetch(`https://thedayoftoday.kro.kr/calendar/diary/${year}/${month}/${day}`, {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }),
-          fetch(`https://thedayoftoday.kro.kr/calendar/analysis/${year}/${month}/${day}`, {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }),
-        ]);
-
-        if (!diaryRes.ok || !analysisRes.ok) throw new Error('데이터 요청 실패');
-        else console.log('정상 연결됨');        
-
-        const diaryJson = await diaryRes.json();
-        const analysisJson = await analysisRes.json();
-        console.log('일기 데이터:', diaryJson);
-        console.log('AI 분석 데이터:', analysisJson);
-
-        // 📌 entries에서 첫 번째 일기만 추출해서 set
-        if (diaryJson.entries && diaryJson.entries.length > 0) {
-          setDiaryData({
-            title: diaryJson.entries[0].title,
-            content: diaryJson.entries[0].content
-          });
-        } else {
-          setDiaryData(null);
-        }
-        setAnalysisData(analysisJson.analysis);
-      } catch (err: any) {
-        setError(err.message || '에러 발생');
-      } finally {
-        setIsLoading(false);
-      }
-
-      setMarkedDates({
-        [selectedDate]: {
-          selected: true,
-          selectedTextColor: 'skyblue',
-          marked: true,
-        },
-      });
-    };
-
-    if (modalVisible) {
-      fetchDiaryAndAnalysis();
-    }
-  }, [selectedDateObj]);
-
-  // 날짜 커스텀
-  const CustomDay = ({ date, state, marking }: any) => {
-    const isSelected = marking?.selected;
-    return (
-      <View style={styles.dayContainer}>
-        <Text style={[
-          styles.dayText,
-          state === 'disabled' && styles.disabledText,
-          isSelected && styles.selectedDayText,
-          isSelected && { color: marking?.selectedTextColor },
-        ]}>
-          {date.day}
-        </Text>
-        <Pressable onPress={() => handleDayPress(date)} style={styles.circleIcon}>
-          <View style={[styles.circle, marking?.marked && styles.markedCircle]} />
-        </Pressable>
+  const CustomDay = ({ date, state, marking }: any) => (
+    <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
+      <View style={styles.circleIcon}>
+        <View style={[styles.circle, marking?.dotColor && { backgroundColor: marking.dotColor }]} />
       </View>
-    );
-  };
+      <Text style={[styles.dayText, state === 'disabled' && styles.disabledText]}>
+        {date.day}
+      </Text>
+    </Pressable>
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Calendar
-          style={styles.calendar}
-          current={'2025-01-01'}
-          onDayPress={handleDayPress}
-          markingType="custom"
-          markedDates={markedDates}
-          dayComponent={CustomDay}
-        />
+        {moodColorsReady ? (
+          <Calendar
+            style={styles.calendar}
+            current={new Date().toISOString().split('T')[0]}
+            onDayPress={handleDayPress}
+            markingType="custom"
+            markedDates={markedDates}
+            dayComponent={CustomDay}
+          />
+        ) : (
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>달력 준비 중...</Text>
+        )}
 
-        {/* 모달 */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -148,32 +125,19 @@ function CalendarScreen() {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              {/* 날짜 + 화살표 */}
+              {/* 날짜 이동 */}
               <View style={calendarModalStyles.dateRow}>
                 <TouchableOpacity onPress={() => moveDate('prev')}>
-                  <Ionicons
-                    name="chevron-back"
-                    size={20}
-                    color="#00BFFF"
-                    style={calendarModalStyles.arrowIcon}
-                  />
+                  <Ionicons name="chevron-back" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
                 <Text style={calendarModalStyles.dateText}>
-                  {new Date(selectedDate).toLocaleDateString('ko-KR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                  {new Date(selectedDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </Text>
                 <TouchableOpacity onPress={() => moveDate('next')}>
-                  <Ionicons
-                    name="chevron-forward"
-                    size={20}
-                    color='#00BFFF'
-                    style={calendarModalStyles.arrowIcon}
-                  />
+                  <Ionicons name="chevron-forward" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
               </View>
+
               {/* 탭 */}
               <View style={calendarModalStyles.tabContainer}>
                 <TouchableOpacity
@@ -193,25 +157,32 @@ function CalendarScreen() {
                   </Text>
                 </TouchableOpacity>
               </View>
-              {/* 내용 */}
+
+              {/* 데이터 표시 */}
               {isLoading ? (
                 <Text>불러오는 중...</Text>
               ) : error ? (
-                <Text style={{ color: 'red' }}>{error}</Text>
+                <Text style={{ color: 'red' }}>{error.message}</Text>
               ) : selectedTab === 'diary' ? (
-                diaryData ? (
+                data?.diaryEntry ? (
                   <View style={calendarModalStyles.tabContent}>
-                    <Text style={calendarModalStyles.diaryTitle}>{diaryData.title}</Text>
-                    <Text style={calendarModalStyles.diaryText}>{diaryData.content}</Text>
+                    <Text style={calendarModalStyles.diaryTitle}>{data.diaryEntry.title}</Text>
+                    <Text style={calendarModalStyles.diaryText}>{data.diaryEntry.content}</Text>
                   </View>
                 ) : (
                   <Text>일기 없음</Text>
                 )
               ) : (
-                <View style={calendarModalStyles.tabContent}>
-                  <Text style={calendarModalStyles.analysisText}>{analysisData ?? '분석 없음'}</Text>
-                </View>
+                data?.analysisEntry ? (
+                  <View style={calendarModalStyles.tabContent}>
+                    <Text style={calendarModalStyles.moodTag}>#{data.analysisEntry.diaryMood?.moodName ?? '정보 없음'}</Text>
+                    <Text style={calendarModalStyles.analysisText}>{data.analysisEntry.content}</Text>
+                  </View>
+                ) : (
+                  <Text>분석 없음</Text>
+                )
               )}
+
               <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
                 <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
               </TouchableOpacity>

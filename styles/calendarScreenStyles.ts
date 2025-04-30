@@ -23,15 +23,11 @@ export const styles = StyleSheet.create({
         fontFamily: 'Pretendard4',
         fontSize: 16,
         color: '#2d4150',
-        marginTop: 32,        
-      },
+        marginTop: 4,
+      },    
       disabledText: {
         color: '#b9babd',
-      },
-      selectedDayText: {
-        fontFamily: 'Pretendard9',
-        color: '#001D6E',
-      },
+      },          
       circleIcon: {
         position: 'absolute',
         top: 2,
@@ -44,11 +40,9 @@ export const styles = StyleSheet.create({
         width: 24,
         height: 24,
         borderRadius: 12,
+        marginBottom: 4,
         backgroundColor: '#E8E8E8',
-      },
-      markedCircle: {
-        backgroundColor: '#001D6E',
-      },
+      },     
       modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -61,12 +55,5 @@ export const styles = StyleSheet.create({
         padding: 20,
         width: '80%',
         alignItems: 'center',
-      },
-      modalTitle: {
-        fontFamily: 'Pretendard4',
-        fontSize: 18,
-        marginBottom: 10,
-        // 무드미터 색상으로 바꾸기
-        color: '#2d4150',
-      },
+      },      
 });
