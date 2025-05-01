@@ -30,7 +30,7 @@ const recordingOptions = {
 };
 
 function Monologue() {
-  const [isOpen, setIsOpen] = useState(false); // 일기 종료 후 무드미터 바텀 시트
+  // const [isOpen, setIsOpen] = useState(false);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const { mutate: sendMonologue, data, isSuccess} = usePostMonologue();
