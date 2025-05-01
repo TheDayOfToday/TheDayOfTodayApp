@@ -1,30 +1,50 @@
-import { useQuery } from '@tanstack/react-query';
-import { getDiary, getAnalysis } from '@/api/diary/index';
-import { CalendarRequest } from '@/api/diary/entity';
+import { useEffect, useState } from 'react';
+import { getDiary, getAnalysis } from '@/api/diary';
+import { DiaryEntity, AnalysisEntity, CalendarRequest } from '@/api/diary/entity';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const useCalendarData = (date: CalendarRequest, enabled: boolean) => {
-    return useQuery({
-      queryKey: ['calendarData', date.year, date.month, date.day],
-      queryFn: async () => {
+interface CalendarData {
+  diaryEntry: DiaryEntity | null;
+  analysisEntry: AnalysisEntity | null;
+}
+
+export function useCalendarData(date: { year: string; month: string; day: string }, modalVisible: boolean) {
+  const [data, setData] = useState<CalendarData>({ diaryEntry: null, analysisEntry: null });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
         const token = await AsyncStorage.getItem('accessToken');
-        if (!token) throw new Error('토큰이 없습니다.');
-  
-        const [diaryJson, analysisJson] = await Promise.all([
-          getDiary(token, date),
-          getAnalysis(token, date),
+        if (!token) throw new Error('No access token');
+
+        const requestData: CalendarRequest = date;
+
+        const [diaryRes, analysisRes] = await Promise.all([
+          getDiary(token, requestData),
+          getAnalysis(token, requestData)
         ]);
-  
-        const diaryEntry = diaryJson.entries?.[0];
-        const analysisEntry = analysisJson.analysisResults?.[0];
-        // console.log('Diary Entry:', diaryEntry);
-        // console.log('Analysis Entry:', analysisEntry);
-        // console.log('Diary JSON:', diaryJson);
-        // console.log('Analysis JSON:', analysisJson);
-  
-        return { diaryEntry, analysisEntry };
-      },
-      enabled,
-    });
-  };
-  
+
+        setData({
+          diaryEntry: diaryRes,
+          analysisEntry: analysisRes,
+        });
+      } catch (err: any) {
+        setError(err);
+        setData({ diaryEntry: null, analysisEntry: null });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (modalVisible) {
+      fetchData();
+    }
+  }, [date, modalVisible]);
+
+  return { data, isLoading, error };
+}

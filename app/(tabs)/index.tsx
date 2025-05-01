@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
@@ -7,8 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useCalendarData } from '@/hooks/useCalendarData';
-import { CalendarRequest } from '@/api/diary/entity';
-import { getAnalysis } from '@/api/diary';
+import { getCalendarColor } from '@/api/diary';
 
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,68 +15,52 @@ function CalendarScreen() {
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
   const [moodColorsReady, setMoodColorsReady] = useState(false);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
-
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
+  const date = useMemo(() => ({ year, month, day }), [year, month, day]);
+  const { data, isLoading, error } = useCalendarData(date, modalVisible);
 
-  const { data, isLoading, error } = useCalendarData({ year, month, day }, modalVisible);
-
-  // 📌 감정 색상 전체 가져오기 
+  // 📌 감정 색상 전체 가져오기 (한 달 단위)
   useEffect(() => {
-    const fetchMoodColors = async () => {
+    const fetchAllMoodColors = async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) return;
 
-      const startDate = new Date(2025, 1, 1);
-      const today = new Date();
-      const newMarked: { [key: string]: any } = {};
-      const requests: Promise<void>[] = [];
+      try {
+        const thisYear = new Date().getFullYear();
+        const monthRequests = [];
 
-      const formatDate = (d: Date) => d.toISOString().split('T')[0];
+        for (let m = 1; m <= 12; m++) {
+          const monthStr = m.toString().padStart(2, '0');
+          monthRequests.push(
+            getCalendarColor(token, {
+              year: thisYear.toString(),
+              month: monthStr,
+              day: '01',
+            })
+          );
+        }
 
-      while (startDate <= today) {
-        const dateStr = formatDate(startDate);
-        const [y, m, d] = dateStr.split('-');
+        const results = await Promise.all(monthRequests);
+        const allColors: { [key: string]: string } = {};
+        results.forEach((res) => Object.assign(allColors, res?.colors ?? {}));
 
-        const requestData: CalendarRequest = { year: y, month: m, day: d };
+        setMarkedDates(() => {
+          const updated: { [key: string]: any } = {};
+          Object.entries(allColors).forEach(([date, color]) => {
+            updated[date] = { dotColor: color };
+          });
+          return updated;
+        });
 
-        const req = getAnalysis(token, requestData)
-          .then(data => {
-            const result = data?.analysisResults?.[0];
-            const moodColor = result?.diaryMood?.moodColor;
-            if (moodColor) {
-              newMarked[dateStr] = {
-                marked: true,
-                dotColor: moodColor,
-              };
-            }
-          })
-          .catch(err => console.warn(`${dateStr} 불러오기 실패`, err));
-
-        requests.push(req);
-        startDate.setDate(startDate.getDate() + 1);
+        setMoodColorsReady(true);
+      } catch (err) {
+        console.error('감정 색상 불러오기 실패:', err);
       }
-
-      await Promise.all(requests);
-      setMarkedDates(newMarked);
-      setMoodColorsReady(true);
     };
 
-    fetchMoodColors();
+    fetchAllMoodColors();
   }, []);
-
-  // 📌 분석 데이터로 날짜 마킹 업데이트
-  useEffect(() => {
-    if (data?.analysisEntry?.diaryMood?.moodColor) {
-      setMarkedDates(prev => ({
-        ...prev,
-        [selectedDate]: {
-          marked: true,
-          dotColor: data.analysisEntry.diaryMood.moodColor,
-        },
-      }));
-    }
-  }, [data]);
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -105,7 +88,7 @@ function CalendarScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {moodColorsReady ? (
-          <Calendar
+          <Calendar            
             style={styles.calendar}
             current={new Date().toISOString().split('T')[0]}
             onDayPress={handleDayPress}
@@ -175,8 +158,8 @@ function CalendarScreen() {
               ) : (
                 data?.analysisEntry ? (
                   <View style={calendarModalStyles.tabContent}>
-                    <Text style={calendarModalStyles.moodTag}>#{data.analysisEntry.diaryMood?.moodName ?? '정보 없음'}</Text>
-                    <Text style={calendarModalStyles.analysisText}>{data.analysisEntry.content}</Text>
+                    {/* <Text style={calendarModalStyles.moodTag}>#{data.analysisEntry.analysis ?? '정보 없음'}</Text> */}
+                    <Text style={calendarModalStyles.analysisText}>{data.analysisEntry.analysis}</Text>
                   </View>
                 ) : (
                   <Text>분석 없음</Text>
