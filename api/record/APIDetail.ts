@@ -5,10 +5,10 @@ import type {
   QuestionRequest,
   QuestionResponse,
   EndConversationResponse,
-  EndMonologueResponse,
   MoodMetersResponse,
   UpdateMoodRequest,
   UpdateMoodResponse,
+  DiaryResponse,
   UpdateDiaryRequest,
   UpdateDiaryResponse,
   DiaryAnalysisResponse,
@@ -52,18 +52,6 @@ export class PostEndConversation<R extends EndConversationResponse> implements A
   }
 }
 
-export class PostEndMonologue<R extends EndMonologueResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path = '/diary/monologue/start';
-  response!: R;
-  auth = true;
-  data: FormData;
-
-  constructor(public authorization: string, data: FormData) {
-    this.data = data;
-  }
-}
-
 export class GetMoodMeters<R extends MoodMetersResponse> implements APIRequest<R> {
   method = HTTP_METHOD.GET;
   path: string;
@@ -79,8 +67,18 @@ export class PostMoodMeters<R extends UpdateMoodResponse> implements APIRequest<
   path: string;
   response!: R;
   auth = true;
-  constructor(public data: UpdateMoodRequest, public diaryId: number) {
+  constructor(public authorization: string, public diaryId: number, public data: UpdateMoodRequest) {
     this.path = `/diary/moodmeter?diaryId=${diaryId}`;
+  }
+}
+
+export class GetDiary<R extends DiaryResponse> implements APIRequest<R> {
+  method = HTTP_METHOD.GET;
+  path: string;
+  response!: R;
+  auth = true;
+  constructor(public authorization: string, public diaryId: number) {
+    this.path = `/diary/show?diaryId=${diaryId}`;
   }
 }
 
@@ -98,6 +96,6 @@ export class PostDiaryAnalysis<R extends DiaryAnalysisResponse> implements APIRe
   response!: R;
   auth = true;
   constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/analysis?diaryId=${diaryId}`;
+    this.path = `/diary/analyze?diaryId=${diaryId}`;
   }
 }

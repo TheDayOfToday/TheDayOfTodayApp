@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Image } from 'react-native';
 import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -64,7 +64,10 @@ function AnalysisScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={analysisScreenStyles.headerContainer}>
-        <FontAwesome name="circle-thin" size={200} color="#191d42" />
+        <Image
+          source={require('../../assets/images/000.png')} // 0~4
+          style={{ width: 150, height: 150 }}
+        />
         <Text style={analysisScreenStyles.headerText}>제목: {title}</Text>
       </View>
 

@@ -18,7 +18,7 @@ function Conversation() {
           <Text style={recordingScreenStyles.message}>오늘의 하루는 어땠나요?</Text>
         </View>
         <View style={recordingScreenStyles.recordingContainer}>
-          <Text style={recordingScreenStyles.recordingText}>recording...</Text>
+          <Text>recording...</Text>
         </View>
         <View style={recordingScreenStyles.submitButtonContainer}>
           <Pressable

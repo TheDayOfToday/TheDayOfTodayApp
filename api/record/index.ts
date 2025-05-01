@@ -4,9 +4,9 @@ import {
   PostStartConversation,
   PostQuestion,
   PostEndConversation,
-  PostEndMonologue,
   GetMoodMeters,
   PostMoodMeters,
+  GetDiary,
   PutUpdateDiary,
   PostDiaryAnalysis,
 } from './APIDetail';
@@ -19,11 +19,11 @@ export const postQuestion = APIClient.of(PostQuestion);
 
 export const postEndConversation = APIClient.of(PostEndConversation);
 
-export const postEndMonologue = APIClient.of(PostEndMonologue);
-
 export const getMoodMeters = APIClient.of(GetMoodMeters);
 
 export const postMoodMeters = APIClient.of(PostMoodMeters);
+
+export const getDiary = APIClient.of(GetDiary);
 
 export const putUpdateDiary = APIClient.of(PutUpdateDiary);
 

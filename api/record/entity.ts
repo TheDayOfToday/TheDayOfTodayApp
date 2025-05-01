@@ -1,6 +1,5 @@
 import type { APIResponse } from '../APIResponse';
 
-
 // 일기 삭제
 export interface DeleteResponse extends APIResponse { }
 
@@ -22,11 +21,6 @@ export interface QuestionResponse extends APIResponse {
 
 // 대화 모드 - 종료
 export interface EndConversationResponse extends APIResponse {
-  diaryId: number;
-}
-
-// 독백 보드 - 종료
-export interface EndMonologueResponse extends APIResponse {
   diaryId: number;
 }
 
@@ -52,19 +46,24 @@ export interface MoodMetersResponse extends APIResponse {
 };
 
 // 무드미터 저장
-export type DiaryMood = {
+
+export interface UpdateMoodRequest {
   moodName: string;
   moodColor: string;
 }
 
-export interface UpdateMoodRequest {
-  diaryMood: DiaryMood;
-}
-
 export interface UpdateMoodResponse extends APIResponse { }
+
+// 일기 조회
+export interface DiaryResponse extends APIResponse {
+  diaryId?: number; // 삭제 예정
+  title: string;
+  content: string;
+}
 
 // 일기 업데이트 (사용자 수정)
 export interface UpdateDiaryRequest {
+  diaryId: number;
   title: string;
   content: string;
 }

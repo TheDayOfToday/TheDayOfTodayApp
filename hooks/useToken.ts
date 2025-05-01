@@ -1,7 +1,17 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
 
-async function useToken() {
-    const token = await AsyncStorage.getItem("accessToken");    
+function useToken() {
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadToken = async () => {
+            const storedToken = await AsyncStorage.getItem('accessToken');
+            setToken(storedToken);
+        };
+        loadToken();
+    }, []);
+
     return token;
 }
 
