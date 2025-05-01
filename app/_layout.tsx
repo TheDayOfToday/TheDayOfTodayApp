@@ -6,7 +6,6 @@ import Toast, { BaseToastProps } from "react-native-toast-message";
 import CustomToast from '@/components/CustomToast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import showToast  from '@/hooks/useShowToast';
 import useShowToast from "@/hooks/useShowToast";
 
 const queryClient = new QueryClient();
@@ -69,8 +68,6 @@ export default function RootLayout() {
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        {/* <Stack.Screen name="signIn" options={{headerShown: false}}/>
-        <Stack.Screen name="SignUp" options={{headerShown: false}}/> */}
         <Stack.Screen name="signIn" options={{headerShown: false}} />
         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
         <Stack.Screen name="+not-found" />
