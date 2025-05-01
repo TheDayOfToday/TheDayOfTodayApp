@@ -17,10 +17,10 @@ export const useCalendarData = (date: CalendarRequest, enabled: boolean) => {
   
         const diaryEntry = diaryJson.entries?.[0];
         const analysisEntry = analysisJson.analysisResults?.[0];
-        console.log('Diary Entry:', diaryEntry);
-        console.log('Analysis Entry:', analysisEntry);
-        console.log('Diary JSON:', diaryJson);
-        console.log('Analysis JSON:', analysisJson);
+        // console.log('Diary Entry:', diaryEntry);
+        // console.log('Analysis Entry:', analysisEntry);
+        // console.log('Diary JSON:', diaryJson);
+        // console.log('Analysis JSON:', analysisJson);
   
         return { diaryEntry, analysisEntry };
       },

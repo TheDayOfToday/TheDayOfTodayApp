@@ -12,8 +12,6 @@ const useGetMoodMeters = (diaryId: number | undefined) => {
     enabled: !!token && !!diaryId,
   });
 
-  console.log('useGetMoodMeters', data);
-
   return {
     data,
     loading: isLoading,
