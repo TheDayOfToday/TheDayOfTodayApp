@@ -8,6 +8,7 @@ import type {
   MoodMetersResponse,
   UpdateMoodRequest,
   UpdateMoodResponse,
+  DiaryResponse,
   UpdateDiaryRequest,
   UpdateDiaryResponse,
   DiaryAnalysisResponse,
@@ -71,6 +72,16 @@ export class PostMoodMeters<R extends UpdateMoodResponse> implements APIRequest<
   }
 }
 
+export class GetDiary<R extends DiaryResponse> implements APIRequest<R> {
+  method = HTTP_METHOD.GET;
+  path: string;
+  response!: R;
+  auth = true;
+  constructor(public authorization: string, public diaryId: number) {
+    this.path = `/diary/show?diaryId=${diaryId}`;
+  }
+}
+
 export class PutUpdateDiary<R extends UpdateDiaryResponse> implements APIRequest<R> {
   method = HTTP_METHOD.PUT;
   path = '/diary/update-diary';
@@ -85,6 +96,6 @@ export class PostDiaryAnalysis<R extends DiaryAnalysisResponse> implements APIRe
   response!: R;
   auth = true;
   constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/analysis?diaryId=${diaryId}`;
+    this.path = `/diary/analyze?diaryId=${diaryId}`;
   }
 }
