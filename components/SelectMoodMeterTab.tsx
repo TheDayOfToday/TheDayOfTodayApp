@@ -1,5 +1,6 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
+import useToken from '@/hooks/useToken';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -13,6 +14,7 @@ interface SelectMoodTabProps {
 }
 
 function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
+  const token = useToken();
   const showToast = useShowToast();
   const moodSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["13%", "80%"], []);
@@ -53,6 +55,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
 
     try {
       await moodMeterMutate({
+        token,
         diaryId,
         moodMeter: {
           moodName: selectedMood.moodName,
@@ -60,7 +63,10 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
         },
       });
       moodSheetRef.current?.close();
-      router.push('/recording/result');
+      router.push({
+        pathname: '/recording/result',
+        params: { diaryId: diaryId.toString() },
+      });
     } catch (e) {
       console.error('무드미터 전송 실패:', e);
     }
