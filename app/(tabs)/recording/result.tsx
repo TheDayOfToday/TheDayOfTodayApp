@@ -1,21 +1,62 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { ScrollView, View, Text, Pressable, TextInput } from "react-native";
-import { useRouter } from "expo-router";
+import useToken from '@/hooks/useToken';
+import { useRouter, useLocalSearchParams } from "expo-router";
 import useShowToast from '@/hooks/useShowToast';
+import useGetTodayDiary from '@/hooks/useGetTodayDiary';
+import usePutUpdateDiary from '@/hooks/usePutUpdateDiary';
 import { recordingResultStyles } from "@/styles/recordingResultStyles";
 
 function ResultScreen() {
+  const token = useToken();
   const router = useRouter();
-  const [text, onChangeText] = useState('');
+  const { diaryId } = useLocalSearchParams();
+  const numericDiaryId = useMemo(() => Number(diaryId), [diaryId]);
+  const [content, onChangeContent] = useState('');
   const showToast = useShowToast();
 
+  // 토큰 null 임시 처리
+  const {data: diaryData, isLoading, error} = useGetTodayDiary(token!, numericDiaryId);
+  const { mutate: updateDiaryMutate } = usePutUpdateDiary();
+
   const handleNextButtonPress = useCallback(() => {
-    router.push('/recording/daily-analysis');
+    router.push({
+      pathname: '/recording/daily-analysis',
+      params: { diaryId: diaryId.toString() },
+    });
   }, []);
 
-  const handleSaveButtonPress = useCallback(() => {
-    showToast('success', '저장 완료', '오늘의 일기가 저장되었습니다.');
-  }, []);
+  const handleSaveButtonPress = async () => {
+    if (!content) {
+      showToast('error', '저장 실패', '일기를 작성해주세요.');
+      return;
+    }
+
+    try {
+      await updateDiaryMutate({
+        token: token!,
+        diaryContent: {
+          diaryId: numericDiaryId,
+          title: diaryData?.title ?? '',
+          content: content,
+        },
+      });
+      showToast('success', '저장 완료', '오늘의 일기가 저장되었습니다.');
+    } catch (error) {
+      console.log('일기 업로드 실패', error);
+      showToast('error', '업로드 실패', '일기를 저장하는 데에 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (diaryData?.content) onChangeContent(diaryData.content);
+  }, [diaryData]);
+
+  useEffect(() => {
+    if (isLoading) {
+      onChangeContent('로딩 중...');
+    }
+  }, [isLoading]);
 
   return (
     <ScrollView
@@ -29,13 +70,13 @@ function ResultScreen() {
           <Text style={recordingResultStyles.nextButtonText}>일기 분석 보러가기 {">>"}</Text>
         </Pressable>
       </View>
-      <Text style={recordingResultStyles.title}>오늘의 일기</Text>
+      <Text style={recordingResultStyles.title}>{diaryData?.title}</Text>
       <View style={recordingResultStyles.resultContainer}>
         <TextInput
             style={recordingResultStyles.resultText}
             placeholder='오늘의 일기를 작성해보세요'
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={onChangeContent}
+            value={content}
             multiline={true}
           />
       </View>
