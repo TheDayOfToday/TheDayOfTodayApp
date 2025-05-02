@@ -22,6 +22,12 @@ export const recordingResultStyles = StyleSheet.create({
     borderBottomColor: '#e5e5e5',
     paddingBottom: 4,
   },
+  titleInputContainer: {
+    display: 'flex',
+    alignSelf: 'flex-start',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
   title: {
     padding: 5,
     fontFamily: 'Hakgyoansim',
@@ -33,7 +39,6 @@ export const recordingResultStyles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 15,
-    // 무드미터 색으로 변경하기
     borderColor: '#132a9e',
     padding: 15,
   },
