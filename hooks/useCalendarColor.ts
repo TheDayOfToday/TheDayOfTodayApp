@@ -3,6 +3,11 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCalendarColor } from '@/api/diary';
 
+const resolveDotColor = (raw: string) => {
+  if (raw === '미분석') return '#D3D3D3'; // 회색 대체
+  return raw;
+};
+
 export const useCalendarColors = () => {
   const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
   const [ready, setReady] = useState(false);
@@ -36,7 +41,10 @@ export const useCalendarColors = () => {
         setMarkedDates(() => {
           const updated: { [key: string]: any } = {};
           Object.entries(earlyColors).forEach(([date, color]) => {
-            updated[date] = { dotColor: color };
+            updated[date] = {
+              marked: true,
+              dotColor: resolveDotColor(color),
+            };
           });
           return updated;
         });
@@ -48,9 +56,10 @@ export const useCalendarColors = () => {
             const updated = { ...prev };
             lateResults.forEach((res) => {
               Object.entries(res?.colors ?? {}).forEach(([date, color]) => {
-                updated[date] = { 
-                    marked: true,
-                    dotColor: color, };
+                updated[date] = {
+                  marked: true,
+                  dotColor: resolveDotColor(color),
+                };
               });
             });
             return updated;

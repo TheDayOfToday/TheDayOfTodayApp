@@ -34,6 +34,8 @@ function CalendarScreen() {
   const handleDayPress = (day: any) => {
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
+    console.log('선택한 날짜:', day.dateString);
+    console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
   };
 
   const CustomDay = ({ date, state, marking }: any) => (
@@ -51,12 +53,12 @@ function CalendarScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {moodColorsReady ? (
-          <Calendar
-            key={moodColorsReady ? 'ready' : 'not-ready'}
+          <Calendar     
             style={styles.calendar}
             current={new Date().toISOString().split('T')[0]}
             onDayPress={handleDayPress}
-            markingType="custom"
+            key={moodColorsReady ? 'ready' : 'not-ready'}
+            markingType="multi-dot"     
             markedDates={markedDates}
             dayComponent={CustomDay}
           />
