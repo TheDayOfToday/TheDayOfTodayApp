@@ -6,61 +6,24 @@ import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { useCalendarData } from '@/hooks/useCalendarData';
 import { getCalendarColor } from '@/api/diary';
+import { useDiaryEntry } from '@/hooks/useDiaryEntry';
+import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
+import { useCalendarColors } from '@/hooks/useCalendarColor';
 
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
-  const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
-  const [moodColorsReady, setMoodColorsReady] = useState(false);
+  // const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
+  // const [moodColorsReady, setMoodColorsReady] = useState(false);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
-  const date = useMemo(() => ({ year, month, day }), [year, month, day]);
-  const { data, isLoading, error } = useCalendarData(date, modalVisible);
+  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);
 
-  // 📌 감정 색상 전체 가져오기 (한 달 단위)
-  useEffect(() => {
-    const fetchAllMoodColors = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
-      if (!token) return;
-
-      try {
-        const thisYear = new Date().getFullYear();
-        const monthRequests = [];
-
-        for (let m = 1; m <= 12; m++) {
-          const monthStr = m.toString().padStart(2, '0');
-          monthRequests.push(
-            getCalendarColor(token, {
-              year: thisYear.toString(),
-              month: monthStr,
-              day: '01',
-            })
-          );
-        }
-
-        const results = await Promise.all(monthRequests);
-        const allColors: { [key: string]: string } = {};
-        results.forEach((res) => Object.assign(allColors, res?.colors ?? {}));
-
-        setMarkedDates(() => {
-          const updated: { [key: string]: any } = {};
-          Object.entries(allColors).forEach(([date, color]) => {
-            updated[date] = { dotColor: color };
-          });
-          return updated;
-        });
-
-        setMoodColorsReady(true);
-      } catch (err) {
-        console.error('감정 색상 불러오기 실패:', err);
-      }
-    };
-
-    fetchAllMoodColors();
-  }, []);
+  const diary = useDiaryEntry(calendarDate, modalVisible);
+  const analysis = useAnalysisEntry(calendarDate, modalVisible);
+  const { markedDates, moodColorsReady } = useCalendarColors(); 
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -88,7 +51,8 @@ function CalendarScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {moodColorsReady ? (
-          <Calendar            
+          <Calendar
+            key={moodColorsReady ? 'ready' : 'not-ready'}
             style={styles.calendar}
             current={new Date().toISOString().split('T')[0]}
             onDayPress={handleDayPress}
@@ -108,7 +72,6 @@ function CalendarScreen() {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              {/* 날짜 이동 */}
               <View style={calendarModalStyles.dateRow}>
                 <TouchableOpacity onPress={() => moveDate('prev')}>
                   <Ionicons name="chevron-back" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
@@ -121,7 +84,6 @@ function CalendarScreen() {
                 </TouchableOpacity>
               </View>
 
-              {/* 탭 */}
               <View style={calendarModalStyles.tabContainer}>
                 <TouchableOpacity
                   style={[calendarModalStyles.tabButton, selectedTab === 'diary' && calendarModalStyles.selectedTab]}
@@ -141,25 +103,23 @@ function CalendarScreen() {
                 </TouchableOpacity>
               </View>
 
-              {/* 데이터 표시 */}
-              {isLoading ? (
-                <Text>불러오는 중...</Text>
-              ) : error ? (
-                <Text style={{ color: 'red' }}>{error.message}</Text>
-              ) : selectedTab === 'diary' ? (
-                data?.diaryEntry ? (
+              {selectedTab === 'diary' ? (
+                diary.isLoading ? (
+                  <Text>일기 불러오는 중...</Text>
+                ) : diary.data ? (
                   <View style={calendarModalStyles.tabContent}>
-                    <Text style={calendarModalStyles.diaryTitle}>{data.diaryEntry.title}</Text>
-                    <Text style={calendarModalStyles.diaryText}>{data.diaryEntry.content}</Text>
+                    <Text style={calendarModalStyles.diaryTitle}>{diary.data.title}</Text>
+                    <Text style={calendarModalStyles.diaryText}>{diary.data.content}</Text>
                   </View>
                 ) : (
                   <Text>일기 없음</Text>
                 )
               ) : (
-                data?.analysisEntry ? (
+                analysis.isLoading ? (
+                  <Text>분석 불러오는 중...</Text>
+                ) : analysis.data ? (
                   <View style={calendarModalStyles.tabContent}>
-                    {/* <Text style={calendarModalStyles.moodTag}>#{data.analysisEntry.analysis ?? '정보 없음'}</Text> */}
-                    <Text style={calendarModalStyles.analysisText}>{data.analysisEntry.analysis}</Text>
+                    <Text style={calendarModalStyles.analysisText}>{analysis.data.analysis}</Text>
                   </View>
                 ) : (
                   <Text>분석 없음</Text>
