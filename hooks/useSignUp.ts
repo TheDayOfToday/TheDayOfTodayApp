@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import useShowToast from './useShowToast';
 
 export const useSignUp = () => {
   const router = useRouter();
@@ -10,6 +11,7 @@ export const useSignUp = () => {
     phoneNumber: string;
   }) => {
     const { name, email, password, phoneNumber } = userData;
+    const showToast = useShowToast();
 
     if (!name || !email || !password || !phoneNumber) {
       window.alert('모든 항목을 입력해주세요.');
@@ -25,13 +27,13 @@ export const useSignUp = () => {
       });
 
       if (response.ok) {
-        window.alert('회원가입이 완료되었습니다!');
+        showToast('success', '회원가입 성공', '회원가입이 완료되었습니다.');
         router.replace('/signIn');
       } else {
-        window.alert('회원가입 실패. 다시 시도해주세요.');
+        showToast('error', '회원가입 실패', '회원가입을 다시 시도해주세요.');
       }
     } catch (error) {
-      window.alert('서버 연결 실패');
+      showToast('error', '회원가입 실패', '서버 연결에 실패하였습니다.');
     }
   };
 
