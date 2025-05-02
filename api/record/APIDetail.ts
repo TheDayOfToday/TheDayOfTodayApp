@@ -1,5 +1,6 @@
 import { APIRequest, HTTP_METHOD } from '../APIRequest';
 import type {
+  DeleteDiaryRequest,
   DeleteResponse,
   StartConversationResponse,
   QuestionRequest,
@@ -19,8 +20,8 @@ export class DeleteDiary<R extends DeleteResponse> implements APIRequest<R> {
   path: string;
   response!: R;
   auth = true;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/delete/${diaryId}`;
+  constructor(public authorization: string, public data: DeleteDiaryRequest) {
+    this.path = `/diary/diary/${data.year}/${data.month}/${data.day}`; // diary/diary -> diary/delete
   }
 }
 
