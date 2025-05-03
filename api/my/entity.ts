@@ -26,3 +26,13 @@ export interface SignUpRequest {
 export interface SignUpResponse extends APIResponse {
     success: boolean;
 }
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}

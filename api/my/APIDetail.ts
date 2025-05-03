@@ -1,5 +1,5 @@
 import { APIRequest, HTTP_METHOD } from '@/api/APIRequest';
-import { SignUpRequest, SignUpResponse, UserInfoResponse, DeleteUserResponse } from './entity';
+import { SignUpRequest, SignUpResponse, UserInfoResponse, DeleteUserResponse, LoginRequest, LoginResponse } from './entity';
 
 export class DeleteUser<R extends DeleteUserResponse> implements APIRequest<R> {
   method = HTTP_METHOD.DELETE;
@@ -33,4 +33,13 @@ export class PostSignUp<R extends SignUpResponse> implements APIRequest<R> {
     this.path = `/user/signup`;
     this.data = userData;
   }
+}
+
+export class PostLogin implements APIRequest<LoginResponse> {
+  method = HTTP_METHOD.POST;
+  path = '/swagger-auth/login';
+  response!: LoginResponse;
+  auth = false;
+
+  constructor(public data: LoginRequest) {}
 }
