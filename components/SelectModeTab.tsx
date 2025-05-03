@@ -3,7 +3,7 @@ import { View, Text, Pressable, Modal } from 'react-native';
 import { useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
 import useToken from '@/hooks/useToken';
 import useShowToast from '@/hooks/useShowToast';
-import { useCalendarData } from '@/hooks/useCalendarData';
+import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import useDeleteDiary from '@/hooks/useDeleteDiary';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { modeSlidingTabStyles } from '@/styles/modeSlidingTabStyles';
@@ -32,7 +32,7 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
     month: String(today.getMonth() + 1).padStart(2, '0'),
     day: String(today.getDate()).padStart(2, '0'),
   };
-  const { data } = useCalendarData(todayDate, true);
+  const diary = useDiaryEntry(todayDate, true);
   const [modalVisible, setModalVisible] = useState(false);
   const { mutate: deleteDiary } = useDeleteDiary();
 
@@ -47,7 +47,7 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
 
   // 독백 버튼 클릭 시 핸들러 함수
   const onPressMonologue = useCallback(() => {
-    if (data?.diaryEntry) {
+    if (diary.data) {
       setModalVisible(true);
       return;
     }
