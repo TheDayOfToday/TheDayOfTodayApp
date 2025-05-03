@@ -26,6 +26,8 @@ export const useSignUp = () => {
         credentials: 'include'
       });
 
+      console.log('Response:', response);
+
       if (response.ok) {
         showToast('success', '회원가입 성공', '회원가입이 완료되었습니다.');
         router.replace('/signIn');

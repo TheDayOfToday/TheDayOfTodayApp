@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
         marginTop: 4,
       },    
       disabledText: {
-        color: '#b9babd',
+        color: '#e0e0e0',
       },          
       circleIcon: {
         position: 'absolute',
@@ -56,5 +56,21 @@ export const styles = StyleSheet.create({
         padding: 20,
         width: '80%',
         alignItems: 'center',
-      },      
+      },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 24,
+        minHeight: 300,
+        backgroundColor: '#f9f9f9',
+        borderRadius: 10,
+      },
+      loadingText: {
+        fontSize: 16,
+        color: '#666',
+        marginTop: 12,
+        textAlign: 'center',
+        fontWeight: '500',
+      },
 });

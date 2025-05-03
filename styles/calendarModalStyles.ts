@@ -100,4 +100,17 @@ export const calendarModalStyles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 4,
       },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        minHeight: 200,
+      },
+      loadingText: {
+        fontSize: 16,
+        color: '#777',
+        marginTop: 10,
+        textAlign: 'center',
+      },
 });
