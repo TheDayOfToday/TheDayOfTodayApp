@@ -52,8 +52,8 @@ function CalendarScreen() {
             style={styles.calendar}
             current={new Date().toISOString().split('T')[0]}
             onDayPress={handleDayPress}
-            key={moodColorsReady ? 'ready' : 'not-ready'}
-            markingType="multi-dot"     
+            key={JSON.stringify(markedDates)}
+            markingType="multi-dot"
             markedDates={markedDates}            
             dayComponent={CustomDay}
           />
