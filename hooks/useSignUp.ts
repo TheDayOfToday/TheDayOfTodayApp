@@ -24,6 +24,8 @@ export const useSignUp = () => {
         credentials: 'include'
       });
 
+      console.log('Response:', response);
+
       if (response.ok) {
         window.alert('회원가입이 완료되었습니다!');
         router.replace('/signIn');

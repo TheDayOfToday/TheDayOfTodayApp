@@ -4,9 +4,6 @@ import { Calendar } from 'react-native-calendars';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { getCalendarColor } from '@/api/diary';
 import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
 import { useCalendarColors } from '@/hooks/useCalendarColor';
@@ -14,8 +11,6 @@ import { useCalendarColors } from '@/hooks/useCalendarColor';
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
-  // const [markedDates, setMarkedDates] = useState<{ [key: string]: any }>({});
-  // const [moodColorsReady, setMoodColorsReady] = useState(false);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
@@ -59,7 +54,7 @@ function CalendarScreen() {
             onDayPress={handleDayPress}
             key={moodColorsReady ? 'ready' : 'not-ready'}
             markingType="multi-dot"     
-            markedDates={markedDates}
+            markedDates={markedDates}            
             dayComponent={CustomDay}
           />
         ) : (

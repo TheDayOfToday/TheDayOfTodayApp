@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
         marginTop: 4,
       },    
       disabledText: {
-        color: '#b9babd',
+        color: '#e0e0e0',
       },          
       circleIcon: {
         position: 'absolute',

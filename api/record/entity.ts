@@ -1,7 +1,7 @@
 import type { APIResponse } from '../APIResponse';
 
 // 일기 삭제
-export interface DeleteResponse extends APIResponse { }
+export interface DeleteUserResponse extends APIResponse { }
 
 // 대화 모드 - 시작
 export interface StartConversationResponse extends APIResponse {
