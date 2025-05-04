@@ -35,8 +35,8 @@ function CalendarScreen() {
   const handleDayPress = (day: any) => {
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
-    console.log('선택한 날짜:', day.dateString);
-    console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
+    // console.log('선택한 날짜:', day.dateString);
+    // console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
   };
 
   // 삭제 버튼
