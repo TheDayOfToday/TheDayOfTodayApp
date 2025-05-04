@@ -28,8 +28,6 @@ export const modeSlidingTabStyles = StyleSheet.create({
     recordButton: {
         flex: 1,
         alignItems: 'center',
-        minWidth: 120,
-        maxWidth: 180,
         paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 15,
