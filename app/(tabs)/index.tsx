@@ -33,16 +33,39 @@ function CalendarScreen() {
     console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
   };
 
-  const CustomDay = ({ date, state, marking }: any) => (
-    <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
-      <View style={styles.circleIcon}>
-        <View style={[styles.circle, marking?.dotColor && { backgroundColor: marking.dotColor }]} />
-      </View>
-      <Text style={[styles.dayText, state === 'disabled' && styles.disabledText]}>
-        {date.day}
-      </Text>
-    </Pressable>
-  );
+  const CustomDay = ({ date, state, marking }: any) => {
+    const today = new Date();
+    const isToday =
+      Number(date.year) === today.getFullYear() &&
+      Number(date.month) === today.getMonth() + 1 &&
+      Number(date.day) === today.getDate();
+  
+    const circleBorderStyle = isToday
+      ? { borderColor: '#00BFFF', borderWidth: 2 }
+      : {};
+  
+    const dayTextStyle = [
+      styles.dayText,
+      state === 'disabled' && styles.disabledText,
+      isToday && { color: '#00BFFF' },
+    ];
+  
+    return (
+      <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
+        <View style={styles.circleIcon}>
+          <View
+            style={[
+              styles.circle,
+              marking?.dotColor && { backgroundColor: marking.dotColor },
+              circleBorderStyle,
+            ]}
+          />
+        </View>
+        <Text style={dayTextStyle}>{date.day}</Text>
+      </Pressable>
+    );
+  };
+  
 
   return (
     <SafeAreaView style={styles.safeArea}>
