@@ -57,11 +57,10 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
 
   // 대화 버튼 클릭 시 핸들러 함수
   const onPressConversation = useCallback(() => {
-    // 대화 모드 구현을 위한 임시 처리
-    // if (data?.diaryEntry) {
-    //   setModalVisible(true);
-    //   return;
-    // }
+    if (diary.data) {
+      setModalVisible(true);
+      return;
+    }
     selectMode('ConversationMode');
     sheetRef.current?.close();
   }, [selectMode]);

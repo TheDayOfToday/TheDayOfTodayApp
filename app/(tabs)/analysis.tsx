@@ -86,10 +86,7 @@ function AnalysisScreen() {
       </View>
       <View style={analysisScreenStyles.contentContainer}>
         {weeklyAnalysis?.title ? (
-          <>
-            <Text style={analysisScreenStyles.contentDegree}>감정 상태: {weeklyAnalysis?.degree}</Text>
-            <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {weeklyAnalysis?.feedback}</Text>
-          </>
+          <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {weeklyAnalysis?.feedback}</Text>
         ) : (
           <Text style={analysisScreenStyles.contentFeedback}>오늘의 하루를 기록해보아요</Text>
         )}
