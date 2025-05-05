@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
-import { getUserInfo, deleteUser } from '@/api/my';
+import { getUserInfo } from '@/api/my';
 import { UserInfoResponse } from '@/api/my/entity';
 
 function SettingScreen() {
@@ -55,24 +55,6 @@ function SettingScreen() {
     router.replace('/signIn');
   };
 
-  const handleDeleteAccount = async () => {
-    const token = await AsyncStorage.getItem('accessToken');
-    if (!token) {
-      showToast('error', '오류', '토큰이 존재하지 않습니다.');
-      return;
-    }
-  
-    try {
-      await deleteUser(token);
-      showToast('success', '회원 탈퇴 완료', '그동안 이용해주셔서 감사합니다.');
-      await AsyncStorage.removeItem('accessToken');
-      router.replace('/signIn');
-    } catch (error) {
-      console.error('회원 탈퇴 실패', error);
-      showToast('error', '오류', '회원 탈퇴에 실패했습니다.');
-    }
-  };
-
   return (
     <View style={styles.container}>
       <Text style={styles.header}>마이페이지</Text>
@@ -86,7 +68,7 @@ function SettingScreen() {
           </View>
           <TouchableOpacity onPress={handleLogout} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.logoutButton}>
             <Text style={styles.logoutText}>로그아웃</Text>
-          </TouchableOpacity>          
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -112,13 +94,6 @@ function SettingScreen() {
           <Text style={styles.infoValue}>{formatPhoneNumber(user.phoneNumber)}</Text>
         </View>       
       </View>
-      <TouchableOpacity
-        onPress={handleDeleteAccount}
-        style={[styles.logoutButton, { marginTop: 20, }]}
-        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        >
-        <Text style={[styles.deleteUsetText]}>회원 탈퇴</Text>
-      </TouchableOpacity>
     </View>
   );
 }

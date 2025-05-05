@@ -47,10 +47,6 @@ export const styles = StyleSheet.create({
     color: '#5DA3FA', 
     marginTop: 5 
   },
-  deleteUsetText: {    
-    color: '#FF4D4F', 
-    marginTop: 5
-  },
   section: { 
     backgroundColor: '#FAFAFA', 
     padding: 20, 

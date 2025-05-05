@@ -1,7 +1,5 @@
 import APIClient from '../apiClient';
-import { GetDiary, GetAnalysis, GetCalendarColor } from './APIDetail';
-
-export const getCalendarColor = APIClient.of(GetCalendarColor);
+import { GetDiary, GetAnalysis } from './APIDetail';
 
 export const getDiary = APIClient.of(GetDiary);
 
