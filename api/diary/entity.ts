@@ -20,6 +20,7 @@ export type CalendarRequest = {
 
 export interface DiaryResponse extends APIResponse {
   date: string;
+  // diary: DiaryData;
   entries: {
     title: string;
     content: string;
@@ -31,23 +32,4 @@ export interface DiaryResponse extends APIResponse {
       moodColor: string;
     };
   }[];  
-};
-
-
-
-export type Color = {
-  [date: string]: string;
-};
-
-export interface CalendarColorResponse {
-  colors: Color;
-};
-
-export interface DiaryEntity {
-  title: string;
-  content: string;
-};
-
-export interface AnalysisEntity {
-  analysis: string;
 };
