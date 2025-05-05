@@ -29,8 +29,8 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
   const today = new Date();
   const todayDate = {
     year: String(today.getFullYear()),
-    month: String(today.getMonth() + 1).padStart(2, '0'),
-    day: String(today.getDate()).padStart(2, '0'),
+    month: String(today.getMonth() + 1),
+  day: String(today.getDate()),
   };
   const diary = useDiaryEntry(todayDate, true);
   const [modalVisible, setModalVisible] = useState(false);

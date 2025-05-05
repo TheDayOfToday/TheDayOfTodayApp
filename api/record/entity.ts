@@ -7,7 +7,7 @@ export type DeleteDiaryRequest = {
   day: string;
 };
 
-export interface DeleteUserResponse extends APIResponse { }
+export interface DeleteResponse extends APIResponse { }
 
 // 대화 모드 - 시작
 export interface StartConversationResponse extends APIResponse {

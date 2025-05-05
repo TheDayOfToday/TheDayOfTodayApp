@@ -21,7 +21,7 @@ export class DeleteDiary<R extends DeleteResponse> implements APIRequest<R> {
   response!: R;
   auth = true;
   constructor(public authorization: string, public data: DeleteDiaryRequest) {
-    this.path = `/diary/diary/${data.year}/${data.month}/${data.day}`; // diary/diary -> diary/delete
+    this.path = `/diary/delete/${data.year}/${data.month}/${data.day}`; // diary/diary -> diary/delete
   }
 }
 
