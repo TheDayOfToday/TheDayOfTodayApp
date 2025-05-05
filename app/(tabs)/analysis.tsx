@@ -1,61 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Pressable } from 'react-native';
 import { Image } from 'react-native';
+import useGetWeeklyAnalysis from '@/hooks/useGetWeeklyAnalysis';
+import useToken from '@/hooks/useToken';
 import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 function AnalysisScreen() {
-  const [title, setTitle] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [degree, setDegree] = useState('');
-  const [dateRange, setDateRange] = useState('');
-  const [error, setError] = useState<string | null>(null);
-
-  // 오늘 날짜를 기준으로 selectedDate 생성
+  const token = useToken();
   const today = new Date();
-  const selectedDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
+  const [todayDate, setTodayDate] = useState({
+    year: String(today.getFullYear()),
+    month: String(today.getMonth() + 1),
+    day: String(today.getDate()),
+  });
 
-  // 주차 계산 함수
-  const getWeekNumber = (date: Date) => {
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const pastDays = date.getDate() + firstDay.getDay() - 1;
-    return Math.floor(pastDays / 7) + 1;
+  const { data: weeklyAnalysis, isLoading, error } = useGetWeeklyAnalysis({ token: token!, date: todayDate });
+
+  const degreeImageMap: Record<string, any> = {
+    GOOD: require('../../assets/images/good.png'),
+    BAD: require('../../assets/images/bad.png'),
+    COMFORT: require('../../assets/images/comfort.png'),
+    HARD: require('../../assets/images/hard.png'),
+    UNKNOWN: require('../../assets/images/unknown.png'),
   };
 
-  useEffect(() => {
-    const fetchWeeklyAnalysis = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
-      if (!token) {
-        setError('토큰이 없습니다.');
-        return;
-      }
+  const handlePressLeft = () => {
+    const currentDate = new Date(`${todayDate.year}-${todayDate.month}-${todayDate.day}`);
+    currentDate.setDate(currentDate.getDate() - 7);
+    setTodayDate({
+      year: String(currentDate.getFullYear()),
+      month: String(currentDate.getMonth() + 1),
+      day: String(currentDate.getDate()),
+    });
+  };
 
-      const [year, month, day] = selectedDate.split('-').map(Number);
-      const week = getWeekNumber(new Date(year, month - 1, day));
+  const handlePressRight = () => {
+    const currentDate = new Date(`${todayDate.year}-${todayDate.month}-${todayDate.day}`);
+    currentDate.setDate(currentDate.getDate() + 7);
+    setTodayDate({
+      year: String(currentDate.getFullYear()),
+      month: String(currentDate.getMonth() + 1),
+      day: String(currentDate.getDate()),
+    });
+  };
 
-      try {
-        const res = await fetch(`https://thedayoftoday.kro.kr/weeklyAnalysis/${year}/${month}/${week}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          }
-        });
-
-        if (!res.ok) throw new Error('서버 응답 실패');
-
-        const data = await res.json();
-        setTitle(data.title);
-        setFeedback(data.feedback);
-        setDegree(data.degree);
-        setDateRange(`${data.startDate} ~ ${data.endDate}`);
-        console.log('주간 분석 데이터:', data);        
-      } catch (err: any) {
-        setError(err.message || '에러 발생');
-      }
-    };
-
-    fetchWeeklyAnalysis();
-  }, []);
+  // console.log('todayDate', todayDate);
+  // console.log('weeklyAnalysis', weeklyAnalysis);
 
   return (
     <ScrollView
@@ -63,23 +54,47 @@ function AnalysisScreen() {
       contentContainerStyle={analysisScreenStyles.container}
       showsVerticalScrollIndicator={false}
     >
+      <View style={analysisScreenStyles.dateContainer}>
+        <Pressable
+          onPress={() => handlePressLeft()}
+          style={analysisScreenStyles.dataButton}
+        >
+          <AntDesign name="caretleft" size={24} color="#191D42" />
+        </Pressable>
+        <Text style={analysisScreenStyles.contentDate}>분석 기간: {weeklyAnalysis?.startDate} ~ {weeklyAnalysis?.endDate}</Text>
+        <Pressable
+          onPress={() => handlePressRight()}
+          style={analysisScreenStyles.dataButton}
+        >
+          <AntDesign name="caretright" size={24} color="#191D42" />
+        </Pressable>
+      </View>
       <View style={analysisScreenStyles.headerContainer}>
+      {weeklyAnalysis?.degree? (
         <Image
-          source={require('../../assets/images/000.png')} // 0~4
+          source={degreeImageMap[weeklyAnalysis.degree]}
           style={{ width: 150, height: 150 }}
         />
-        <Text style={analysisScreenStyles.headerText}>제목: {title}</Text>
+      ) : (
+        <Image
+          source={degreeImageMap['UNKNOWN']}
+          style={{ width: 150, height: 150 }}
+        />
+      )}
+      {weeklyAnalysis?.title ? (
+        <Text style={analysisScreenStyles.headerText}>{weeklyAnalysis?.title}</Text>
+      ): 
+        <Text style={analysisScreenStyles.headerText}>이번 주 일기가 없습니다!</Text>
+      }
       </View>
-
       <View style={analysisScreenStyles.contentContainer}>
-        {error ? (
-          <Text style={{ color: 'red' }}>{error}</Text>
-        ) : (
-          <>            
-            <Text style={analysisScreenStyles.contentDegree}>감정 상태: {degree}</Text>
-            <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {feedback}</Text>
-            <Text style={analysisScreenStyles.contentDate}>분석 기간: {dateRange}</Text>
+        {weeklyAnalysis?.title ? (
+          <>
+            <Text style={analysisScreenStyles.contentDegree}>감정 상태: {weeklyAnalysis?.degree}</Text>
+            <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {weeklyAnalysis?.feedback}</Text>
           </>
+        ) : (
+          <Text style={analysisScreenStyles.contentFeedback}>오늘의 하루를 기록해보아요</Text>
         )}
       </View>
     </ScrollView>
