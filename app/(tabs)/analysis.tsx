@@ -45,9 +45,6 @@ function AnalysisScreen() {
     });
   };
 
-  // console.log('todayDate', todayDate);
-  // console.log('weeklyAnalysis', weeklyAnalysis);
-
   return (
     <ScrollView
       style={analysisScreenStyles.Screen}

@@ -60,7 +60,8 @@ export default class APIClient {
     if (
       (
         request.method === HTTP_METHOD.POST ||
-        request.method === HTTP_METHOD.PUT
+        request.method === HTTP_METHOD.PUT ||
+        request.method === HTTP_METHOD.DELETE
       ) &&
       !(request.data instanceof FormData)
     ) {

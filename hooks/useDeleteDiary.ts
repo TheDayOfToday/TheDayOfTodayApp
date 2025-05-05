@@ -11,7 +11,7 @@ interface DeleteDiaryProps {
 const useDeleteDiary = () => {
   const showToast = useShowToast();
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: async ({
       token,
       data,
@@ -21,7 +21,7 @@ const useDeleteDiary = () => {
     },
   });
 
-  return { mutate };
+  return { mutateAsync };
 }
 
 export default useDeleteDiary;

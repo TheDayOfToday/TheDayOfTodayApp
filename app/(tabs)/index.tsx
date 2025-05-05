@@ -14,7 +14,7 @@ import { useCalendarColors } from '@/hooks/useCalendarColor';
 function CalendarScreen() {
   const token = useToken();
   const showToast = useShowToast();
-  const { mutate: deleteDiary } = useDeleteDiary();
+  const { mutateAsync: deleteDiary } = useDeleteDiary();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
@@ -35,19 +35,17 @@ function CalendarScreen() {
   const handleDayPress = (day: any) => {
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
-    // console.log('선택한 날짜:', day.dateString);
-    // console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
   };
 
   // 삭제 버튼
-  const handleDeleteDiary = async() => {
+  const handleDeleteDiary = () => {
     if (!diary.data) {
       showToast('error', '삭제 실패', '삭제할 일기가 없습니다.');
       return;
     }
 
     try {
-      await deleteDiary({
+      deleteDiary({
         token: token!,
         data: { year, month, day },
       });
@@ -147,9 +145,9 @@ function CalendarScreen() {
                 )
               )}
               <View style={calendarModalStyles.modalButtonContainer}>
-                <TouchableOpacity style={calendarModalStyles.deleteDiaryButton} onPress={() => handleDeleteDiary()}>
+                <Pressable style={calendarModalStyles.deleteDiaryButton} onPress={() => handleDeleteDiary()}>
                   <Text style={calendarModalStyles.deleteDiaryButtonText}>삭제</Text>
-                </TouchableOpacity>
+                </Pressable>
                 <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
                   <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
                 </TouchableOpacity>

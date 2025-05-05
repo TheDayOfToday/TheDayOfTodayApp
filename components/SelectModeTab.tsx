@@ -30,11 +30,11 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
   const todayDate = {
     year: String(today.getFullYear()),
     month: String(today.getMonth() + 1),
-  day: String(today.getDate()),
+    day: String(today.getDate()),
   };
   const diary = useDiaryEntry(todayDate, true);
   const [modalVisible, setModalVisible] = useState(false);
-  const { mutate: deleteDiary } = useDeleteDiary();
+  const { mutateAsync: deleteDiary } = useDeleteDiary();
 
   // 기록 화면에 있을 때 슬라이딩 탭 오픈
   useFocusEffect(
@@ -66,9 +66,9 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
     sheetRef.current?.close();
   }, [selectMode]);
 
-  const onPressDeleteDiary = async() => {
+  const onPressDeleteDiary = () => {
     try {
-      await deleteDiary({
+      deleteDiary({
         token: token!,
         data: todayDate,
       });
