@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
 import { Calendar } from 'react-native-calendars';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,14 +13,15 @@ import { useCalendarColors } from '@/hooks/useCalendarColor';
 function CalendarScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
+  const [calendarVersion, setCalendarVersion] = useState(0);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
-  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);
+  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);  
 
   const diary = useDiaryEntry(calendarDate, modalVisible);
   const analysis = useAnalysisEntry(calendarDate, modalVisible);
-  const { markedDates, moodColorsReady } = useCalendarColors(); 
+  const { markedDates, moodColorsReady } = useCalendarColors(calendarVersion);
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -26,12 +29,22 @@ function CalendarScreen() {
     setSelectedDateObj(newDate);
   };
 
-  const handleDayPress = (day: any) => {
+  const handleDayPress = (day: any) => {    
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
-    console.log('선택한 날짜:', day.dateString);
-    console.log('해당 날짜의 markedDates:', markedDates[day.dateString]);
   };
+
+  const handleDiaryUpdate = () => {
+    setCalendarVersion((prev) => prev + 1);
+    // setModalVisible(false);
+  }
+
+   // 캘린더 진입 시마다 다이어리 업데이트(리패치) 실행
+  useFocusEffect(
+    useCallback(() => {
+      handleDiaryUpdate();
+    }, [])
+  );
 
   const CustomDay = ({ date, state, marking }: any) => {
     const today = new Date();
