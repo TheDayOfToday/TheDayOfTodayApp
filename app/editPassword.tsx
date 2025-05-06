@@ -14,6 +14,18 @@ const EditPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handlePasswordChange = async () => {
+    console.log('비밀번호 버튼 누름');
+  
+    if (!newPassword.trim()) {
+      showToast('error', '입력 필요', '새 비밀번호를 입력해주세요.');
+      return;
+    }
+  
+    if (!confirmPassword.trim()) {
+      showToast('error', '입력 필요', '비밀번호 확인란을 입력해주세요.');
+      return;
+    }
+  
     if (newPassword !== confirmPassword) {
       showToast('error', '비밀번호 불일치', '새 비밀번호가 일치하지 않습니다.');
       return;
