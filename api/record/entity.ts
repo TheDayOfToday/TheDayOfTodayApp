@@ -14,17 +14,6 @@ export interface StartConversationResponse extends APIResponse {
   diaryId: number;
 }
 
-// 대화 모드 - 질문
-export type QuestionRequest = {
-  question: string;
-  diaryId: number;
-  file: File;
-}
-
-export interface QuestionResponse extends APIResponse {
-  question: string;
-}
-
 // 대화 모드 - 종료
 export interface EndConversationResponse extends APIResponse {
   diaryId: number;

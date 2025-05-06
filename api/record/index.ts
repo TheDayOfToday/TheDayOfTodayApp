@@ -2,7 +2,6 @@ import APIClient from '../apiClient';
 import {
   DeleteDiary,
   PostStartConversation,
-  PostQuestion,
   PostEndConversation,
   GetMoodMeters,
   PostMoodMeters,
@@ -14,8 +13,6 @@ import {
 export const deleteDiary = APIClient.of(DeleteDiary);
 
 export const postStartConversation = APIClient.of(PostStartConversation);
-
-export const postQuestion = APIClient.of(PostQuestion);
 
 export const postEndConversation = APIClient.of(PostEndConversation);
 
