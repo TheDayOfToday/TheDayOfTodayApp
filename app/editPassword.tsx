@@ -25,30 +25,7 @@ const EditPassword = () => {
       return;
     }
 
-    try {
-      const response = await fetch('https://thedayoftoday.kro.kr/user/update-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || '비밀번호 변경 실패');
-      }
-
-      showToast('success', '비밀번호 변경 완료', '다시 로그인해주세요.');
-      router.replace('/signIn');
-    } catch (error: any) {
-      showToast('error', '에러 발생', error.message);
-    }
+    
   };
 
   return (

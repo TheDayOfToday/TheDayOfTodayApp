@@ -1,5 +1,5 @@
 import { APIRequest, HTTP_METHOD } from '@/api/APIRequest';
-import { SignUpRequest, SignUpResponse, UserInfoResponse, DeleteUserResponse, LoginRequest, LoginResponse } from './entity';
+import { SignUpRequest, SignUpResponse, UserInfoResponse, DeleteUserResponse, LoginRequest, LoginResponse, UpdatePasswordResponse } from './entity';
 
 export class DeleteUser<R extends DeleteUserResponse> implements APIRequest<R> {
   method = HTTP_METHOD.DELETE;
@@ -42,4 +42,13 @@ export class PostLogin implements APIRequest<LoginResponse> {
   auth = false;
 
   constructor(public data: LoginRequest) {}
+}
+
+export class UpdatePassword<R extends UpdatePasswordResponse> implements APIRequest<R> {
+  method = HTTP_METHOD.PUT;
+  path = '/user/update-password';
+  response!: R;
+  auth = true;
+
+  constructor(public authorization: string, public password: string) {}
 }

@@ -19,7 +19,7 @@ function CalendarScreen() {
   const [year, month, day] = selectedDate.split('-');
   const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);  
 
-  const diary = useDiaryEntry(calendarDate, modalVisible);
+  const diary = useDiaryEntry(calendarDate, modalVisible, calendarVersion);
   const analysis = useAnalysisEntry(calendarDate, modalVisible);
   const { markedDates, moodColorsReady } = useCalendarColors(calendarVersion);
 
@@ -35,8 +35,7 @@ function CalendarScreen() {
   };
 
   const handleDiaryUpdate = () => {
-    setCalendarVersion((prev) => prev + 1);
-    // setModalVisible(false);
+    setCalendarVersion((prev) => prev + 1);    
   }
 
    // 캘린더 진입 시마다 다이어리 업데이트(리패치) 실행
