@@ -54,14 +54,21 @@ export const recordingScreenStyles = StyleSheet.create({
         padding: 50,
     },
     submitButton: {
-        paddingVertical: 20,
-        paddingHorizontal: 20,
+        paddingVertical: 12,
+        paddingHorizontal: 30,
         borderRadius: 30,
-        backgroundColor: '#ff5d5d',
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        opacity: 0.7,
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',
         fontSize: 16,
         color: '#fff',
+    },
+    completeButton: {
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+        borderRadius: 30,
+        backgroundColor: '#ff5d5d',
     },
 });

@@ -125,7 +125,7 @@ function Conversation() {
         </SafeAreaView>
         <View style={recordingScreenStyles.submitButtonContainer}>
           <Pressable
-            style={recordingScreenStyles.submitButton}
+            style={recordingScreenStyles.completeButton}
             onPress={onPressSubmitButton}
           >
             <MaterialIcons name="call-end" size={30} color="#fff" />
