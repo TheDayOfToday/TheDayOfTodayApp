@@ -1,37 +1,27 @@
 import { useRouter } from 'expo-router';
+import { postSignUp } from '@/api/my'; // ← index.ts 경로
+import type { SignUpRequest } from '@/api/my/entity';
+import useShowToast from './useShowToast';
 
 export const useSignUp = () => {
   const router = useRouter();
+  const showToast = useShowToast();
 
-  const signUp = async (userData: {
-    name: string;
-    email: string;
-    password: string;
-    phoneNumber: string;
-  }) => {
+  const signUp = async (userData: SignUpRequest) => {
     const { name, email, password, phoneNumber } = userData;
 
     if (!name || !email || !password || !phoneNumber) {
-      window.alert('모든 항목을 입력해주세요.');
+      showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
       return;
     }
 
     try {
-      const response = await fetch('https://thedayoftoday.kro.kr/user/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
-        body: JSON.stringify(userData),
-        credentials: 'include'
-      });
-
-      if (response.ok) {
-        window.alert('회원가입이 완료되었습니다!');
-        router.replace('/signIn');
-      } else {
-        window.alert('회원가입 실패. 다시 시도해주세요.');
-      }
-    } catch (error) {
-      window.alert('서버 연결 실패');
+      const res = await postSignUp(userData);
+      showToast('success', '회원가입 완료', '성공적으로 가입되었습니다.');
+      router.replace('/signIn');
+    } catch (error: any) {
+      console.error('회원가입 실패', error);
+      showToast('error', '회원가입 실패', '서버 오류가 발생했습니다.');
     }
   };
 

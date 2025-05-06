@@ -2,6 +2,8 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import { useState } from 'react';
 import { useSignUp } from '@/hooks/useSignUp';
 import { styles } from '@/styles/signUpStyles';
+import showToast from '@/hooks/useShowToast';
+import useShowToast from '@/hooks/useShowToast';
 
 function SignUpScreen() {  
   const { signUp } = useSignUp();
@@ -9,8 +11,13 @@ function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const showToast = useShowToast();
 
   const handleSubmit = () => {
+    if (!name || !email || !password || !phoneNumber) {
+      showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
+      return;
+    }
     signUp({ name, email, password, phoneNumber });
   };
 
