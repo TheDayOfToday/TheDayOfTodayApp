@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
 import useShowToast from '../hooks/useShowToast';
 import { styles } from '@/styles/editProfileStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditPassword = () => {
-  const router = useRouter();
   const showToast = useShowToast();
-
-  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handlePasswordChange = async () => {
-    console.log('비밀번호 버튼 누름');
-  
     if (!newPassword.trim()) {
       showToast('error', '입력 필요', '새 비밀번호를 입력해주세요.');
       return;
@@ -42,16 +36,7 @@ const EditPassword = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>비밀번호 변경</Text>
-
-      <Text style={styles.label}>현재 비밀번호</Text>
-      <TextInput
-        style={styles.input}
-        secureTextEntry
-        value={currentPassword}
-        onChangeText={setCurrentPassword}
-      />
-
+      <Text style={styles.header}>비밀번호 변경</Text>      
       <Text style={styles.label}>새 비밀번호</Text>
       <TextInput
         style={styles.input}
@@ -59,7 +44,6 @@ const EditPassword = () => {
         value={newPassword}
         onChangeText={setNewPassword}
       />
-
       <Text style={styles.label}>새 비밀번호 확인</Text>
       <TextInput
         style={styles.input}
@@ -67,7 +51,6 @@ const EditPassword = () => {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
       />
-
       <TouchableOpacity style={styles.saveButton} onPress={handlePasswordChange}>
         <Text style={styles.saveButtonText}>변경하기</Text>
       </TouchableOpacity>
