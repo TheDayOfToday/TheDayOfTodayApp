@@ -14,12 +14,31 @@ export const recordingScreenStyles = StyleSheet.create({
         height: '100%',
     },
     messageContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     message: {
-        color: '#fff',
+        color: '#aac9ff',
         fontFamily: 'Pretendard3',
-        fontSize: 25,
+        fontSize: 26,
+    },
+    nextButtonContainer: {
+        alignItems: 'flex-end',
+        paddingHorizontal: 10,
+    },
+    nextButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    },
+    nextButtonText: {
+        fontFamily: 'Pretendard5',
+        fontSize: 16,
+        color: '#aac9ff',
     },
     recordingContainer: {
         flex: 1,
@@ -31,15 +50,14 @@ export const recordingScreenStyles = StyleSheet.create({
         height: '100%',
     },
     submitButtonContainer: {
-        alignItems: 'flex-end',
-        padding: 10,
+        alignItems: 'center',
+        padding: 50,
     },
     submitButton: {
-        paddingVertical: 12,
-        paddingHorizontal: 30,
+        paddingVertical: 20,
+        paddingHorizontal: 20,
         borderRadius: 30,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        opacity: 0.7,
+        backgroundColor: '#ff5d5d',
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',
