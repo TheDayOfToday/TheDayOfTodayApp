@@ -46,7 +46,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
     setSelectedMood(mood);
   };
 
-  // 완료 버튼 클릭 시 탭 닫힘
+  // 완료 버튼 클릭 시 탭을 닫음
   const handleSubmitPress = async () => {
     if (!selectedMood) {
       showToast('error', '선택 없음', '무드를 선택해주세요.');
