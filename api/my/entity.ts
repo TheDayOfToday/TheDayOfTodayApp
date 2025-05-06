@@ -39,4 +39,4 @@ export interface LoginResponse {
 
 export interface EditPasswordRequest {
     newPassword: string;
-  }
+}
