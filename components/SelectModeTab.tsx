@@ -30,7 +30,7 @@ function SelectModeTab() {
     month: String(today.getMonth() + 1),
     day: String(today.getDate()),
   };
-  const diary = useDiaryEntry(todayDate, true);
+  const diary = useDiaryEntry(todayDate, true, 0);
   const [modalVisible, setModalVisible] = useState(false);
   const { mutateAsync: deleteDiary } = useDeleteDiary();
 
