@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
+import { useRouter } from "expo-router";
 import { useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
 import useToken from '@/hooks/useToken';
 import useShowToast from '@/hooks/useShowToast';
 import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import useDeleteDiary from '@/hooks/useDeleteDiary';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import useConversationStart from '@/hooks/useConversationStart';
 import { modeSlidingTabStyles } from '@/styles/modeSlidingTabStyles';
 import { deleteDiaryModalStyles } from '@/styles/deleteDiaryModalStyles';
 
@@ -14,17 +16,13 @@ type SelectModeTabRouteProp = RouteProp<
   'recording'
 >;
 
-interface SelectModeTabProps {
-  selectMode: (mode: string) => void;
-};
-
-function SelectModeTab({ selectMode }: SelectModeTabProps) {
+function SelectModeTab() {
   const token = useToken();
   const showToast = useShowToast();
+  const router = useRouter();
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["35%", "100%"], []);
   const route = useRoute<SelectModeTabRouteProp>();
-  // const currentRoute = useNavigationState(state => state.routes[state.index]?.name)
   
   const today = new Date();
   const todayDate = {
@@ -36,6 +34,8 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const { mutateAsync: deleteDiary } = useDeleteDiary();
 
+  const { mutateAsync: startConversation, data } = useConversationStart();
+
   // 기록 화면에 있을 때 슬라이딩 탭 오픈
   useFocusEffect(
     useCallback(() => {
@@ -46,24 +46,37 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
   );
 
   // 독백 버튼 클릭 시 핸들러 함수
-  const onPressMonologue = useCallback(() => {
+  const onPressMonologue = () => {
     if (diary.data) {
       setModalVisible(true);
       return;
     }
-    selectMode('MonologueMode');
     sheetRef.current?.close();
-  }, [selectMode]);
+    router.push('/recording/monologue');
+  };
 
   // 대화 버튼 클릭 시 핸들러 함수
-  const onPressConversation = useCallback(() => {
+  const onPressConversation = async () => {
     if (diary.data) {
       setModalVisible(true);
       return;
     }
-    selectMode('ConversationMode');
-    sheetRef.current?.close();
-  }, [selectMode]);
+    try {
+      const response = await startConversation(token);
+      const diaryId = response?.diaryId;
+      if(!diaryId) {
+        showToast('error', '대화 시작 실패', '서버 응답에 diaryId가 없습니다.');
+        return;
+      }
+      sheetRef.current?.close();
+      router.push({
+        pathname: '/recording/conversation',
+        params: { diaryId: diaryId.toString() },
+      });
+    } catch (error) {
+      showToast('error', '대화 시작 실패', '서버와 통신 중 문제가 발생했습니다.');
+    }
+  };
 
   const onPressDeleteDiary = () => {
     try {
@@ -82,7 +95,7 @@ function SelectModeTab({ selectMode }: SelectModeTabProps) {
     <BottomSheet
       ref={sheetRef}
       snapPoints={snapPoints}
-      enableDynamicSizing={false} // snapPoints로 시트 크기 고정
+      enableDynamicSizing={false}
       style={modeSlidingTabStyles.sheet}
       backgroundStyle={modeSlidingTabStyles.backgroundSheet}
     >

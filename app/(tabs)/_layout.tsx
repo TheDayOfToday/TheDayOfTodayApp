@@ -28,7 +28,7 @@ function TabLayout() {
     <Tabs
       screenOptions={({ navigation }) => ({
         headerShown: isRecording ? false : true,
-        headerStyle: isModeTab? layoutStyles.modeTabHeader : layoutStyles.header,
+        headerStyle: isModeTab ? layoutStyles.modeTabHeader : layoutStyles.header,
         headerTitle: '오늘의 하루',
         headerTitleStyle: layoutStyles.headerTitle,
         headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
