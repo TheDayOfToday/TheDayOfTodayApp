@@ -9,6 +9,7 @@ import { useLocalSearchParams } from "expo-router";
 import LottieView from 'lottie-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
+import useToken from '@/hooks/useToken';
 
 const recordingOptions = {
   android: {
@@ -33,13 +34,21 @@ const recordingOptions = {
 };
 
 function Conversation() {
+  const {
+    mutateAsync: questionMutate,
+    data: questionData,
+    isSuccess: questionSuccess
+  } = useConversationQuestion();
+  
+  const {
+    mutate: conversationEndMutate,
+  } = useConversationEnd();
+
+  const token = useToken();
   const { diaryId } = useLocalSearchParams();
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [question, setQuestion] = useState('오늘의 하루는 어땠나요?');
-
-  const { mutate: questionMutate, data, isSuccess } = useConversationQuestion();
-  // const { mutate: conversationEndMutate, data, isSuccess } = useConversationEnd();
 
   const startRecording = async () => {
       try {
@@ -75,19 +84,45 @@ function Conversation() {
       }
     };
 
-  const onPressNextButton = () => {
+  const onPressNextButton = async () => {
+    if (!recording) {
+      console.warn('녹음이 진행 중이 아닙니다.');
+      return;
+    }
 
-  }
+    const uri = await stopRecording();
+
+    if (!uri) {
+      console.warn('녹음 파일이 없습니다.');
+      return;
+    }
+
+    try {
+      const result = await questionMutate({
+        token: token!,
+        question,
+        diaryId: Number(diaryId),
+        audioUri: uri,
+      });
+
+      if (result?.question) {
+        setQuestion(result.question);
+        await startRecording();
+      }
+    } catch (error) {
+      console.error('질문 요청 중 오류 발생:', error);
+    }
+  };
 
   const onPressSubmitButton = async() => {
-    // if (!isRecording) {
-    //   console.warn('녹음 중이 아닙니다.');
-    //   return;
-    // }
-    // const uri = await stopRecording();
-    // if (!uri) return;
+    if (!isRecording) {
+      console.warn('녹음 중이 아닙니다.');
+      return;
+    }
+    const uri = await stopRecording();
+    if (!uri) return;
 
-    // sendMonologue(uri);
+    // conversationEndMutate(uri);
   }
 
   // useEffect(() => {
@@ -123,7 +158,7 @@ function Conversation() {
             style={recordingScreenStyles.lottie}
           />
         </SafeAreaView>
-        <View style={recordingScreenStyles.submitButtonContainer}>
+        <View style={recordingScreenStyles.completeButtonContainer}>
           <Pressable
             style={recordingScreenStyles.completeButton}
             onPress={onPressSubmitButton}

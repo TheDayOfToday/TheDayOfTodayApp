@@ -50,8 +50,8 @@ export const recordingScreenStyles = StyleSheet.create({
         height: '100%',
     },
     submitButtonContainer: {
-        alignItems: 'center',
-        padding: 50,
+        alignItems: 'flex-end',
+        padding: 20,
     },
     submitButton: {
         paddingVertical: 12,
@@ -64,6 +64,10 @@ export const recordingScreenStyles = StyleSheet.create({
         fontFamily: 'Pretendard5',
         fontSize: 16,
         color: '#fff',
+    },
+    completeButtonContainer: {
+        alignItems: 'center',
+        padding: 50,
     },
     completeButton: {
         paddingVertical: 20,

@@ -58,14 +58,14 @@ function CalendarScreen() {
       Number(date.month) === today.getMonth() + 1 &&
       Number(date.day) === today.getDate();
   
-    const circleBorderStyle = isToday
-      ? { borderColor: '#00BFFF', borderWidth: 2 }
-      : {};
-  
     const dayTextStyle = [
       styles.dayText,
       state === 'disabled' && styles.disabledText,
-      isToday && { color: '#00BFFF' },
+      isToday && {
+        fontFamily: 'Pretendard9',
+        borderBottomWidth: 2,
+        borderBottomColor: '#001D6E',
+      },
     ];
   
     return (
@@ -75,7 +75,6 @@ function CalendarScreen() {
             style={[
               styles.circle,
               marking?.dotColor && { backgroundColor: marking.dotColor },
-              circleBorderStyle,
             ]}
           />
         </View>
