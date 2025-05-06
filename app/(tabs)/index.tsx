@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
+import useToken from '@/hooks/useToken';
+import useShowToast from '@/hooks/useShowToast';
 import { Calendar } from 'react-native-calendars';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
@@ -8,9 +10,13 @@ import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
+import useDeleteDiary from '@/hooks/useDeleteDiary';
 import { useCalendarColors } from '@/hooks/useCalendarColor';
 
 function CalendarScreen() {
+  const token = useToken();
+  const showToast = useShowToast();
+  const { mutateAsync: deleteDiary } = useDeleteDiary();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
   const [calendarVersion, setCalendarVersion] = useState(0);
@@ -77,6 +83,25 @@ function CalendarScreen() {
       </Pressable>
     );
   };
+
+  // 삭제 버튼
+  const handleDeleteDiary = () => {
+    if (!diary.data) {
+      showToast('error', '삭제 실패', '삭제할 일기가 없습니다.');
+      return;
+    }
+
+    try {
+      deleteDiary({
+        token: token!,
+        data: { year, month, day },
+      });
+      showToast('success', '삭제 완료', '일기가 삭제되었습니다.');
+      setModalVisible(false);
+    } catch (error) {
+      showToast('error', '삭제 실패', '일기를 삭제하는 데에 실패했습니다.');
+    }
+  };
   
 
   return (
@@ -115,7 +140,6 @@ function CalendarScreen() {
                   <Ionicons name="chevron-forward" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
               </View>
-
               <View style={calendarModalStyles.tabContainer}>
                 <TouchableOpacity
                   style={[calendarModalStyles.tabButton, selectedTab === 'diary' && calendarModalStyles.selectedTab]}
@@ -157,10 +181,14 @@ function CalendarScreen() {
                   <Text>분석 없음</Text>
                 )
               )}
-
-              <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
-                <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
-              </TouchableOpacity>
+              <View style={calendarModalStyles.modalButtonContainer}>
+                <Pressable style={calendarModalStyles.deleteDiaryButton} onPress={() => handleDeleteDiary()}>
+                  <Text style={calendarModalStyles.deleteDiaryButtonText}>삭제</Text>
+                </Pressable>
+                <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
+                  <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>

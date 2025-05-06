@@ -30,7 +30,6 @@ const recordingOptions = {
 };
 
 function Monologue() {
-  // const [isOpen, setIsOpen] = useState(false);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const { mutate: sendMonologue, data, isSuccess} = usePostMonologue();
@@ -65,7 +64,6 @@ function Monologue() {
       setIsRecording(false);
       return uri;
     } catch (error) {
-      console.error('Failed to stop recording', error);
       return null;
     }
   };
@@ -79,7 +77,6 @@ function Monologue() {
     if (!uri) return;
 
     sendMonologue(uri);
-    // setIsOpen(true);
   };
 
   useEffect(() => {
@@ -91,12 +88,6 @@ function Monologue() {
       stopRecording();
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (isSuccess && data?.diaryId) {
-  //     setIsOpen(true);
-  //   }
-  // }, [isSuccess, data]);
 
   return(
     <GestureHandlerRootView>

@@ -45,13 +45,33 @@ export const calendarModalStyles = StyleSheet.create({
         fontSize: 14,
         color: '#333',
       },
+      modalButtonContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+      },
+      deleteDiaryButton: {
+        marginTop: 15,
+        padding: 10,
+        backgroundColor: '#EEE',
+        borderRadius: 5,
+        alignItems: 'center',
+        width: '45%',
+      },
+      deleteDiaryButtonText: {
+        fontFamily: 'pretendard5',
+        fontSize: 16,
+        color: '#ff4f4f',
+      },
       modalButton: {
         marginTop: 15,
         padding: 10,
         backgroundColor: '#001D6E',
         borderRadius: 5,
         alignItems: 'center',
-        width: '100%',
+        width: '45%',
       },
       modalButtonText: {
         fontFamily: 'pretendard5',
@@ -59,10 +79,11 @@ export const calendarModalStyles = StyleSheet.create({
         color: 'white',
       },
       dateRow: {
+        width: '100%',
+        height: 50,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 12,
       },      
       arrowIcon: {
         alignSelf: 'center',

@@ -12,6 +12,8 @@ function ResultScreen() {
   const router = useRouter();
   const { diaryId } = useLocalSearchParams();
   const numericDiaryId = useMemo(() => Number(diaryId), [diaryId]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [title, onChangeTitle] = useState('');
   const [content, onChangeContent] = useState('');
   const showToast = useShowToast();
 
@@ -37,7 +39,7 @@ function ResultScreen() {
         token: token!,
         diaryContent: {
           diaryId: numericDiaryId,
-          title: diaryData?.title ?? '',
+          title: title,
           content: content,
         },
       });
@@ -49,6 +51,7 @@ function ResultScreen() {
   };
 
   useEffect(() => {
+    if (diaryData?.title) onChangeTitle(diaryData.title);
     if (diaryData?.content) onChangeContent(diaryData.content);
   }, [diaryData]);
 
@@ -70,7 +73,23 @@ function ResultScreen() {
           <Text style={recordingResultStyles.nextButtonText}>일기 분석 보러가기 {">>"}</Text>
         </Pressable>
       </View>
-      <Text style={recordingResultStyles.title}>{diaryData?.title}</Text>
+      <View style={recordingResultStyles.titleInputContainer}>
+        <TextInput
+          style={[
+            recordingResultStyles.title,
+            {
+              borderBottomColor: isFocused ? '#132a9e' : '#ccc',
+              borderBottomWidth: 1,
+            },
+          ]}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onChangeText={onChangeTitle}
+          value={title}
+          underlineColorAndroid="transparent"
+          selectionColor="#132a9e"
+        />
+      </View>
       <View style={recordingResultStyles.resultContainer}>
         <TextInput
             style={recordingResultStyles.resultText}

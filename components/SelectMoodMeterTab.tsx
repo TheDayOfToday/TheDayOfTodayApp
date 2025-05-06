@@ -46,7 +46,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
     setSelectedMood(mood);
   };
 
-  // 완료 버튼 클릭 시 탭 닫힘
+  // 완료 버튼 클릭 시 탭을 닫음
   const handleSubmitPress = async () => {
     if (!selectedMood) {
       showToast('error', '선택 없음', '무드를 선택해주세요.');
@@ -81,8 +81,14 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
       backgroundStyle={moodSlidingTabStyles.backgroundSheet}
     >
       <BottomSheetScrollView style={moodSlidingTabStyles.sheetView}>
-        <View>
+        <View style={moodSlidingTabStyles.headerContainer}>
           <Text style={moodSlidingTabStyles.headerTitle}>무드미터 선택</Text>
+            <Pressable
+              onPress={handleSubmitPress}
+              style={moodSlidingTabStyles.submitButton}
+            >
+              <Text style={moodSlidingTabStyles.submitButtonText}>완료</Text>
+            </Pressable>
         </View>
         {loading && <Text>로딩 중...</Text>}
         <View style={moodSlidingTabStyles.content}>
@@ -120,14 +126,6 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
               </View>
             </View>
           ))}
-        </View>
-        <View style={moodSlidingTabStyles.submitButtonContainer}>
-          <Pressable
-            onPress={handleSubmitPress}
-            style={moodSlidingTabStyles.submitButton}
-          >
-            <Text style={moodSlidingTabStyles.submitButtonText}>완료</Text>
-          </Pressable>
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

@@ -41,7 +41,8 @@ export const styles = StyleSheet.create({
         height: 24,
         borderRadius: 12,
         marginBottom: 4,
-        backgroundColor: '#E8E8E8',
+        borderWidth: 1,
+        borderColor: '#e8e8e8',
       },     
       modalOverlay: {
         flex: 1,

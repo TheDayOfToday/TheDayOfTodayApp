@@ -7,12 +7,29 @@ export const moodSlidingTabStyles = StyleSheet.create({
     sheetView: {
         padding: 25,
     },
+    headerContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     headerTitle: {
-        fontFamily: 'Pretendard6',
+        fontFamily: 'Pretendard8',
         fontSize: 20,
         color: '#000',
         textAlign: 'left',
-        width: '100%',
+    },
+    submitButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 40,
+        borderRadius: 20,
+        backgroundColor: '#010717',
+    },
+    submitButtonText: {
+        fontFamily: 'Pretendard5',
+        fontSize: 16,
+        color: '#fff',
     },
     content: {
         paddingVertical: 20,
@@ -70,20 +87,5 @@ export const moodSlidingTabStyles = StyleSheet.create({
         fontFamily: 'Pretendard4',
         fontSize: 14,
         color: '#000',
-    },
-    submitButtonContainer: {
-        marginBottom: '15%',
-        alignItems: 'flex-end',
-    },
-    submitButton: {
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderRadius: 130,
-        backgroundColor: '#f5f5f5',
-    },
-    submitButtonText: {
-        fontFamily: 'Pretendard3',
-        fontSize: 16,
-        color: '#333',
     },
 });

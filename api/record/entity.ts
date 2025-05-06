@@ -1,22 +1,17 @@
 import type { APIResponse } from '../APIResponse';
 
 // 일기 삭제
-export interface DeleteUserResponse extends APIResponse { }
+export type DeleteDiaryRequest = {
+  year: string;
+  month: string;
+  day: string;
+};
+
+export interface DeleteResponse extends APIResponse { }
 
 // 대화 모드 - 시작
 export interface StartConversationResponse extends APIResponse {
   diaryId: number;
-}
-
-// 대화 모드 - 질문
-export type QuestionRequest = {
-  question: string;
-  diaryId: number;
-  file: File;
-}
-
-export interface QuestionResponse extends APIResponse {
-  question: string;
 }
 
 // 대화 모드 - 종료

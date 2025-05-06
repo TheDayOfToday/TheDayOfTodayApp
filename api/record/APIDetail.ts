@@ -1,9 +1,8 @@
 import { APIRequest, HTTP_METHOD } from '../APIRequest';
 import type {
+  DeleteDiaryRequest,
   DeleteResponse,
   StartConversationResponse,
-  QuestionRequest,
-  QuestionResponse,
   EndConversationResponse,
   MoodMetersResponse,
   UpdateMoodRequest,
@@ -19,27 +18,17 @@ export class DeleteDiary<R extends DeleteResponse> implements APIRequest<R> {
   path: string;
   response!: R;
   auth = true;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/delete/${diaryId}`;
+  constructor(public authorization: string, public data: DeleteDiaryRequest) {
+    this.path = `/diary/delete/${data.year}/${data.month}/${data.day}`;
   }
 }
 
 export class PostStartConversation<R extends StartConversationResponse> implements APIRequest<R> {
   method = HTTP_METHOD.POST;
-  path = '/diary/conversation-mood/start';
+  path = '/diary/conversation-mode/start';
   response!: R;
   auth = true;
   constructor(public authorization: string) { }
-}
-
-export class PostQuestion<R extends QuestionResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path = '/diary/conversation-mood/next-question';
-  response!: R;
-  auth = true;
-  constructor(public authorization: string, public data: QuestionRequest) {
-    this.path = `/diary/conversation-mode/next-question?question=${data.question}&diaryId=${data.diaryId}&file=${data.file}`;
-  }
 }
 
 export class PostEndConversation<R extends EndConversationResponse> implements APIRequest<R> {
@@ -48,7 +37,7 @@ export class PostEndConversation<R extends EndConversationResponse> implements A
   response!: R;
   auth = true;
   constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/conversation-mood/complete?diaryId=${diaryId}`;
+    this.path = `/diary/conversation-mode/complete?diaryId=${diaryId}`;
   }
 }
 

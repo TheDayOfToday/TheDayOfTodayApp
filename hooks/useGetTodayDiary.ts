@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getDiary } from '../api/record';
-import useToken from './useToken';
 
 const useGetTodayDiary = (token: string, diaryId: number | undefined) => {
   const { data, isLoading, error } = useQuery({

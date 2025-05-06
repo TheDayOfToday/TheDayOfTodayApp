@@ -9,6 +9,7 @@ export const useSignUp = () => {
 
   const signUp = async (userData: SignUpRequest) => {
     const { name, email, password, phoneNumber } = userData;
+    const showToast = useShowToast();
 
     if (!name || !email || !password || !phoneNumber) {
       showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
