@@ -8,7 +8,7 @@ export const useAnalysisEntry = (date: CalendarRequest, enabled: boolean) => {
     queryKey: ['analysis', date],
     queryFn: async () => {
       const token = await AsyncStorage.getItem('accessToken');
-      if (!token) throw new Error('토큰 없음');
+      if (!token) throw new Error('토큰 없음'); else console.log(token);
       return await getAnalysis(token, date);
     },
     enabled,

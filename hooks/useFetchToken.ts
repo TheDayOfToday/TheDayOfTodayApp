@@ -1,52 +1,37 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
-import useShowToast from './useShowToast';
-
-interface TokenResponse {
-  accessToken: string;
-}
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { postLogin } from '@/api/my'; // index.ts 경로
+import type { LoginRequest } from '@/api/my/entity';
 
 export const useFetchToken = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const showToast = useShowToast();
+  const [error, setError] = useState<Error | null>(null);
 
-  const fetchTokens = async (email: string, password: string): Promise<TokenResponse> => {
+  const fetchToken = async (email: string, password: string) => {
     setLoading(true);
     setError(null);
 
-    try {          
-      const response = await fetch('https://thedayoftoday.kro.kr/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json',},
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
-      }); 
-      console.log('Authorization:', response.headers.get('Authorization'));
-      
-      const authHeader = response.headers.get('Authorization');      
-      if (!authHeader || !authHeader.startsWith('Bearer')) {
-        throw new Error('accessToken을 받아오지 못했습니다.');
+    const payload: LoginRequest = { email, password };
+
+    try {
+      const response = await postLogin(payload);
+      console.log('🔐 로그인 응답:', response);
+
+      if (response.accessToken) {
+        await AsyncStorage.setItem('accessToken', response.accessToken);
       }
-      const accessToken = authHeader.replace('Bearer', '');
-      console.log('Access Token:', accessToken);
+      if (response.refreshToken) {
+        await AsyncStorage.setItem('refreshToken', response.refreshToken);
+      }
 
-      await AsyncStorage.setItem('accessToken', accessToken);      
-
-      if (!response.ok) {        
-        const errorData = await response.json();
-        throw new Error(errorData?.message || '응답 에러로 로그인 실패');
-      } else {
-        console.log('서버에 응답 전해짐')
-      }          
-      return { accessToken };
+      return response;
     } catch (err: any) {
-      setError(err.message);
+      setError(err);
       throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  return { fetchTokens, loading, error };
+  return { fetchToken, loading, error };
 };

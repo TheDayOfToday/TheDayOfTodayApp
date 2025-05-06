@@ -1,5 +1,5 @@
 import { APIRequest, HTTP_METHOD } from "../APIRequest"
-import { CalendarRequest, DiaryResponse, CalendarColorResponse, DiaryEntity, AnalysisEntity } from "./entity"
+import { CalendarRequest, CalendarColorResponse, DiaryEntity, AnalysisEntity } from "./entity"
 
 export class GetCalendarColor<R extends CalendarColorResponse> implements APIRequest<R> {
     method = HTTP_METHOD.GET;
