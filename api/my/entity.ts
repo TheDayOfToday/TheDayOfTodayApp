@@ -37,6 +37,6 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
-export interface UpdatePasswordResponse {
-    message: string;
+export interface EditPasswordRequest {
+    newPassword: string;
 }
