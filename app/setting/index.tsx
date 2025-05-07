@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '../hooks/useShowToast';
+import useShowToast from '../../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
 import { getUserInfo, deleteUser } from '@/api/my';

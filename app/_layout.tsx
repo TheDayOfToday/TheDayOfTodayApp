@@ -68,8 +68,10 @@ export default function RootLayout() {
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="signIn" options={{headerShown: false}} />
-        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
+        <Stack.Screen name="signIn" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
+        <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <Toast config={toastConfig} />

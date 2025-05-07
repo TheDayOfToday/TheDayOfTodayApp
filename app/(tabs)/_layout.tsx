@@ -2,22 +2,23 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Tabs, usePathname } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Tabs, usePathname, useRouter } from 'expo-router';
+import { Pressable, View } from 'react-native';
 import { layoutStyles } from '../../styles/layoutStyles';
 
 function TabLayout() {
-  const SettingButton = ({ navigation }: { navigation: any }) => (
-    <Text
+  const router = useRouter();
+  const SettingButton = () => (
+    <Pressable
       style={layoutStyles.settingButton}
-      onPress={() => navigation.navigate('setting')}
+      onPress={() => router.push('/setting')}
     >
       <Ionicons
         name="settings-outline"
         size={24}
         color="white"
       />
-    </Text>
+    </Pressable>
   );
 
   const pathname = usePathname();
@@ -32,7 +33,7 @@ function TabLayout() {
         headerTitle: '오늘의 하루',
         headerTitleStyle: layoutStyles.headerTitle,
         headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
-        headerRight: () => <SettingButton navigation={navigation} />,
+        headerRight: () => <SettingButton />,
         tabBarStyle: layoutStyles.tabBar,
         tabBarLabelStyle: layoutStyles.tabBarLabel,
         tabBarIconStyle: layoutStyles.tabBarIcon,
