@@ -151,7 +151,7 @@ function Conversation() {
         </View>
         <SafeAreaView style={recordingScreenStyles.recordingContainer}>
           <LottieView
-            source={require('../../../assets/RecordingAnimation.json')}
+            source={require('../../assets/RecordingAnimation.json')}
             autoPlay
             loop
             speed={3}

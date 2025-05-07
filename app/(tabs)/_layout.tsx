@@ -22,13 +22,12 @@ function TabLayout() {
   );
 
   const pathname = usePathname();
-  const isModeTab = pathname === "/recording";
-  const isRecording = pathname === "/recording/conversation" || pathname === "/recording/monologue";
+  const isModeTab = pathname === "/record";
 
   return (
     <Tabs
       screenOptions={({ navigation }) => ({
-        headerShown: isRecording ? false : true,
+        headerShown: true,
         headerStyle: isModeTab ? layoutStyles.modeTabHeader : layoutStyles.header,
         headerTitle: '오늘의 하루',
         headerTitleStyle: layoutStyles.headerTitle,
@@ -55,7 +54,7 @@ function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="recording"
+        name="record"
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused, color }) => (
@@ -79,7 +78,7 @@ function TabLayout() {
         listeners={({ navigation}) => ({
           tabPress: (e) => {
             e.preventDefault();
-            navigation.navigate('recording', { openBottomSheet: true });
+            navigation.navigate('record', { openBottomSheet: true });
           },
         })}
       />

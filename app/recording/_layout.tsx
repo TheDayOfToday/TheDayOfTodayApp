@@ -4,10 +4,10 @@ export default function RecordLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="index" 
-        options={{ 
+        name="index"
+        options={{
           headerShown: false,
-        }} 
+        }}
       />
       <Stack.Screen
         name="monologue"
@@ -23,15 +23,11 @@ export default function RecordLayout() {
       />
       <Stack.Screen
         name="result"
-        options={{
-          headerShown: false,
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="daily-analysis"
-        options={{
-          headerShown: false,
-        }}
+        options={{ headerShown: true, title: '', headerShadowVisible: false, }}
       />
     </Stack>
   );
