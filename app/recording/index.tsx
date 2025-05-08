@@ -9,7 +9,7 @@ import useDeleteDiary from '@/hooks/useDeleteDiary';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import useConversationStart from '@/hooks/useConversationStart';
 import { modeSlidingTabStyles } from '@/styles/modeSlidingTabStyles';
-import { deleteDiaryModalStyles } from '@/styles/deleteDiaryModalStyles';
+import { ModalStyles } from '@/styles/modalStyles';
 
 type SelectModeTabRouteProp = RouteProp<
   { recording: { openBottomSheet?: boolean } },
@@ -118,25 +118,25 @@ function SelectModeTab() {
             visible={modalVisible}
             onRequestClose={() => setModalVisible(false)}
           >
-            <View style={deleteDiaryModalStyles.modalOverlay}>
-              <View style={deleteDiaryModalStyles.modalContent}>
-                <Text style={deleteDiaryModalStyles.modalTitle}>오늘의 일기가 이미 있습니다.</Text>
-                <Text style={deleteDiaryModalStyles.modalSubtitle}>기존 일기를 삭제하시겠습니까?</Text>
-                <View style={deleteDiaryModalStyles.modalButtonContainer}>
+            <View style={ModalStyles.modalOverlay}>
+              <View style={ModalStyles.modalContent}>
+                <Text style={ModalStyles.modalTitle}>오늘의 일기가 이미 있습니다.</Text>
+                <Text style={ModalStyles.modalSubtitle}>기존 일기를 삭제하시겠습니까?</Text>
+                <View style={ModalStyles.modalButtonContainer}>
                   <Pressable
-                    style={deleteDiaryModalStyles.deleteDiaryButton}
+                    style={ModalStyles.deleteDiaryButton}
                     onPress={() => {
                       onPressDeleteDiary();
                       setModalVisible(false)
                     }
                   }>
-                    <Text style={deleteDiaryModalStyles.deleteDiaryButtonText}>삭제</Text>
+                    <Text style={ModalStyles.deleteDiaryButtonText}>삭제</Text>
                   </Pressable>
                   <Pressable
-                    style={deleteDiaryModalStyles.modalButton}
+                    style={ModalStyles.cancelButton}
                     onPress={() => setModalVisible(false)}
                   >
-                    <Text style={deleteDiaryModalStyles.modalButtonText}>취소</Text>
+                    <Text style={ModalStyles.cancelButtonText}>취소</Text>
                   </Pressable>
                 </View>
               </View>
