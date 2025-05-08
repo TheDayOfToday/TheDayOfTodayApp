@@ -7,7 +7,7 @@ interface ConversationEndProps {
   token: string;
   question: string;
   diaryId: number;
-  audioUri: string;
+  audioUri?: string;
 }
 
 const useConversationEnd = () => {
@@ -21,20 +21,36 @@ const useConversationEnd = () => {
       audioUri,
     }: ConversationEndProps) => {
       const uploadUrl = Constants.expoConfig?.extra?.API_BASE_URL + `/diary/conversation-mode/complete?question=${question}&diaryId=${diaryId}`;
-      const result = await FileSystem.uploadAsync(uploadUrl, audioUri, {
-        fieldName: 'file',
-        httpMethod: 'POST',
-        uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      if(result.status !== 200 && result.status !== 201) {
-        throw new Error('대화 실패: &{result.status}');
-      }
+            
+      if (audioUri) {
+        const result = await FileSystem.uploadAsync(uploadUrl, audioUri, {
+          fieldName: 'file',
+          httpMethod: 'POST',
+          uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        if (result.status !== 200 && result.status !== 201) {
+          throw new Error(`대화 실패: ${result.status}`);
+        }
 
-      return JSON.parse(result.body);
+        return JSON.parse(result.body);
+      } else {
+        const response = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`대화 실패: ${response.status}`);
+        }
+
+        return await response.json();
+      }
     },
     onError: (error) => {
       console.log('대화모드 일기 업로드 실패', error);

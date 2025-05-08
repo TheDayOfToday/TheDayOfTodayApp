@@ -21,9 +21,10 @@ export const recordingScreenStyles = StyleSheet.create({
         alignItems: 'center',
     },
     message: {
+        textAlign: 'center',
         color: '#aac9ff',
         fontFamily: 'Pretendard3',
-        fontSize: 28,
+        fontSize: 26,
     },
     // 대화 모드 질문 받기 버튼
     nextButtonContainer: {
@@ -95,9 +96,12 @@ export const recordingScreenStyles = StyleSheet.create({
         paddingBottom: 50,
     },
     completeButton: {
-        paddingVertical: 20,
-        paddingHorizontal: 20,
-        borderRadius: 30,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 70,
+        height: 70,
+        borderRadius: 40,
         backgroundColor: '#ff5d5d',
     },
 });

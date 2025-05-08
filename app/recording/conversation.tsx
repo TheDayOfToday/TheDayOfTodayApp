@@ -133,25 +133,17 @@ function Conversation() {
       return;
     }
 
-    const uri = await stopRecording();
-
-    if (!uri) return;
-
     try {
       await conversationEndMutate({
         token: token!,
         question,
         diaryId: Number(diaryId),
-        audioUri: uri,
+        audioUri: recordedUri ?? undefined,
       });
     } catch (error) {
       console.error('대화 종료 중 오류 발생:', error);
     }
   };
-
-  const onPressCompleteCancelButton = () => {
-    router.back();
-  }
 
   return(
     <GestureHandlerRootView>
@@ -218,7 +210,7 @@ function Conversation() {
                 <Pressable
                   style={ModalStyles.finishButton}
                   onPress={() => {
-                    onPressCompleteCancelButton();
+                    router.back()
                     setShowExitModal(false)
                   }
                 }>

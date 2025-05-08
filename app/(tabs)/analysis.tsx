@@ -81,7 +81,7 @@ function AnalysisScreen() {
       {weeklyAnalysis?.title ? (
         <Text style={analysisScreenStyles.headerText}>{weeklyAnalysis?.title}</Text>
       ): 
-        <Text style={analysisScreenStyles.headerText}>이번 주 일기가 없습니다!</Text>
+        <Text style={analysisScreenStyles.headerText}>이 기간에 일기가 없습니다!</Text>
       }
       </View>
       <View style={analysisScreenStyles.contentContainer}>
