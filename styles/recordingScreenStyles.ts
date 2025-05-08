@@ -13,6 +13,18 @@ export const recordingScreenStyles = StyleSheet.create({
         paddingTop: '20%',
         height: '100%',
     },
+    loadingLottieContainer: {
+        height: '7%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingLottie: {
+        width: '100%',
+        height: '100%',
+    },
     messageContainer: {
         width: '100%',
         display: 'flex',

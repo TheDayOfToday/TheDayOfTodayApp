@@ -12,6 +12,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 import { ModalStyles } from '@/styles/modalStyles';
+import LoadingScreen from '@/components/Loading';
 
 const recordingOptions = {
   android: {
@@ -38,11 +39,13 @@ const recordingOptions = {
 function Conversation() {
   const {
     mutateAsync: questionMutate,
+    isPending: isNextPending,
   } = useConversationQuestion();
   
   const {
     mutateAsync: conversationEndMutate,
     isSuccess,
+    isPending: isEndPending,
   } = useConversationEnd();
 
   const token = useToken();
@@ -147,54 +150,70 @@ function Conversation() {
 
   return(
     <GestureHandlerRootView>
-      <View style={recordingScreenStyles.recordScreen}>
-        <View style={recordingScreenStyles.messageContainer}>
-          <Text style={recordingScreenStyles.message}>{question}</Text>
-        </View>
-        <View style={recordingScreenStyles.nextButtonContainer}>
-          <Pressable
-            style={[
-              recordingScreenStyles.nextButton,
-              !questionButtonEnabled || isRecording ? { opacity: 0.4 } : {}
-            ]}
-            onPress={onPressNextButton}
-            disabled={!questionButtonEnabled || isRecording}
-          >
-            <Text style={recordingScreenStyles.nextButtonText}>질문 받기</Text>
-          </Pressable>
-        </View>
-        <SafeAreaView style={recordingScreenStyles.recordingContainer}>
-          <LottieView
-            source={require('../../assets/RecordingAnimation.json')}
-            autoPlay
-            loop
-            speed={isRecording ? 5 : 0}
-            style={recordingScreenStyles.lottie}
-          />
-        </SafeAreaView>
-        <View style={recordingScreenStyles.completeButtonContainer}>
-          <Pressable
-            style={recordingScreenStyles.playButton}
-            onPress={onPressRecordButton}
-          >
-            {isRecording ? (
-              <FontAwesome name="square" size={40} color="#fff" />
-            ): (
-              <FontAwesome name="circle" size={40} color="#fff" />
-            )}
-          </Pressable>
-          <Pressable
-            style={[
-              recordingScreenStyles.completeButton,
-              isRecording && { opacity: 0.4 }
-            ]}
-            onPress={onPressSubmitButton}
-            disabled={isRecording}
-          >
-            <MaterialIcons name="call-end" size={30} color="#fff" />
-          </Pressable>
-        </View>
-      </View>
+      {isEndPending ? (
+        <LoadingScreen />
+      ) : (
+        <View style={recordingScreenStyles.recordScreen}>
+          {isNextPending ? (
+            <SafeAreaView style={recordingScreenStyles.loadingLottieContainer}>
+              <LottieView
+                source={require('../../assets/loading.json')}
+                autoPlay
+                loop
+                speed={1}
+                style={recordingScreenStyles.loadingLottie}
+              />
+            </SafeAreaView>
+          ) : (
+            <View style={recordingScreenStyles.messageContainer}>
+              <Text style={recordingScreenStyles.message}>{question}</Text>
+            </View>
+          )}
+          <View style={recordingScreenStyles.nextButtonContainer}>
+            <Pressable
+              style={[
+                recordingScreenStyles.nextButton,
+                !questionButtonEnabled || isRecording ? { opacity: 0.4 } : {}
+              ]}
+              onPress={onPressNextButton}
+              disabled={!questionButtonEnabled || isRecording}
+            >
+              <Text style={recordingScreenStyles.nextButtonText}>질문 받기</Text>
+            </Pressable>
+          </View>
+          <SafeAreaView style={recordingScreenStyles.recordingContainer}>
+            <LottieView
+              source={require('../../assets/RecordingAnimation.json')}
+              autoPlay
+              loop
+              speed={isRecording ? 5 : 0}
+              style={recordingScreenStyles.lottie}
+            />
+          </SafeAreaView>
+          <View style={recordingScreenStyles.completeButtonContainer}>
+            <Pressable
+              style={recordingScreenStyles.playButton}
+              onPress={onPressRecordButton}
+            >
+              {isRecording ? (
+                <FontAwesome name="square" size={40} color="#fff" />
+              ): (
+                <FontAwesome name="circle" size={40} color="#fff" />
+              )}
+            </Pressable>
+            <Pressable
+              style={[
+                recordingScreenStyles.completeButton,
+                isRecording && { opacity: 0.4 }
+              ]}
+              onPress={onPressSubmitButton}
+              disabled={isRecording}
+            >
+              <MaterialIcons name="call-end" size={30} color="#fff" />
+            </Pressable>
+          </View>
+        </View>  
+      )}
       {showExitModal && (
         <Modal
           animationType="slide"

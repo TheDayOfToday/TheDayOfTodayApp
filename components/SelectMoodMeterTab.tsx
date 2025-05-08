@@ -4,10 +4,10 @@ import useToken from '@/hooks/useToken';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import Entypo from '@expo/vector-icons/Entypo';
+import usePostMoodMeters from '@/hooks/usePostMoodMeters';
 import useGetMoodMeters from '@/hooks/useGetMoodMeters';
 import useShowToast from '@/hooks/useShowToast';
 import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
-import usePostMoodMeters from '@/hooks/usePostMoodMeters';
 
 interface SelectMoodTabProps {
   diaryId: number;
@@ -46,10 +46,6 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
     showToast('error', '로딩 실패', '무드미터를 불러오는 데에 실패했습니다.');
     return null;
   };
-  
-  if (loading) {
-    return <Text>로딩 중...</Text>;
-  }
 
   // 무드미터 선택 시 핸들러 함수
   const onPressMood = (mood: { moodName: string; color: string }) => {

@@ -13,7 +13,7 @@ interface ConversationEndProps {
 const useConversationEnd = () => {
   const showToast = useShowToast();
 
-  const { mutateAsync, data, isSuccess } = useMutation({
+  const { mutateAsync, data, isSuccess, isPending } = useMutation({
     mutationFn: async ({
       token,
       question,
@@ -62,6 +62,7 @@ const useConversationEnd = () => {
     mutateAsync,
     data,
     isSuccess,
+    isPending,
   }
 }
 

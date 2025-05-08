@@ -13,7 +13,7 @@ interface ConversationQuestionProps {
 const useConversationQuestion = () => {
   const showToast = useShowToast();
 
-  const { mutateAsync, data, isSuccess } = useMutation({
+  const { mutateAsync, data, isSuccess, isPending } = useMutation({
     mutationFn: async ({
       token,
       question,
@@ -46,6 +46,7 @@ const useConversationQuestion = () => {
     mutateAsync,
     data,
     isSuccess,
+    isPending,
   }
 }
 

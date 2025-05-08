@@ -5,13 +5,14 @@ import useShowToast from '@/hooks/useShowToast';
 import { Calendar } from 'react-native-calendars';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
-import { calendarModalStyles } from '@/styles/calendarModalStyles';
-import { styles } from '../../styles/calendarScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
 import useDeleteDiary from '@/hooks/useDeleteDiary';
 import { useCalendarColors } from '@/hooks/useCalendarColor';
+import LottieView from 'lottie-react-native';
+import { calendarModalStyles } from '@/styles/calendarModalStyles';
+import { styles } from '../../styles/calendarScreenStyles';
 
 function CalendarScreen() {
   const token = useToken();
@@ -117,7 +118,15 @@ function CalendarScreen() {
             dayComponent={CustomDay}
           />
         ) : (
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>달력 준비 중...</Text>
+          <SafeAreaView style={styles.loadingLottieContainer}>
+            <LottieView
+              source={require('../../assets/loading.json')}
+              autoPlay
+              loop
+              speed={1}
+              style={styles.loadingLottie}
+            />
+          </SafeAreaView>
         )}
 
         <Modal

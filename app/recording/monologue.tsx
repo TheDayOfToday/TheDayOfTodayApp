@@ -5,6 +5,7 @@ import SelectMoodTab from '@/components/SelectMoodMeterTab';
 import usePostMonologue from '@/hooks/usePostMonologue';
 import { Audio } from 'expo-av';
 import LottieView from 'lottie-react-native';
+import LoadingScreen from '@/components/Loading';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 
 const recordingOptions = {
@@ -32,7 +33,7 @@ const recordingOptions = {
 function Monologue() {
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const { mutate: sendMonologue, data, isSuccess} = usePostMonologue();
+  const { mutate: sendMonologue, data, isSuccess, isPending} = usePostMonologue();
 
   const startRecording = async () => {
     try {
@@ -91,28 +92,32 @@ function Monologue() {
 
   return(
     <GestureHandlerRootView>
-      <View style={recordingScreenStyles.recordScreen}>
-        <View style={recordingScreenStyles.messageContainer}>
-          <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
+      {isPending ? (
+        <LoadingScreen />
+      ) : (
+        <View style={recordingScreenStyles.recordScreen}>
+          <View style={recordingScreenStyles.messageContainer}>
+            <Text style={recordingScreenStyles.message}>당신의 하루를 들려주세요</Text>
+          </View>
+          <SafeAreaView style={recordingScreenStyles.recordingContainer}>
+            <LottieView
+              source={require('../../assets/RecordingAnimation.json')}
+              autoPlay
+              loop
+              speed={3}
+              style={recordingScreenStyles.lottie}
+            />
+          </SafeAreaView>
+          <View style={recordingScreenStyles.submitButtonContainer}>
+            <Pressable
+              style={recordingScreenStyles.submitButton}
+              onPress={onPressSubmitButton}
+            >
+              <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
+            </Pressable>
+          </View>
         </View>
-        <SafeAreaView style={recordingScreenStyles.recordingContainer}>
-          <LottieView
-            source={require('../../assets/RecordingAnimation.json')}
-            autoPlay
-            loop
-            speed={3}
-            style={recordingScreenStyles.lottie}
-          />
-        </SafeAreaView>
-        <View style={recordingScreenStyles.submitButtonContainer}>
-          <Pressable
-            style={recordingScreenStyles.submitButton}
-            onPress={onPressSubmitButton}
-          >
-            <Text style={recordingScreenStyles.submitButtonText}>마침</Text>
-          </Pressable>
-        </View>
-      </View>
+      )}
       {isSuccess && data && (
         <SelectMoodTab diaryId={data.diaryId}/>
       )}

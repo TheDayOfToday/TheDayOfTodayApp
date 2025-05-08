@@ -7,7 +7,16 @@ export const styles = StyleSheet.create({
       },
       container: {
         flex: 1,
-      },      
+      },
+      loadingLottieContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      loadingLottie: {
+        width: '50%',
+        height: '50%',
+      },
       calendar: {        
         paddingHorizontal: 10,
         paddingVertical: 10,
