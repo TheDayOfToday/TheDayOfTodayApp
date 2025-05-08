@@ -18,6 +18,7 @@ export const layoutStyles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     headerTitle: {
+        width: '100%',
         fontFamily: 'Pretendard4',
         fontSize: 20,
         color: '#fff',

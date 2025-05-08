@@ -14,11 +14,6 @@ export interface StartConversationResponse extends APIResponse {
   diaryId: number;
 }
 
-// 대화 모드 - 종료
-export interface EndConversationResponse extends APIResponse {
-  diaryId: number;
-}
-
 // AI 추천 및 무드미터 조회
 export type DiarySuggestionMood = {
   moodName: string;

@@ -13,7 +13,7 @@ function DailyAnalysisScreen() {
   const { mutate: analysisMutate, data, isPending} = usePostAnalyze();
 
   const handleSubmitPress = useCallback(() => {
-    router.push('/(tabs)/recording');
+    router.push('/(tabs)/record');
   }, []);
 
   useEffect(() => {

@@ -21,9 +21,6 @@ const usePostMoodMeters = () => {
         diaryId,
         moodMeter
       }: PostMoodMetersProps) => postMoodMeters(token!, diaryId, moodMeter ),
-    onSuccess: () => {
-      showToast('success', '업로드 성공', '무드미터를 저장하였습니다.');
-    },
     onError: (error) => {
       showToast('error', '업로드 실패', '무드미터를 저장하지 못하였습니다.');
     },

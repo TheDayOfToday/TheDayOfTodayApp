@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '../hooks/useShowToast';
+import useShowToast from '../../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
 import { getUserInfo, deleteUser } from '@/api/my';
@@ -31,16 +31,13 @@ function SettingScreen() {
     const fetchUserInfo = async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
-        console.error('토큰이 없습니다.');
         return;
       }
   
       try {
         const data: UserInfoResponse = await getUserInfo(token);
-        console.log('유저 정보:', data);
         setUser(data);
       } catch (err) {
-        console.error('유저 정보 불러오기 실패', err);
         showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
       }
     };
@@ -50,8 +47,7 @@ function SettingScreen() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken');
-    console.log('accessToken 삭제 완료');
-    showToast('success', '로그아웃 완료', '다음에 또 만나요 👋');
+    showToast('success', '로그아웃 되었습니다.', '다음에 또 만나요 👋');
     router.replace('/signIn');
   };
 
@@ -68,8 +64,7 @@ function SettingScreen() {
       await AsyncStorage.removeItem('accessToken');
       router.replace('/signIn');
     } catch (error) {
-      console.error('회원 탈퇴 실패', error);
-      showToast('error', '오류', '회원 탈퇴에 실패했습니다.');
+      showToast('error', '회원 탈퇴 실패', '다시 시도해주세요.');
     }
   };
 

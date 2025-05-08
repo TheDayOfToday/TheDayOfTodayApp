@@ -45,7 +45,6 @@ function ResultScreen() {
       });
       showToast('success', '저장 완료', '오늘의 일기가 저장되었습니다.');
     } catch (error) {
-      console.log('일기 업로드 실패', error);
       showToast('error', '업로드 실패', '일기를 저장하는 데에 실패했습니다.');
     }
   };

@@ -4,10 +4,10 @@ import useToken from '@/hooks/useToken';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useRouter } from 'expo-router';
 import Entypo from '@expo/vector-icons/Entypo';
+import usePostMoodMeters from '@/hooks/usePostMoodMeters';
 import useGetMoodMeters from '@/hooks/useGetMoodMeters';
 import useShowToast from '@/hooks/useShowToast';
 import { moodSlidingTabStyles } from '@/styles/moodSlidingTabStyles';
-import usePostMoodMeters from '@/hooks/usePostMoodMeters';
 
 interface SelectMoodTabProps {
   diaryId: number;
@@ -23,12 +23,22 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
   const { data, loading, error } = diaryId ? useGetMoodMeters(diaryId) : { data: undefined, loading: true, error: undefined };
   const diaryMood = data?.diaryMood;
   const moodCategories = data?.moodCategories ?? [];
-  const [selectedMood, setSelectedMood] = useState<{ moodName: string; color: string } | null>(
-    diaryMood ? {
-      moodName: diaryMood.moodName,
-      color: diaryMood.moodColor,
-    } : null
-  );
+  // const [selectedMood, setSelectedMood] = useState<{ moodName: string; color: string } | null>(
+  //   diaryMood ? {
+  //     moodName: diaryMood.moodName,
+  //     color: diaryMood.moodColor,
+  //   } : null
+  // );
+  const [selectedMood, setSelectedMood] = useState<{ moodName: string; color: string } | null>(null);
+
+  useEffect(() => {
+    if (diaryMood) {
+      setSelectedMood({
+        moodName: diaryMood.moodName,
+        color: diaryMood.moodColor,
+      });
+    }
+  }, [diaryMood]);
 
   const { mutate: moodMeterMutate } = usePostMoodMeters();
   
@@ -36,10 +46,6 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
     showToast('error', '로딩 실패', '무드미터를 불러오는 데에 실패했습니다.');
     return null;
   };
-  
-  if (loading) {
-    return <Text>로딩 중...</Text>;
-  }
 
   // 무드미터 선택 시 핸들러 함수
   const onPressMood = (mood: { moodName: string; color: string }) => {
@@ -68,7 +74,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
         params: { diaryId: diaryId.toString() },
       });
     } catch (e) {
-      console.error('무드미터 전송 실패:', e);
+      showToast('error', '무드미터 저장 실패', '무드미터 저장에 실패하였습니다.');
     }
   };
 
@@ -116,6 +122,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
                     style={() => [
                       moodSlidingTabStyles.moodButton,
                       selectedMood === mood && moodSlidingTabStyles.selectedMoodButton,
+                      selectedMood?.moodName === mood.moodName && moodSlidingTabStyles.selectedMoodButton,
                       { borderColor: mood.color },
                     ]}
                   >

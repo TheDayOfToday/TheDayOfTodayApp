@@ -9,13 +9,14 @@ interface PutUpdateDiaryProps {
 }
 
 const usePutUpdateDiary = () => {
+  const showToast = useShowToast();
   const { mutate } = useMutation({
     mutationFn: async ({
       token,
       diaryContent,
     }: PutUpdateDiaryProps) => putUpdateDiary(token, diaryContent),
     onError: (error) => {
-      console.log('일기 불러오기 실패', error);
+      showToast('error', '분석 불러오기 실패', '분석 불러오는 데에 실패하였습니다.');
     },
   }); 
 

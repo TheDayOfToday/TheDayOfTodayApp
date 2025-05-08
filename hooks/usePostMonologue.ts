@@ -8,7 +8,7 @@ const usePostMonologue = () => {
   const token  = useToken();
   const showToast = useShowToast();
 
-  const { mutate, data, isSuccess} = useMutation({
+  const { mutate, data, isSuccess, isPending} = useMutation({
     mutationFn: async (audioUri: string) => {
 
       const uploadUrl = Constants.expoConfig?.extra?.API_BASE_URL + '/diary/monologue';
@@ -37,6 +37,7 @@ const usePostMonologue = () => {
     mutate,
     data,
     isSuccess,
+    isPending,
   };
 };
 

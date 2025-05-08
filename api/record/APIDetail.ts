@@ -3,7 +3,6 @@ import type {
   DeleteDiaryRequest,
   DeleteResponse,
   StartConversationResponse,
-  EndConversationResponse,
   MoodMetersResponse,
   UpdateMoodRequest,
   UpdateMoodResponse,
@@ -29,16 +28,6 @@ export class PostStartConversation<R extends StartConversationResponse> implemen
   response!: R;
   auth = true;
   constructor(public authorization: string) { }
-}
-
-export class PostEndConversation<R extends EndConversationResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path: string;
-  response!: R;
-  auth = true;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/conversation-mode/complete?diaryId=${diaryId}`;
-  }
 }
 
 export class GetMoodMeters<R extends MoodMetersResponse> implements APIRequest<R> {

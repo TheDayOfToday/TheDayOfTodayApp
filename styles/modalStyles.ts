@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const deleteDiaryModalStyles = StyleSheet.create({
+export const ModalStyles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -34,10 +34,23 @@ export const deleteDiaryModalStyles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  finishButton: {
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: '#0e0c26',
+    borderRadius: 5,
+    alignItems: 'center',
+    width: '45%',
+  },
+  finishButtonText: {
+    fontFamily: 'pretendard5',
+    fontSize: 16,
+    color: '#eee',
+  },
   deleteDiaryButton: {
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#EEE',
+    backgroundColor: '#0e0c26',
     borderRadius: 5,
     alignItems: 'center',
     width: '45%',
@@ -47,17 +60,17 @@ export const deleteDiaryModalStyles = StyleSheet.create({
     fontSize: 16,
     color: '#ff4f4f',
   },
-  modalButton: {
+  cancelButton: {
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#0e0c26',
+    backgroundColor: '#eee',
     borderRadius: 5,
     alignItems: 'center',
     width: '45%',
   },
-  modalButtonText: {
+  cancelButtonText: {
     fontFamily: 'pretendard5',
     fontSize: 16,
-    color: 'white',
+    color: '#0e0c26',
   },
 });
