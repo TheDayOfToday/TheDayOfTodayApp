@@ -3,9 +3,9 @@ import { getDiary } from '@/api/diary';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CalendarRequest } from '@/api/diary/entity';
 
-export const useDiaryEntry = (date: CalendarRequest, enabled: boolean, version: number) => {
+export const useDiaryEntry = (date: CalendarRequest, enabled: boolean) => {
   return useQuery({
-    queryKey: ['diary', date, version],
+    queryKey: ['diary', date],
     queryFn: async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) throw new Error('토큰 없음');      

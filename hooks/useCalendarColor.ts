@@ -1,45 +1,27 @@
-// useCalendarColors.ts
 import { useQuery } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCalendarColor } from '@/api/diary';
+import useToken from './useToken';
 
 const resolveDotColor = (raw: string) => {
-  if (raw === '미분석') return '#ffffff';
-  return raw;
+  return raw === '미분석' ? '#ffffff' : raw;
 };
 
 const fetchAllMoodColors = async () => {
   const token = await AsyncStorage.getItem('accessToken');
   if (!token) throw new Error('Access token not found');
 
-  const thisYear = new Date().getFullYear();
-  const monthRequests = [];
+  const year = new Date().getFullYear().toString();
 
-  for (let m = 1; m <= 12; m++) {
-    const monthStr = m.toString().padStart(2, '0');
-    monthRequests.push({
-      monthStr,
-      request: getCalendarColor(token, {
-        year: thisYear.toString(),
-        month: monthStr,
-        day: '01',
-      }),
-    });
-  }
-
-  const earlyResults = await Promise.all(monthRequests.slice(0, 2).map((m) => m.request));
-  const markedDates: { [key: string]: any } = {};
-  earlyResults.forEach((res) => {
-    Object.entries(res?.colors ?? {}).forEach(([date, color]) => {
-      markedDates[date] = {
-        marked: true,
-        dotColor: resolveDotColor(color),
-      };
-    });
+  const monthPromises = Array.from({ length: 12 }, (_, i) => {
+    const month = (i + 1).toString().padStart(2, '0');
+    return getCalendarColor(token, { year, month, day: '01' });
   });
 
-  const lateResults = await Promise.all(monthRequests.slice(2).map((m) => m.request));
-  lateResults.forEach((res) => {
+  const results = await Promise.all(monthPromises);
+  const markedDates: { [key: string]: any } = {};
+
+  results.forEach((res) => {
     Object.entries(res?.colors ?? {}).forEach(([date, color]) => {
       markedDates[date] = {
         marked: true,
@@ -51,10 +33,12 @@ const fetchAllMoodColors = async () => {
   return markedDates;
 };
 
-export const useCalendarColors = (version: number) => {
+export const useCalendarColors = () => {
+  const token = useToken();
   const { data, isLoading } = useQuery({
-    queryKey: ['calendarColors', version],
+    queryKey: ['calendarColors'],
     queryFn: fetchAllMoodColors,
+    enabled: !!token,
   });
 
   return {

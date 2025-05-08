@@ -20,15 +20,14 @@ function CalendarScreen() {
   const { mutateAsync: deleteDiary } = useDeleteDiary();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDateObj, setSelectedDateObj] = useState(new Date());
-  const [calendarVersion, setCalendarVersion] = useState(0);
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
   const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);  
 
-  const diary = useDiaryEntry(calendarDate, modalVisible, calendarVersion);
+  const diary = useDiaryEntry(calendarDate, modalVisible);
   const analysis = useAnalysisEntry(calendarDate, modalVisible);
-  const { markedDates, moodColorsReady } = useCalendarColors(calendarVersion);
+  const { markedDates, moodColorsReady } = useCalendarColors();
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -40,17 +39,6 @@ function CalendarScreen() {
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
   };
-
-  const handleDiaryUpdate = () => {
-    setCalendarVersion((prev) => prev + 1);    
-  }
-
-   // 캘린더 진입 시마다 다이어리 업데이트(리패치) 실행
-  useFocusEffect(
-    useCallback(() => {
-      handleDiaryUpdate();
-    }, [])
-  );
 
   const CustomDay = ({ date, state, marking }: any) => {
     const today = new Date();

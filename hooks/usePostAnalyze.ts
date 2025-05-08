@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import useToken from './useToken';
 import { postDiaryAnalysis } from '@/api/record';
 import useShowToast from './useShowToast';
 
