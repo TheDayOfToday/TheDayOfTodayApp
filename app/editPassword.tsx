@@ -12,9 +12,7 @@ const EditPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handlePasswordChange = async () => {
-    console.log('비밀번호 버튼 누름');
-  
+  const handlePasswordChange = async () => {  
     if (!newPassword.trim()) {
       showToast('error', '입력 필요', '새 비밀번호를 입력해주세요.');
       return;
@@ -38,12 +36,9 @@ const EditPassword = () => {
   
     try {
       const result = await updatePassword(token, { newPassword });
-  
-      console.log('✅ 비밀번호 변경 성공 응답:', result);
       showToast('success', '비밀번호 변경 완료', result || '다시 로그인해주세요.');
       router.replace('/signIn');
     } catch (error: any) {
-      console.error('❌ 비밀번호 변경 실패:', error);
       showToast('error', '에러 발생', error.message || '비밀번호 변경 실패');
     }
   };

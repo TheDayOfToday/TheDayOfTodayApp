@@ -74,7 +74,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
         params: { diaryId: diaryId.toString() },
       });
     } catch (e) {
-      console.error('무드미터 전송 실패:', e);
+      showToast('error', '무드미터 저장 실패', '무드미터 저장에 실패하였습니다.');
     }
   };
 

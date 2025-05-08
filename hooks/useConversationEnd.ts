@@ -52,8 +52,7 @@ const useConversationEnd = () => {
         return await response.json();
       }
     },
-    onError: (error) => {
-      console.log('대화모드 일기 업로드 실패', error);
+    onError: () => {
       showToast('error', '대화 종료 실패', '대화 모드 종료에 오류가 발생하였습니다.')
     }
   });

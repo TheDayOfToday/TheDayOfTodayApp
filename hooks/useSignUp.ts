@@ -20,7 +20,6 @@ export const useSignUp = () => {
       showToast('success', '회원가입 완료', '성공적으로 가입되었습니다.');
       router.replace('/signIn');
     } catch (error: any) {
-      console.error('회원가입 실패', error);
       showToast('error', '회원가입 실패', '서버 오류가 발생했습니다.');
     }
   };

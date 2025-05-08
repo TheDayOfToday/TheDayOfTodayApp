@@ -10,9 +10,10 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import LottieView from 'lottie-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import useShowToast from '@/hooks/useShowToast';
+import LoadingScreen from '@/components/Loading';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 import { ModalStyles } from '@/styles/modalStyles';
-import LoadingScreen from '@/components/Loading';
 
 const recordingOptions = {
   android: {
@@ -49,6 +50,7 @@ function Conversation() {
   } = useConversationEnd();
 
   const token = useToken();
+  const showToast = useShowToast();
   const router = useRouter();
   const { diaryId } = useLocalSearchParams();
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
@@ -75,7 +77,7 @@ function Conversation() {
         setRecording(newRecording);
         setIsRecording(true);
       } catch (error) {
-        console.error('Failed to start recording', error);
+        showToast('error', '녹음 시도 싪패', '녹음을 다시 시도해주세요.')
       }
     };
 
@@ -109,7 +111,7 @@ function Conversation() {
         setRecordedUri(null);
       }
     } catch (error) {
-      console.error('질문 요청 중 오류 발생:', error);
+      showToast('error', '질문 요청 실패', '질문 요청을 다시 시도해주세요.');
     }
   };
 
@@ -144,7 +146,7 @@ function Conversation() {
         audioUri: recordedUri ?? undefined,
       });
     } catch (error) {
-      console.error('대화 종료 중 오류 발생:', error);
+      showToast('error', '대화 종료 실패', '대화 종료를 다시 시도해주세요.');
     }
   };
 

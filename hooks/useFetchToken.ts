@@ -15,7 +15,6 @@ export const useFetchToken = () => {
 
     try {
       const response = await postLogin(payload);
-      console.log('🔐 로그인 응답:', response);
 
       if (response.accessToken) {
         await AsyncStorage.setItem('accessToken', response.accessToken);
