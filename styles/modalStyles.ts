@@ -20,12 +20,12 @@ export const ModalStyles = StyleSheet.create({
   modalTitle: {
     fontFamily: 'Pretendard7',
     fontSize: 20,
-    // marginBottom: 10,
+    textAlign: 'center',
   },
   modalSubtitle: {
     fontFamily: 'Pretendard4',
     fontSize: 16,
-    // marginBottom: 20,
+    textAlign: 'center',
   },
   modalButtonContainer: {
     width: '100%',

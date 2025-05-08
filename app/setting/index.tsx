@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '../../hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '@/styles/settingScreenStyles';
 import { getUserInfo, deleteUser } from '@/api/my';
 import { UserInfoResponse } from '@/api/my/entity';
+import { ModalStyles } from '@/styles/modalStyles';
 
 function SettingScreen() {
   const router = useRouter();
   const showToast = useShowToast();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // 서버에서 받아올 유저 정보 state
   const [user, setUser] = useState({
@@ -108,12 +110,47 @@ function SettingScreen() {
         </View>       
       </View>
       <TouchableOpacity
-        onPress={handleDeleteAccount}
+        onPress={() => setModalIsOpen(true)}
         style={[styles.logoutButton, { marginTop: 20, }]}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
         <Text style={[styles.deleteUsetText]}>회원 탈퇴</Text>
       </TouchableOpacity>
+      {modalIsOpen && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+        >
+          <View style={ModalStyles.modalOverlay}>
+            <View style={ModalStyles.modalContent}>
+              <Text style={ModalStyles.modalTitle}>정말 탈퇴하시겠습니까?</Text>
+              <View>
+                <Text style={ModalStyles.modalSubtitle}>탈퇴하시면 모든 데이터가 삭제되며</Text>
+                <Text style={ModalStyles.modalSubtitle}>복구할 수 없습니다.</Text>
+              </View>
+              <View style={ModalStyles.modalButtonContainer}>
+                <Pressable
+                  style={ModalStyles.finishButton}
+                  onPress={() => {
+                    handleDeleteAccount()
+                    setModalIsOpen(false)
+                  }
+                }>
+                  <Text style={ModalStyles.finishButtonText}>확인</Text>
+                </Pressable>
+                <Pressable
+                  style={ModalStyles.cancelButton}
+                  onPress={() => setModalIsOpen(false)}
+                >
+                  <Text style={ModalStyles.cancelButtonText}>취소</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      )}
     </View>
   );
 }
