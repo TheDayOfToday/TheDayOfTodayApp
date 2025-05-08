@@ -9,6 +9,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 function AnalysisScreen() {
   const token = useToken();
   const today = new Date();
+  today.setDate(today.getDate() - 7);
   const [todayDate, setTodayDate] = useState({
     year: String(today.getFullYear()),
     month: String(today.getMonth() + 1),
