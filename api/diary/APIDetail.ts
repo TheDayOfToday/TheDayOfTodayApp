@@ -30,7 +30,7 @@ export class GetAnalysis<R extends AnalysisEntity> implements APIRequest<R> {
     path: string;
     response!: R;
     auth = true;
-  
+
     constructor(public authorization: string, public data: CalendarRequest) {
         const { year, month, day } = data;
         this.path = `/calendar/analysis/${year}/${month}/${day}`;
