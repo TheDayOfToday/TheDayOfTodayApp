@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getCalendarColor } from '@/api/diary';
 
 const resolveDotColor = (raw: string) => {
-  if (raw === '미분석') return '#ffffff';
+  if (raw === '미분석') return '#E8E8E8';
   return raw;
 };
 

@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import { useState } from 'react';
 import { useSignUp } from '@/hooks/useSignUp';
 import { styles } from '@/styles/signUpStyles';
+import showToast from '@/hooks/useShowToast';
 import useShowToast from '@/hooks/useShowToast';
 
 function SignUpScreen() {  
