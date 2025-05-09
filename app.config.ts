@@ -7,7 +7,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'TheDayOfToday',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/images/adaptive-icon.png',
+  icon: './assets/images/logo.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
@@ -18,7 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: 'com.thedayoftoday.app',
     versionCode: 1,
     adaptiveIcon: {
-      foregroundImage: './assets/images/adaptive-icon.png',
+      foregroundImage: './assets/images/good.png',
       backgroundColor: '#ffffff',
     },
   },
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {        
-        image: './assets/images/adaptive-icon.png',
+        image: './assets/images/unknown.png',
         imageWidth: 200,
         resizeMode: 'contain',
         backgroundColor: '#ffffff',
