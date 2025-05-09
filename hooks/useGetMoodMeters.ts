@@ -4,10 +4,8 @@ import useToken from './useToken';
 
 const useGetMoodMeters = (diaryId: number | undefined) => {
   const token = useToken();
-
   const { data, isLoading, error } = useQuery({
     queryKey: ['moodMeters'],
-    // 토큰 null 임시 처리
     queryFn: () => getMoodMeters(token!, diaryId!),
     enabled: !!token && !!diaryId,
   });

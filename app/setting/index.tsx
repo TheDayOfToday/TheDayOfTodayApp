@@ -91,7 +91,7 @@ function SettingScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => { router.push('/editPassword') }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
+          <TouchableOpacity onPress={() => { router.push('/edit-password') }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
             <Text style={styles.editText}>비밀번호 수정</Text>
           </TouchableOpacity>
         </View>

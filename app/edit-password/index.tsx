@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '../hooks/useShowToast';
+import useShowToast from '@/hooks/useShowToast';
 import { styles } from '@/styles/editProfileStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updatePassword } from '@/api/my';

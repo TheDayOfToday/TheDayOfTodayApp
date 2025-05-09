@@ -71,6 +71,7 @@ export default function RootLayout() {
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
         <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
+        <Stack.Screen name="edit-password" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
         <Stack.Screen name="recording" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>

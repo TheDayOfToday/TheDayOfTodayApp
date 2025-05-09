@@ -1,5 +1,5 @@
 import { APIRequest, HTTP_METHOD } from "../APIRequest"
-import { CalendarRequest, CalendarColorResponse, DiaryEntity, AnalysisEntity } from "./entity"
+import { CalendarRequest, CalendarColorResponse, DiaryResponse, AnalysisResponse } from "./entity"
 
 export class GetCalendarColor<R extends CalendarColorResponse> implements APIRequest<R> {
     method = HTTP_METHOD.GET;
@@ -8,31 +8,28 @@ export class GetCalendarColor<R extends CalendarColorResponse> implements APIReq
     auth = true;
 
     constructor(public authorization: string, public data: CalendarRequest) {
-        const { year, month } = data;
-        this.path = `/calendar/${year}/${month}`;
+        this.path = `/calendar/${data.year}/${data.month}`;
     }
 }
 
-export class GetDiary<R extends DiaryEntity> implements APIRequest<R> {
+export class GetDiary<R extends DiaryResponse> implements APIRequest<R> {
     method = HTTP_METHOD.GET;
     path: string;
     response!: R;
     auth = true;
 
     constructor(public authorization: string, public data: CalendarRequest) {
-        const { year, month, day } = data;
-        this.path = `/calendar/diary/${year}/${month}/${day}`;
+        this.path = `/calendar/diary/${data.year}/${data.month}/${data.day}`;
     }
 }
 
-export class GetAnalysis<R extends AnalysisEntity> implements APIRequest<R> {
+export class GetAnalysis<R extends AnalysisResponse> implements APIRequest<R> {
     method = HTTP_METHOD.GET;
     path: string;
     response!: R;
     auth = true;
 
     constructor(public authorization: string, public data: CalendarRequest) {
-        const { year, month, day } = data;
-        this.path = `/calendar/analysis/${year}/${month}/${day}`;
+        this.path = `/calendar/analysis/${data.year}/${data.month}/${data.day}`;
     }
 }

@@ -1,11 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import useShowToast from '@/hooks/useShowToast';
-import useToken from './useToken';
 import { postMoodMeters } from '@/api/record';
 import { UpdateMoodRequest } from '@/api/record/entity';
 
 interface PostMoodMetersProps {
-  token: string | null;
+  token: string;
   diaryId: number;
   moodMeter: UpdateMoodRequest;
 }
@@ -20,7 +19,7 @@ const usePostMoodMeters = () => {
         token,
         diaryId,
         moodMeter
-      }: PostMoodMetersProps) => postMoodMeters(token!, diaryId, moodMeter ),
+      }: PostMoodMetersProps) => postMoodMeters(token, diaryId, moodMeter ),
     onError: (error) => {
       showToast('error', '업로드 실패', '무드미터를 저장하지 못하였습니다.');
     },
