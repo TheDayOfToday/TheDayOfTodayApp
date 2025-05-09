@@ -19,12 +19,8 @@ export const useSignUp = () => {
       const res = await postSignUp(userData);
       showToast('success', '회원가입 완료', res.message || '성공적으로 가입되었습니다.');
       router.replace('/signIn');
-    } catch (error: any) {
-      // const message =
-      //   error?.response?.data?.message ??
-      //   error?.message ??
-      const message = error?.response?.data?.message || error?.message || '서버 오류가 발생했습니다.';
-        '서버 오류가 발생했습니다.';
+    } catch (error: any) {      
+      const message = error?.response?.data?.message || error?.message || '서버 오류가 발생했습니다.';        
       showToast('error', '회원가입 실패', message);
     }
   };
