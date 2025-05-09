@@ -17,7 +17,6 @@ function ResultScreen() {
   const [content, onChangeContent] = useState('');
   const showToast = useShowToast();
 
-  // 토큰 null 임시 처리
   const {data: diaryData, isLoading, error} = useGetTodayDiary(token!, numericDiaryId);
   const { mutate: updateDiaryMutate } = usePutUpdateDiary();
 

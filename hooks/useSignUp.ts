@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { postSignUp } from '@/api/my'; // ← index.ts 경로
+import { postSignUp } from '@/api/my'; // index.ts 경로
 import type { SignUpRequest } from '@/api/my/entity';
 import useShowToast from './useShowToast';
 

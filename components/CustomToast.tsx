@@ -27,7 +27,6 @@ const CustomToast = ({ type, ...props }: CustomToastProps) => {
         toastStyles.container,
         { borderLeftColor: getBorderColor() },
       ]}
-      // contentContainerStyle={toastStyles.container}
       text1Style={toastStyles.titleText}
       text2Style={toastStyles.messageText}
     />

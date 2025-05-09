@@ -13,7 +13,6 @@ const usePostMoodMeters = () => {
   const showToast = useShowToast();
 
   const { mutate, error } = useMutation({
-    // 토큰 null 임시 처리
     mutationFn: async (
       {
         token,
