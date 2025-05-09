@@ -7,7 +7,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'TheDayOfToday',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/images/icon.png',
+  icon: './assets/images/adaptive-icon.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
@@ -15,6 +15,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: true,
   },
   android: {
+    package: 'com.thedayoftoday.app',
+    versionCode: 1,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
@@ -29,8 +31,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-router',
     [
       'expo-splash-screen',
-      {
-        image: './assets/images/splash-icon.png',
+      {        
+        image: './assets/images/adaptive-icon.png',
         imageWidth: 200,
         resizeMode: 'contain',
         backgroundColor: '#ffffff',
@@ -49,5 +51,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   extra: {
     API_BASE_URL: process.env.API_BASE_URL,
+    "eas": {
+        "projectId": "3c11a9ed-7e2c-4922-a6dc-e1ac5c8aa5be"
+      }
   },
 });
