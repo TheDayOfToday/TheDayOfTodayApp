@@ -27,11 +27,10 @@ export class PostSignUp<R extends SignUpResponse> implements APIRequest<R> {
   method = HTTP_METHOD.POST;
   path: string;
   response!: R;
-  data: SignUpRequest;
+  auth = false;
 
-  constructor(userData: SignUpRequest) {
+  constructor(public data: SignUpRequest) {
     this.path = `/user/signup`;
-    this.data = userData;
   }
 }
 

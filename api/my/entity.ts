@@ -24,7 +24,7 @@ export interface SignUpRequest {
 
 // 유저 회원가입
 export interface SignUpResponse extends APIResponse {
-    success: boolean;
+    message: string;
 }
 
 export type LoginRequest = {
