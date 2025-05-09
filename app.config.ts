@@ -31,8 +31,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-router',
     [
       'expo-splash-screen',
-      {
-        // image: './assets/images/splash-icon.png',
+      {        
         image: './assets/images/adaptive-icon.png',
         imageWidth: 200,
         resizeMode: 'contain',
