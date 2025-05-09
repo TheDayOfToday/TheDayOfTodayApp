@@ -37,6 +37,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     suggestedMoodContainer: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         alignItems: 'center',
         width: '100%',
         padding: '2%',
