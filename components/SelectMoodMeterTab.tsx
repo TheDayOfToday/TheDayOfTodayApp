@@ -61,7 +61,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
 
     try {
       await moodMeterMutate({
-        token,
+        token: token!,
         diaryId,
         moodMeter: {
           moodName: selectedMood.moodName,

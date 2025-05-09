@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const dailyAnalysisScreenStyles = StyleSheet.create({
   Screen: {
@@ -17,7 +18,7 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
   },
   finishButtonText: {
     fontFamily: 'Pretendard5',
-    fontSize: 16,
+    fontSize: RFValue(16),
     borderBottomWidth: 2,
     borderBottomColor: '#e5e5e5',
     paddingBottom: 4,
@@ -25,7 +26,7 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
   title: {
     padding: 5,
     fontFamily: 'Hakgyoansim',
-    fontSize: 22,
+    fontSize: RFValue(22),
     color: '#132a9e',
   },
   resultContainer: {
@@ -39,6 +40,6 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
   },
   resultText: {
     fontFamily: 'Hakgyoansim',
-    fontSize: 18,
+    fontSize: RFValue(18),
   },
 });

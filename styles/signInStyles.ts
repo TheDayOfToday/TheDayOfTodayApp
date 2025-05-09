@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,14 +11,14 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Hakgyoansim',
-        fontSize: 44,
+        fontSize: RFValue(44),
         color: '#001D6E',
         marginBottom: 30,
     },
     loginLabel: {
         fontFamily: 'Pretendard2',
         alignSelf: 'flex-start',
-        fontSize: 18,
+        fontSize: RFValue(18),
         marginBottom: 10,
     },
     input: {
@@ -57,7 +58,7 @@ export const styles = StyleSheet.create({
     loginButtonText: {
         fontFamily: 'Pretendard7',
         color: 'white',
-        fontSize: 16,
+        fontSize: RFValue(16),
     },
     signUpContainer: {
         flexDirection: 'row',

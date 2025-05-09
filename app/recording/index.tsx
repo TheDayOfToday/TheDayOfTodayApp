@@ -62,7 +62,7 @@ function SelectModeTab() {
       return;
     }
     try {
-      const response = await startConversation(token);
+      const response = await startConversation(token!);
       const diaryId = response?.diaryId;
       if(!diaryId) {
         showToast('error', '대화 시작 실패', '서버 응답에 diaryId가 없습니다.');

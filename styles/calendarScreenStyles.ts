@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({        
     safeArea: {
@@ -30,7 +31,7 @@ export const styles = StyleSheet.create({
       },
       dayText: {
         fontFamily: 'Pretendard4',
-        fontSize: 16,
+        fontSize: RFValue(16),
         color: '#2d4150',
         marginTop: 4,
       },    
@@ -74,12 +75,5 @@ export const styles = StyleSheet.create({
         minHeight: 300,
         backgroundColor: '#f9f9f9',
         borderRadius: 10,
-      },
-      loadingText: {
-        fontSize: 16,
-        color: '#666',
-        marginTop: 12,
-        textAlign: 'center',
-        fontWeight: '500',
       },
 });

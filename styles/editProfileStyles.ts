@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
   },
   headerText: {
     fontFamily: 'Pretendard8',
-    fontSize: 22,
+    fontSize: RFValue(22),
   },
   contentContainer: {
     display: 'flex',
@@ -20,7 +21,7 @@ export const styles = StyleSheet.create({
   label: {
     lineHeight: 30,
     fontFamily: 'Pretendard4',
-    fontSize: 16,
+    fontSize: RFValue(16),
     color: '#333'
   },
   input: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
     padding: 15,
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
   saveButton: {
     backgroundColor: '#0e0c26',
@@ -39,6 +40,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'Pretendard6',
     color: '#fff',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
 });

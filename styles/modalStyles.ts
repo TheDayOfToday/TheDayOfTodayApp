@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const ModalStyles = StyleSheet.create({
   modalOverlay: {
@@ -19,12 +20,12 @@ export const ModalStyles = StyleSheet.create({
   },
   modalTitle: {
     fontFamily: 'Pretendard7',
-    fontSize: 20,
+    fontSize: RFValue(20),
     textAlign: 'center',
   },
   modalSubtitle: {
     fontFamily: 'Pretendard4',
-    fontSize: 16,
+    fontSize: RFValue(16),
     textAlign: 'center',
   },
   modalButtonContainer: {
@@ -43,8 +44,8 @@ export const ModalStyles = StyleSheet.create({
     width: '45%',
   },
   finishButtonText: {
-    fontFamily: 'pretendard5',
-    fontSize: 16,
+    fontFamily: 'Pretendard5',
+    fontSize: RFValue(16),
     color: '#eee',
   },
   deleteDiaryButton: {
@@ -56,8 +57,8 @@ export const ModalStyles = StyleSheet.create({
     width: '45%',
   },
   deleteDiaryButtonText: {
-    fontFamily: 'pretendard5',
-    fontSize: 16,
+    fontFamily: 'Pretendard5',
+    fontSize: RFValue(16),
     color: '#ff4f4f',
   },
   cancelButton: {
@@ -69,8 +70,8 @@ export const ModalStyles = StyleSheet.create({
     width: '45%',
   },
   cancelButtonText: {
-    fontFamily: 'pretendard5',
-    fontSize: 16,
+    fontFamily: 'Pretendard5',
+    fontSize: RFValue(16),
     color: '#0e0c26',
   },
 });

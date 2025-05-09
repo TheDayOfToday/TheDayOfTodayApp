@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const modeSlidingTabStyles = StyleSheet.create({
     sheet: {
@@ -16,7 +17,7 @@ export const modeSlidingTabStyles = StyleSheet.create({
     },
     sheetHeaderTitle: {
         fontFamily: 'Pretendard6',
-        fontSize: 24,
+        fontSize: RFValue(24),
         textAlign: 'center',
         width: '100%',
     },
@@ -36,7 +37,7 @@ export const modeSlidingTabStyles = StyleSheet.create({
     },
     recordButtonText: {
         fontFamily: 'Pretendard5',
-        fontSize: 16,
+        fontSize: RFValue(16),
         color: '#fff',
     },
 });

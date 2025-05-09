@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const recordingScreenStyles = StyleSheet.create({
     container: {
@@ -36,7 +37,7 @@ export const recordingScreenStyles = StyleSheet.create({
         textAlign: 'center',
         color: '#aac9ff',
         fontFamily: 'Pretendard3',
-        fontSize: 26,
+        fontSize: RFValue(26),
     },
     // 대화 모드 질문 받기 버튼
     nextButtonContainer: {
@@ -56,7 +57,7 @@ export const recordingScreenStyles = StyleSheet.create({
     },
     nextButtonText: {
         fontFamily: 'Pretendard5',
-        fontSize: 18,
+        fontSize: RFValue(18),
         color: '#aac9ff',
     },
     // 대화 모드 녹음 플레이 버튼
@@ -96,7 +97,7 @@ export const recordingScreenStyles = StyleSheet.create({
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',
-        fontSize: 16,
+        fontSize: RFValue(16),
         color: '#fff',
     },
     // 대화 마침
