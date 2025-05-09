@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '../hooks/useShowToast';
+import useShowToast from '@/hooks/useShowToast';
 import { styles } from '@/styles/editProfileStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updatePassword } from '@/api/my';
@@ -49,27 +49,34 @@ const EditPassword = () => {
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
-          <Text style={styles.header}>비밀번호 변경</Text>            
-  
-          <Text style={styles.label}>새 비밀번호</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            value={newPassword}
-            onChangeText={setNewPassword}
-          />
-  
-          <Text style={styles.label}>새 비밀번호 확인</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-          />
-  
-          <TouchableOpacity style={styles.saveButton} onPress={handlePasswordChange}>
-            <Text style={styles.saveButtonText}>변경하기</Text>
-          </TouchableOpacity>
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>비밀번호 변경</Text>
+          </View>
+          <View style={styles.contentContainer}>
+            <View>
+              <Text style={styles.label}>새 비밀번호</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={newPassword}
+                onChangeText={setNewPassword}
+              />
+            </View>
+            <View>
+              <Text style={styles.label}>새 비밀번호 확인</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+              />
+            </View>
+          </View>
+          <View>
+            <Pressable style={styles.saveButton} onPress={handlePasswordChange}>
+              <Text style={styles.saveButtonText}>변경하기</Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

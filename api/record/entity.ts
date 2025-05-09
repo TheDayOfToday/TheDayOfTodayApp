@@ -46,7 +46,6 @@ export interface UpdateMoodResponse extends APIResponse { }
 
 // 일기 조회
 export interface DiaryResponse extends APIResponse {
-  diaryId?: number; // 삭제 예정
   title: string;
   content: string;
 }

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const toastStyles = StyleSheet.create({
   container: {
@@ -8,10 +9,10 @@ export const toastStyles = StyleSheet.create({
     },
     titleText: {
       fontFamily: 'Pretenard7',
-      fontSize: 16,
+      fontSize: RFValue(16),
     },
     messageText: {
       fontFamily: 'Pretenard4',
-      fontSize: 14,
+      fontSize: RFValue(14),
     },
 });

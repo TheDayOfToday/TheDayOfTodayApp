@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const layoutStyles = StyleSheet.create({
     modeTabHeader: {
@@ -20,7 +21,7 @@ export const layoutStyles = StyleSheet.create({
     headerTitle: {
         width: '100%',
         fontFamily: 'Pretendard4',
-        fontSize: 20,
+        fontSize: RFValue(20),
         color: '#fff',
     },
     tabBar: {
@@ -35,7 +36,7 @@ export const layoutStyles = StyleSheet.create({
     },
     tabBarLabel: {
         fontFamily: 'Pretendard6',
-        fontSize: 12,
+        fontSize: RFValue(12),
     },
     tabBarIcon: {
         marginBottom: 5,

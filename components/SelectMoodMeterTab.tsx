@@ -61,7 +61,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
 
     try {
       await moodMeterMutate({
-        token,
+        token: token!,
         diaryId,
         moodMeter: {
           moodName: selectedMood.moodName,
@@ -103,11 +103,11 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
               <View
                 style={[
                   moodSlidingTabStyles.suggestedMood,
-                  { borderBottomColor: diaryMood?.moodColor},
+                  { borderBottomColor: selectedMood?.color},
                 ]}
               >
-                <Entypo name="drop" size={16} color={diaryMood?.moodColor} />
-                <Text style={moodSlidingTabStyles.suggestedMoodText}> {diaryMood?.moodName}</Text>
+                <Entypo name="drop" size={16} color={selectedMood?.color} />
+                <Text style={moodSlidingTabStyles.suggestedMoodText}> {selectedMood?.moodName}</Text>
               </View>
             <Text style={moodSlidingTabStyles.suggestionLabelText}>하루 입니다.</Text>
           </View>

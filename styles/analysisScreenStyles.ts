@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const analysisScreenStyles = StyleSheet.create({
   Screen: {
@@ -33,7 +34,7 @@ export const analysisScreenStyles = StyleSheet.create({
   },
   headerText: {
     fontFamily: 'Hakgyoansim',
-    fontSize: 24,
+    fontSize: RFValue(24),
   },
   contentContainer: {
     width: '100%',
@@ -48,12 +49,12 @@ export const analysisScreenStyles = StyleSheet.create({
   },
   contentDate: {
     fontFamily: 'Hakgyoansim',
-    fontSize: 14,
+    fontSize: RFValue(14),
     color: '#666',
   },
   contentFeedback: {
     fontFamily: 'Hakgyoansim',
-    fontSize: 16,
+    fontSize: RFValue(16),
     lineHeight: 22,
   },
 });

@@ -30,7 +30,7 @@ function SelectModeTab() {
     month: String(today.getMonth() + 1),
     day: String(today.getDate()),
   };
-  const diary = useDiaryEntry(todayDate, true, 0);
+  const diary = useDiaryEntry(todayDate, true);
   const [modalVisible, setModalVisible] = useState(false);
   const { mutateAsync: deleteDiary } = useDeleteDiary();
 
@@ -62,7 +62,7 @@ function SelectModeTab() {
       return;
     }
     try {
-      const response = await startConversation(token);
+      const response = await startConversation(token!);
       const diaryId = response?.diaryId;
       if(!diaryId) {
         showToast('error', '대화 시작 실패', '서버 응답에 diaryId가 없습니다.');

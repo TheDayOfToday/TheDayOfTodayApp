@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const commonStyles = StyleSheet.create({
     container: {
@@ -9,7 +10,7 @@ export const commonStyles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Pretendard4',
-        fontSize: 24,
+        fontSize: RFValue(24),
         color: '#001D6E',
     },
 });

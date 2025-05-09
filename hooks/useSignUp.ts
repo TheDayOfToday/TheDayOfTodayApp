@@ -16,7 +16,7 @@ export const useSignUp = () => {
     }
 
     try {
-      const res = await postSignUp(userData);
+      await postSignUp(userData);
       showToast('success', '회원가입 완료', '성공적으로 가입되었습니다.');
       router.replace('/signIn');
     } catch (error: any) {

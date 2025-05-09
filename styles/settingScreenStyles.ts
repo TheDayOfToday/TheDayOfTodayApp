@@ -1,5 +1,5 @@
-import EditPassword from '@/app/editPassword';
 import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({
   container: { 
@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
     padding: 20 
   },
   header: { 
-    fontSize: 22, 
-    fontWeight: 'bold', 
+    fontFamily: 'Pretendard8',
+    fontSize: RFValue(22), 
     marginBottom: 30 
   },
   profileSection: { 
@@ -24,8 +24,8 @@ export const styles = StyleSheet.create({
     marginRight: 15 
   },
   userName: { 
-    fontSize: 18, 
-    fontWeight: '600' 
+    fontFamily: 'Pretendard7',
+    fontSize: RFValue(18), 
   },
   badge: {
     backgroundColor: '#FF6B6B',
@@ -33,10 +33,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 12,
     marginLeft: 8,
-  },
-  badgeText: { 
-    color: '#fff', 
-    fontSize: 12 
   },
   nameRow: { 
     flexDirection: 'row', 
@@ -62,12 +58,13 @@ export const styles = StyleSheet.create({
     marginBottom: 20 
   },
   sectionTitle: { 
-    fontSize: 18, 
-    fontWeight: '600' 
+    fontFamily: 'Pretendard8',
+    fontSize: RFValue(18), 
   },
   editText: { 
+    fontFamily: 'Pretendard6',
     color: '#5DA3FA', 
-    fontSize: 15 
+    fontSize: RFValue(15) 
   },
   infoRow: { 
     flexDirection: 'row', 
@@ -75,11 +72,13 @@ export const styles = StyleSheet.create({
     marginBottom: 15 
   },
   infoLabel: { 
-    fontSize: 15, 
+    fontFamily: 'Pretendard6',
+    fontSize: RFValue(15), 
     color: '#333' 
   },
   infoValue: { 
-    fontSize: 15, 
+    fontFamily: 'Pretendard4',
+    fontSize: RFValue(15), 
     color: '#666' 
   },
   logoutButton: {

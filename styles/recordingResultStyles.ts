@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const recordingResultStyles = StyleSheet.create({
   Screen: {
@@ -17,7 +18,7 @@ export const recordingResultStyles = StyleSheet.create({
   },
   nextButtonText: {
     fontFamily: 'Pretendard5',
-    fontSize: 16,
+    fontSize: RFValue(16),
     borderBottomWidth: 2,
     borderBottomColor: '#e5e5e5',
     paddingBottom: 4,
@@ -31,7 +32,7 @@ export const recordingResultStyles = StyleSheet.create({
   title: {
     padding: 5,
     fontFamily: 'Hakgyoansim',
-    fontSize: 22,
+    fontSize: RFValue(22),
     color: '#132a9e',
   },
   resultContainer: {
@@ -49,7 +50,7 @@ export const recordingResultStyles = StyleSheet.create({
     flex: 1,
     width: '100%',
     fontFamily: 'Hakgyoansim',
-    fontSize: 18,
+    fontSize: RFValue(18),
   },
   saveButtonContainer: {
     alignItems: 'flex-end',
@@ -63,7 +64,7 @@ export const recordingResultStyles = StyleSheet.create({
   },
   saveButtonText: {
     fontFamily: 'Pretendard4',
-    fontSize: 16,
+    fontSize: RFValue(16),
     color: '#333',
   },
 });

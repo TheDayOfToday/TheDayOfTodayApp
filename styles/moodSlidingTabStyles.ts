@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const moodSlidingTabStyles = StyleSheet.create({
     backgroundSheet: {
@@ -16,7 +17,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     headerTitle: {
         fontFamily: 'Pretendard8',
-        fontSize: 20,
+        fontSize: RFValue(20),
         color: '#000',
         textAlign: 'left',
     },
@@ -28,7 +29,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',
-        fontSize: 16,
+        fontSize: RFValue(16),
         color: '#fff',
     },
     content: {
@@ -44,7 +45,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     suggestionLabelText: {
         fontFamily: 'Pretendard4',
-        fontSize: 18,
+        fontSize: RFValue(18),
     },
     suggestedMood: {
         flexDirection: 'row',
@@ -55,7 +56,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     suggestedMoodText: {
         fontFamily: 'Pretendard6',
-        fontSize: 18,
+        fontSize: RFValue(18),
         color: '#000',
     },
     moodContainer: {
@@ -66,7 +67,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     moodDegreeText: {
         fontFamily: 'Pretendard3',
-        fontSize: 18,
+        fontSize: RFValue(18),
     },
     moodButtonContainer: {
         marginVertical: '5%',
@@ -86,7 +87,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     },
     moodButtonText: {
         fontFamily: 'Pretendard4',
-        fontSize: 14,
+        fontSize: RFValue(14),
         color: '#000',
     },
 });

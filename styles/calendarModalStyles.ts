@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const calendarModalStyles = StyleSheet.create({
       tabContainer: {
@@ -19,7 +20,7 @@ export const calendarModalStyles = StyleSheet.create({
       },
       tabText: {
         fontFamily: 'Pretendard4',
-        fontSize: 16,
+        fontSize: RFValue(16),
         color: '#999',
       },
       selectedTabText: {
@@ -32,17 +33,17 @@ export const calendarModalStyles = StyleSheet.create({
       },
       diaryTitle: {
         fontFamily: 'Pretendard7',
-        fontSize: 18,
+        fontSize: RFValue(18),
         marginBottom: 5,
       },
       diaryText: {
-        fontFamily: 'pretendard4',
-        fontSize: 14,
+        fontFamily: 'Pretendard4',
+        fontSize: RFValue(14),
         color: '#333',
       },
       analysisText: {
-        fontFamily: 'pretendard5',
-        fontSize: 14,
+        fontFamily: 'Pretendard5',
+        fontSize: RFValue(14),
         color: '#333',
       },
       modalButtonContainer: {
@@ -61,8 +62,8 @@ export const calendarModalStyles = StyleSheet.create({
         width: '45%',
       },
       deleteDiaryButtonText: {
-        fontFamily: 'pretendard5',
-        fontSize: 16,
+        fontFamily: 'Pretendard5',
+        fontSize: RFValue(16),
         color: '#ff4f4f',
       },
       modalButton: {
@@ -74,8 +75,8 @@ export const calendarModalStyles = StyleSheet.create({
         width: '45%',
       },
       modalButtonText: {
-        fontFamily: 'pretendard5',
-        fontSize: 16,
+        fontFamily: 'Pretendard5',
+        fontSize: RFValue(16),
         color: 'white',
       },
       dateRow: {
@@ -90,14 +91,14 @@ export const calendarModalStyles = StyleSheet.create({
         marginTop: 4,
       },      
       dateText: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Pretendard8',
+        fontSize: RFValue(18),
         marginHorizontal: 12,
       },
       moodTag: {
-        fontSize: 14,
+        fontFamily: 'Pretendard8',
+        fontSize: RFValue(14),
         color: '#666',
-        fontWeight: 'bold',
         marginBottom: 4,
       },
       loadingContainer: {
@@ -106,11 +107,5 @@ export const calendarModalStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         minHeight: 200,
-      },
-      loadingText: {
-        fontSize: 16,
-        color: '#777',
-        marginTop: 10,
-        textAlign: 'center',
       },
 });
