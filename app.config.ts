@@ -15,6 +15,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: true,
   },
   android: {
+    package: 'com.thedayoftoday.app',
+    versionCode: 1,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
@@ -49,5 +51,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   extra: {
     API_BASE_URL: process.env.API_BASE_URL,
+    "eas": {
+        "projectId": "3c11a9ed-7e2c-4922-a6dc-e1ac5c8aa5be"
+      }
   },
 });
