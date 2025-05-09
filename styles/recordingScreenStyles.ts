@@ -15,7 +15,7 @@ export const recordingScreenStyles = StyleSheet.create({
         height: '100%',
     },
     loadingLottieContainer: {
-        height: '7%',
+        minHeight: '10%',
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
@@ -37,7 +37,7 @@ export const recordingScreenStyles = StyleSheet.create({
         textAlign: 'center',
         color: '#aac9ff',
         fontFamily: 'Pretendard3',
-        fontSize: RFValue(26),
+        fontSize: RFValue(22),
     },
     // 대화 모드 질문 받기 버튼
     nextButtonContainer: {
