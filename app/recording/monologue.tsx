@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, Pressable } from 'react-native';
+import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SelectMoodTab from '@/components/SelectMoodMeterTab';
 import usePostMonologue from '@/hooks/usePostMonologue';
@@ -9,6 +9,7 @@ import LoadingScreen from '@/components/Loading';
 import useShowToast from '@/hooks/useShowToast';
 import { useRouter } from 'expo-router';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
+import { ModalStyles } from '@/styles/modalStyles';
 
 const recordingOptions = {
   android: {
@@ -35,6 +36,7 @@ const recordingOptions = {
 function Monologue() {
   const router = useRouter();
   const showToast = useShowToast();
+  const [showExitModal, setShowExitModal] = useState(false);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const { mutate: sendMonologue, data, isSuccess, isPending} = usePostMonologue();
@@ -96,6 +98,24 @@ function Monologue() {
     }
   }, []);
 
+  const handelExit = async () => {
+    if (isRecording) {
+      await stopRecording();
+    }
+    router.back();
+    setShowExitModal(false);
+  };
+
+  useEffect(() => {
+      const backAction = () => {
+        setShowExitModal(true);
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => backHandler.remove();
+    }, []);
+
   return(
     <GestureHandlerRootView>
       {isPending ? (
@@ -124,6 +144,35 @@ function Monologue() {
           </View>
         </View>
       )}
+      {showExitModal && (
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={showExitModal}
+                onRequestClose={() => setShowExitModal(false)}
+              >
+                <View style={ModalStyles.modalOverlay}>
+                  <View style={ModalStyles.modalContent}>
+                    <Text style={ModalStyles.modalTitle}>종료하시겠습니까?</Text>
+                    <Text style={ModalStyles.modalSubtitle}>작성된 내용이 없어 저장되지 않습니다.</Text>
+                    <View style={ModalStyles.modalButtonContainer}>
+                      <Pressable
+                        style={ModalStyles.finishButton}
+                        onPress={handelExit}
+                      >
+                        <Text style={ModalStyles.finishButtonText}>확인</Text>
+                      </Pressable>
+                      <Pressable
+                        style={ModalStyles.cancelButton}
+                        onPress={() => setShowExitModal(false)}
+                      >
+                        <Text style={ModalStyles.cancelButtonText}>취소</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+            )}
       {isSuccess && data && (
         <SelectMoodTab diaryId={data.diaryId}/>
       )}
