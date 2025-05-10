@@ -30,7 +30,7 @@ export class PostSignUp<R extends SignUpResponse> implements APIRequest<R> {
   auth = false;
 
   constructor(public data: SignUpRequest) {
-    this.path = `/user/signup`;
+    this.path = `/user/signup`;  
   }
 }
 
