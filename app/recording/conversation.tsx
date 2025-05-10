@@ -146,7 +146,7 @@ function Conversation() {
         audioUri: recordedUri ?? undefined,
       });
     } catch (error) {
-      showToast('error', '대화 종료 실패', '대화 종료를 다시 시도해주세요.');
+      showToast('error', '대화 종료 실패', '대화를 다시 시도해주세요.');
       router.push('/record');
     }
   };

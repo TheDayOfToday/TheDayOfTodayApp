@@ -7,6 +7,7 @@ import { Audio } from 'expo-av';
 import LottieView from 'lottie-react-native';
 import LoadingScreen from '@/components/Loading';
 import useShowToast from '@/hooks/useShowToast';
+import { useRouter } from 'expo-router';
 import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
 
 const recordingOptions = {
@@ -32,6 +33,7 @@ const recordingOptions = {
 };
 
 function Monologue() {
+  const router = useRouter();
   const showToast = useShowToast();
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -41,12 +43,12 @@ function Monologue() {
     try {
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) return;
-  
+
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
-  
+
       const newRecording = new Audio.Recording();
       await newRecording.prepareToRecordAsync(recordingOptions);
       await newRecording.startAsync();
@@ -54,6 +56,7 @@ function Monologue() {
       setIsRecording(true);
     } catch (error) {
       showToast('error', '녹음 실패', '독백 서비스를 다시 시도해주세요.');
+      router.push('/record');
     }
   };
 
@@ -73,7 +76,8 @@ function Monologue() {
 
   const onPressSubmitButton = async () => {
     if (!isRecording) {
-      showToast('error', '녹음 중이 아닙니다.', '독백 서비스를 다시 시도해주세요.');
+      showToast('error', '서비스 에러', '독백 서비스를 다시 시도해주세요.');
+      router.push('/record');
       return;
     }
     const uri = await stopRecording();
