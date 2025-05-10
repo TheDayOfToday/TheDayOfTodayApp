@@ -5,6 +5,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import useShowToast from '@/hooks/useShowToast';
 import useGetTodayDiary from '@/hooks/useGetTodayDiary';
 import usePutUpdateDiary from '@/hooks/usePutUpdateDiary';
+import useDoubleBackExit from '@/hooks/useDoubleBackExit';
 import { recordingResultStyles } from "@/styles/recordingResultStyles";
 
 function ResultScreen() {
@@ -17,7 +18,6 @@ function ResultScreen() {
   const [content, onChangeContent] = useState('');
   const showToast = useShowToast();
 
-  // 토큰 null 임시 처리
   const {data: diaryData, isLoading, error} = useGetTodayDiary(token!, numericDiaryId);
   const { mutate: updateDiaryMutate } = usePutUpdateDiary();
 
@@ -59,6 +59,8 @@ function ResultScreen() {
       onChangeContent('로딩 중...');
     }
   }, [isLoading]);
+
+  useDoubleBackExit(true);
 
   return (
     <ScrollView

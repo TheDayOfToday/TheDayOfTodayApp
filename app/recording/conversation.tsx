@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, Pressable, Modal } from 'react-native';
+import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import useToken from '@/hooks/useToken';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SelectMoodTab from '@/components/SelectMoodMeterTab';
@@ -146,9 +146,28 @@ function Conversation() {
         audioUri: recordedUri ?? undefined,
       });
     } catch (error) {
-      showToast('error', '대화 종료 실패', '대화 종료를 다시 시도해주세요.');
+      showToast('error', '대화 종료 실패', '대화를 다시 시도해주세요.');
+      router.push('/record');
     }
   };
+
+  const handelExit = async () => {
+    if (isRecording) {
+      await stopRecording();
+    }
+    router.back();
+    setShowExitModal(false);
+  };
+
+  useEffect(() => {
+    const backAction = () => {
+      setShowExitModal(true);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => backHandler.remove();
+  }, []);
 
   return(
     <GestureHandlerRootView>
@@ -230,11 +249,8 @@ function Conversation() {
               <View style={ModalStyles.modalButtonContainer}>
                 <Pressable
                   style={ModalStyles.finishButton}
-                  onPress={() => {
-                    router.back()
-                    setShowExitModal(false)
-                  }
-                }>
+                  onPress={handelExit}
+                >
                   <Text style={ModalStyles.finishButtonText}>확인</Text>
                 </Pressable>
                 <Pressable
@@ -251,11 +267,6 @@ function Conversation() {
       {isSuccess && (
         <SelectMoodTab diaryId={Number(diaryId)}/>
       )}
-      {/*
-      {isSuccess && data && (
-        <SelectMoodTab diaryId={data.diaryId}/>
-      )}
-      */}
     </GestureHandlerRootView>
   );
 };

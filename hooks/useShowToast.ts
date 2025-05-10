@@ -9,7 +9,7 @@ function useShowToast() {
       type,
       text1: title,
       text2: message,
-      visibilityTime: 1500,
+      visibilityTime: 2000,
     });
   }, []);
 
