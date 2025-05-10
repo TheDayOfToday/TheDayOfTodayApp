@@ -2,11 +2,11 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import { useState } from 'react';
 import { useSignUp } from '@/hooks/useSignUp';
 import { styles } from '@/styles/signUpStyles';
-import showToast from '@/hooks/useShowToast';
 import useShowToast from '@/hooks/useShowToast';
+import LoadingScreen from '@/components/Loading';
 
-function SignUpScreen() {  
-  const { signUp } = useSignUp();
+function SignUpScreen() {
+  const { mutate: signUpMutate, isPending } = useSignUp();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,45 +18,49 @@ function SignUpScreen() {
       showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
       return;
     }
-    signUp({ name, email, password, phoneNumber });
+    signUpMutate({ name, email, password, phoneNumber });
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>오늘의 하루</Text>
-      <Text style={styles.signUpLabel}>회원가입</Text>  
-      <TextInput
-        placeholder="이름"
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        placeholder="이메일"
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        placeholder="비밀번호"
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TextInput
-        placeholder="전화번호"
-        style={styles.input}
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-        keyboardType="phone-pad"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>가입하기</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    <>
+      {isPending ? <LoadingScreen  backgroundColor='#fff'/> : (
+        <ScrollView contentContainerStyle={styles.container}>
+          <Text style={styles.title}>오늘의 하루</Text>
+          <Text style={styles.signUpLabel}>회원가입</Text>  
+          <TextInput
+            placeholder="이름"
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+          />
+          <TextInput
+            placeholder="이메일"
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            placeholder="비밀번호"
+            style={styles.input}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInput
+            placeholder="전화번호"
+            style={styles.input}
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            keyboardType="phone-pad"
+          />
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>가입하기</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )}
+    </>
   );
 }
 
