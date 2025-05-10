@@ -37,7 +37,7 @@ const EditPassword = () => {
   
     const token = await AsyncStorage.getItem('accessToken');
     if (!token) {
-      showToast('error', '토큰 인증 오류', '다시 로그인해주세요.');
+      showToast('error', '인증 오류', '다시 로그인해주세요.');
       return;
     }
   
