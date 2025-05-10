@@ -33,6 +33,8 @@ function SettingScreen() {
     const fetchUserInfo = async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
+        router.replace('/signIn');
+        showToast('error', '로그인 필요', '로그인이 필요합니다.');  
         return;
       }
   
@@ -56,7 +58,8 @@ function SettingScreen() {
   const handleDeleteAccount = async () => {
     const token = await AsyncStorage.getItem('accessToken');
     if (!token) {
-      showToast('error', '오류', '토큰이 존재하지 않습니다.');
+      router.replace('/signIn');
+      showToast('error', '계정 삭제 실패', '로그인이 필요합니다.');
       return;
     }
   

@@ -2,8 +2,9 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSignIn } from '../hooks/useSignIn';
-import { styles } from '@/styles/signInStyles';
 import useShowToast from '@/hooks/useShowToast';
+import useDoubleBackExit from '@/hooks/useDoubleBackExit';
+import { styles } from '@/styles/signInStyles';
 
 function SignInScreen() {
   const { login, goToSignUp, loading } = useSignIn();
@@ -26,6 +27,8 @@ function SignInScreen() {
 
     login(email, password);
   };
+
+  useDoubleBackExit(true);
 
   return (
     <View style={styles.container}>

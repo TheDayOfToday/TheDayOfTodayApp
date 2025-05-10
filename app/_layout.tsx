@@ -46,7 +46,7 @@ export default function RootLayout() {
     const checkLoginStatus = async () => {
       const token = await AsyncStorage.getItem('accessToken');
       if (!token) {
-        showToast('error', '로그인 필요', '로그인이 필요합니다.');  
+        showToast('info', '로그인 필요', '로그인이 필요합니다.');  
       }
       router.replace('/signIn');
     };

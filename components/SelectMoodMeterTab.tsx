@@ -23,12 +23,6 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
   const { data, loading, error } = diaryId ? useGetMoodMeters(diaryId) : { data: undefined, loading: true, error: undefined };
   const diaryMood = data?.diaryMood;
   const moodCategories = data?.moodCategories ?? [];
-  // const [selectedMood, setSelectedMood] = useState<{ moodName: string; color: string } | null>(
-  //   diaryMood ? {
-  //     moodName: diaryMood.moodName,
-  //     color: diaryMood.moodColor,
-  //   } : null
-  // );
   const [selectedMood, setSelectedMood] = useState<{ moodName: string; color: string } | null>(null);
 
   useEffect(() => {
