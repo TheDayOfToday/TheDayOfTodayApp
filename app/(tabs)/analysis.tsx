@@ -3,8 +3,9 @@ import { ScrollView, View, Text, Pressable } from 'react-native';
 import { Image } from 'react-native';
 import useGetWeeklyAnalysis from '@/hooks/useGetWeeklyAnalysis';
 import useToken from '@/hooks/useToken';
-import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import useDoubleBackExit from '@/hooks/useDoubleBackExit';
+import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
 
 function AnalysisScreen() {
   const token = useToken();
@@ -45,6 +46,8 @@ function AnalysisScreen() {
       day: String(currentDate.getDate()),
     });
   };
+
+  useDoubleBackExit(true);
 
   return (
     <ScrollView

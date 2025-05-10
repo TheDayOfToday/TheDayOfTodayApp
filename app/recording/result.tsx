@@ -5,6 +5,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import useShowToast from '@/hooks/useShowToast';
 import useGetTodayDiary from '@/hooks/useGetTodayDiary';
 import usePutUpdateDiary from '@/hooks/usePutUpdateDiary';
+import useDoubleBackExit from '@/hooks/useDoubleBackExit';
 import { recordingResultStyles } from "@/styles/recordingResultStyles";
 
 function ResultScreen() {
@@ -58,6 +59,8 @@ function ResultScreen() {
       onChangeContent('로딩 중...');
     }
   }, [isLoading]);
+
+  useDoubleBackExit(true);
 
   return (
     <ScrollView

@@ -3,14 +3,13 @@ import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 're
 import useToken from '@/hooks/useToken';
 import useShowToast from '@/hooks/useShowToast';
 import { Calendar } from 'react-native-calendars';
-import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useDiaryEntry } from '@/hooks/useDiaryEntry';
 import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
 import useDeleteDiary from '@/hooks/useDeleteDiary';
 import { useCalendarColors } from '@/hooks/useCalendarColor';
 import LottieView from 'lottie-react-native';
+import useDoubleBackExit from '@/hooks/useDoubleBackExit';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
 
@@ -90,7 +89,8 @@ function CalendarScreen() {
       showToast('error', '삭제 실패', '일기를 삭제하는 데에 실패했습니다.');
     }
   };
-  
+
+  useDoubleBackExit(true);
 
   return (
     <SafeAreaView style={styles.safeArea}>

@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { BackHandler, ToastAndroid } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function useDoubleBackExit(enabled = true) {
+  const isFocused = useIsFocused();
   const backPressedOnceRef = useRef(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || !isFocused) return;
 
     const onBackPress = () => {
       if (backPressedOnceRef.current) {
@@ -31,5 +33,5 @@ export default function useDoubleBackExit(enabled = true) {
       subscription.remove();
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [enabled]);
+  }, [enabled, isFocused]);
 }
