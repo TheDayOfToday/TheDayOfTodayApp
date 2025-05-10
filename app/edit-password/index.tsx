@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Pressable } from 'react-native';
+import { View,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import useShowToast from '@/hooks/useShowToast';
 import { styles } from '@/styles/editProfileStyles';
@@ -36,10 +43,12 @@ const EditPassword = () => {
   
     try {
       const result = await updatePassword(token, { newPassword });
-      showToast('success', '비밀번호 변경 완료', result || '다시 로그인해주세요.');
+      // showToast('success', '비밀번호 변경 완료', result || '다시 로그인해주세요.');
+      showToast('success', '비밀번호 변경 완료', '다시 로그인해주세요.');
       router.replace('/signIn');
     } catch (error: any) {
-      showToast('error', '에러 발생', error.message || '비밀번호 변경 실패');
+      // showToast('error', '에러 발생', error.message || '비밀번호 변경 실패');
+      showToast('error', '비밀번호 변경 실패', '비밀 번호 변경에 실패하였습니다.');
     }
   };
   return (
