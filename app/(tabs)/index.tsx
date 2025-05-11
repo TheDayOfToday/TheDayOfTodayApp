@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable, ScrollView } from 'react-native';
 import useToken from '@/hooks/useToken';
 import useShowToast from '@/hooks/useShowToast';
 import { Calendar } from 'react-native-calendars';
@@ -159,10 +159,10 @@ function CalendarScreen() {
                 diary.isLoading ? (
                   <Text>일기 불러오는 중...</Text>
                 ) : diary.data ? (
-                  <View style={calendarModalStyles.tabContent}>
+                  <ScrollView style={calendarModalStyles.tabContent}>
                     <Text style={calendarModalStyles.diaryTitle}>{diary.data.title}</Text>
                     <Text style={calendarModalStyles.diaryText}>{diary.data.content}</Text>
-                  </View>
+                  </ScrollView>
                 ) : (
                   <Text>일기 없음</Text>
                 )

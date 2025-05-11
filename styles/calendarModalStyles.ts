@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const calendarModalStyles = StyleSheet.create({
       tabContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
         width: '100%',
         marginVertical: 10,
         borderBottomWidth: 1,
@@ -28,7 +29,7 @@ export const calendarModalStyles = StyleSheet.create({
         fontFamily: 'Pretendard7',
       },
       tabContent: {
-        paddingVertical: 15,
+        height: 'auto',
         width: '100%',
       },
       diaryTitle: {

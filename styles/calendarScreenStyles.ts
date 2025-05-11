@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 20,
         width: '80%',
-        alignItems: 'center',
+        maxHeight: '50%',
       },
       loadingContainer: {
         flex: 1,

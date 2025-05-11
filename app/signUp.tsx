@@ -52,7 +52,7 @@ function SignUpScreen() {
             placeholder="전화번호"
             style={styles.input}
             value={phoneNumber}
-            onChangeText={setPhoneNumber}
+            onChangeText={(text) => setPhoneNumber(text.replace(/[^0-9]/g, ''))}
             keyboardType="phone-pad"
           />
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
