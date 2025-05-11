@@ -7,7 +7,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: 'TheDayOfToday',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/images/splash-icon.png',
+  icon: './assets/images/adaptive-icon.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,

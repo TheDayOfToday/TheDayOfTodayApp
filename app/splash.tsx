@@ -1,6 +1,5 @@
-import { View, Text } from "react-native";
+import { View, Image } from "react-native";
 import { useEffect, useState } from "react";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { splashStyles } from '../styles/splashStyles';
 
 function SplashScreen({ onFinish }: { onFinish: () => void }) {
@@ -17,8 +16,11 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <View style={splashStyles.container}>
-      <Text style={splashStyles.text}>오늘의 하루 </Text>
-      <Ionicons name="pencil-sharp" size={35} color="#fff" />
+      <Image
+        source={require('@/assets/images/splash-icon.png')}
+        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, height: 200, resizeMode: 'contain'}}
+        resizeMode="contain"
+      />
     </View>
   );
 }

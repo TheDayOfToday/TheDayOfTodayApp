@@ -1,4 +1,4 @@
-package com.thedayoftoday.app
+package com.thedayoftoday.application
 
 import android.app.Application
 import android.content.res.Configuration

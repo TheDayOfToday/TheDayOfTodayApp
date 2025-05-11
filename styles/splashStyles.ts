@@ -9,8 +9,4 @@ export const splashStyles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#010717',
     },
-    text: {
-        fontSize: RFValue(40),
-        color: '#fff',
-    },
 });
