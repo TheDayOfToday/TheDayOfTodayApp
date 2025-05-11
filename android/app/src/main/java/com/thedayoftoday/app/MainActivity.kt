@@ -1,4 +1,4 @@
-package com.thedayoftoday.app
+package com.thedayoftoday.application
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
