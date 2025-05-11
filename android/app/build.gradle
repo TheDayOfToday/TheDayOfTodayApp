@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.thedayoftoday.application'
+    namespace 'com.thedayoftoday.app'
     defaultConfig {
-        applicationId 'com.thedayoftoday.application'
+        applicationId 'com.thedayoftoday.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
