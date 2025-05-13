@@ -90,7 +90,7 @@ function CalendarScreen() {
     }
   };
 
-  useDoubleBackExit(true);
+  useDoubleBackExit(!modalVisible);
 
   return (
     <SafeAreaView style={styles.safeArea}>
