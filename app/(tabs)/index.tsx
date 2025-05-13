@@ -170,9 +170,9 @@ function CalendarScreen() {
                 analysis.isLoading ? (
                   <Text>분석 불러오는 중...</Text>
                 ) : analysis.data ? (
-                  <View style={calendarModalStyles.tabContent}>
+                  <ScrollView style={calendarModalStyles.tabContent}>
                     <Text style={calendarModalStyles.analysisText}>{analysis.data.analysis}</Text>
-                  </View>
+                  </ScrollView>
                 ) : (
                   <Text>분석 없음</Text>
                 )

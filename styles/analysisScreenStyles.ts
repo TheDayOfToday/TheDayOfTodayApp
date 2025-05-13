@@ -31,10 +31,11 @@ export const analysisScreenStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 20,
+    textAlign: 'center',
   },
   headerText: {
     fontFamily: 'Hakgyoansim',
-    fontSize: RFValue(24),
+    fontSize: RFValue(20),
   },
   contentContainer: {
     width: '100%',
