@@ -7,6 +7,6 @@ export const splashStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: '#010717',
+        backgroundColor: '#101013',
     },
 });

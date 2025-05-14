@@ -4,7 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const dailyAnalysisScreenStyles = StyleSheet.create({
   Screen: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#17171E',
   },
   container: {
     padding: 30,
@@ -20,26 +20,29 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
     fontFamily: 'Pretendard5',
     fontSize: RFValue(16),
     borderBottomWidth: 2,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: '#999',
+    color: '#ddd',
     paddingBottom: 4,
   },
   title: {
     padding: 5,
     fontFamily: 'Hakgyoansim',
     fontSize: RFValue(22),
-    color: '#132a9e',
+    color: '#ddd',
   },
   resultContainer: {
     flexWrap: "wrap",
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 15,
     // 무드미터 색으로 변경하기
-    borderColor: '#132a9e',
+    backgroundColor: '#2C2C35',
     padding: 15,
   },
   resultText: {
     fontFamily: 'Hakgyoansim',
-    fontSize: RFValue(18),
+    fontSize: RFValue(16),
+    color: '#ddd',
+    lineHeight: 28,
   },
 });

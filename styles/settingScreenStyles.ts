@@ -4,17 +4,17 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: '#fff', 
+    backgroundColor: '#17171E', 
     padding: 20 
   },
   header: { 
-    fontFamily: 'Pretendard8',
-    fontSize: RFValue(22), 
-    marginBottom: 30 
+    fontFamily: 'Pretendard5',
+    fontSize: RFValue(22),
+    color: '#ddd',
+    marginBottom: 30,
   },
-  profileSection: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
+  profileSection: {
+    flexDirection: 'row',
     marginBottom: 30 
   },
   profileImage: { 
@@ -23,9 +23,13 @@ export const styles = StyleSheet.create({
     borderRadius: 30, 
     marginRight: 15 
   },
+  headerContainer: {
+    alignContent: 'center',
+  },
   userName: { 
     fontFamily: 'Pretendard7',
     fontSize: RFValue(18), 
+    color: '#ddd',
   },
   badge: {
     backgroundColor: '#FF6B6B',
@@ -39,16 +43,19 @@ export const styles = StyleSheet.create({
     alignItems: 'center', 
     marginBottom: 5 
   },
-  logoutText: { 
-    color: '#5DA3FA', 
-    marginTop: 5 
+  logoutText: {
+    fontFamily: 'Pretendard4',
+    fontSize: RFValue(12),
+    color: '#6478c4', 
   },
-  deleteUsetText: {    
+  deleteUserText: {
+    fontFamily: 'Pretendard4',
+    fontSize: RFValue(14),
     color: '#FF4D4F', 
     marginTop: 5
   },
   section: { 
-    backgroundColor: '#FAFAFA', 
+    backgroundColor: '#2C2C35', 
     padding: 20, 
     borderRadius: 10 
   },
@@ -58,35 +65,41 @@ export const styles = StyleSheet.create({
     marginBottom: 20 
   },
   sectionTitle: { 
-    fontFamily: 'Pretendard8',
+    fontFamily: 'Pretendard6',
     fontSize: RFValue(18), 
+    color: '#ddd',
   },
   editText: { 
-    fontFamily: 'Pretendard6',
-    color: '#5DA3FA', 
-    fontSize: RFValue(15) 
+    fontFamily: 'Pretendard4',
+    color: '#6478c4', 
+    fontSize: RFValue(15),
   },
   infoRow: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    marginBottom: 15 
+    marginBottom: 15,
   },
   infoLabel: { 
-    fontFamily: 'Pretendard6',
-    fontSize: RFValue(15), 
-    color: '#333' 
+    fontFamily: 'Pretendard4',
+    fontSize: RFValue(14), 
+    color: '#bbb' 
   },
   infoValue: { 
-    fontFamily: 'Pretendard4',
-    fontSize: RFValue(15), 
-    color: '#666' 
+    fontFamily: 'Pretendard3',
+    fontSize: RFValue(14), 
+    color: '#999' 
   },
   logoutButton: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
+  },
+  userDeleteButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    textAlign: 'center',
+    padding: 10,
   },
   editPasswordButton: {
     paddingVertical: 10, 
-    paddingHorizontal: 16,
   },
 });

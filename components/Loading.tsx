@@ -6,7 +6,7 @@ interface LoadingScreenPops {
   backgroundColor?: string;
 }
 
-function LoadingScreen({ backgroundColor = '#0e0c26' }: LoadingScreenPops) {
+function LoadingScreen({ backgroundColor = '#101013' }: LoadingScreenPops) {
   return (
     <SafeAreaView style={[loadingStyles.screenContainer, { backgroundColor }]}>
       <LottieView

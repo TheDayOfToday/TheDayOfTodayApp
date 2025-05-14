@@ -12,6 +12,7 @@ import LottieView from 'lottie-react-native';
 import useDoubleBackExit from '@/hooks/useDoubleBackExit';
 import { calendarModalStyles } from '@/styles/calendarModalStyles';
 import { styles } from '../../styles/calendarScreenStyles';
+import Book from '@/components/book';
 
 function CalendarScreen() {
   const token = useToken();
@@ -50,23 +51,22 @@ function CalendarScreen() {
       styles.dayText,
       state === 'disabled' && styles.disabledText,
       isToday && {
-        fontFamily: 'Pretendard9',
+        fontFamily: 'Pretendard4',
+        color: '#6478c4',
         borderBottomWidth: 2,
-        borderBottomColor: '#001D6E',
+        borderBottomColor: '#6478c4',
       },
     ];
   
     return (
       <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
-        <View style={styles.circleIcon}>
-          <View
-            style={[
-              styles.circle,
-              marking?.dotColor && { backgroundColor: marking.dotColor },
-            ]}
-          />
-        </View>
         <Text style={dayTextStyle}>{date.day}</Text>
+        <View
+          style={[
+            styles.circle,
+            marking?.dotColor ? { backgroundColor: marking.dotColor } : { backgroundColor: '#777' },
+          ]}
+        />
       </Pressable>
     );
   };
@@ -93,11 +93,22 @@ function CalendarScreen() {
   useDoubleBackExit(!modalVisible);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <ScrollView
+      style={styles.safeArea}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.container}>
-        {moodColorsReady ? (
-          <Calendar     
+        {/* {moodColorsReady ? ( */}
+          <Calendar
             style={styles.calendar}
+            theme={{
+              calendarBackground: '#17171C', 
+              monthTextColor: '#D6DEFD',
+              textMonthFontSize: 18,
+              textMonthFontFamily: 'Pretendard4',
+              arrowColor: '#D6DEFD',
+              textSectionTitleColor: '#D6DEFD',
+            }}
             current={new Date().toISOString().split('T')[0]}
             onDayPress={handleDayPress}
             key={JSON.stringify(markedDates)}
@@ -105,17 +116,17 @@ function CalendarScreen() {
             markedDates={markedDates}            
             dayComponent={CustomDay}
           />
-        ) : (
-          <SafeAreaView style={styles.loadingLottieContainer}>
-            <LottieView
-              source={require('../../assets/loading.json')}
-              autoPlay
-              loop
-              speed={1}
-              style={styles.loadingLottie}
-            />
-          </SafeAreaView>
-        )}
+        {/* ) : ( */}
+          {/* <SafeAreaView style={styles.loadingLottieContainer}> */}
+            {/* <LottieView */}
+              {/* source={require('../../assets/loading.json')} */}
+              {/* autoPlay */}
+              {/* loop */}
+              {/* speed={1} */}
+              {/* style={styles.loadingLottie} */}
+            {/* /> */}
+          {/* </SafeAreaView> */}
+        {/* )} */}
 
         <Modal
           animationType="slide"
@@ -127,13 +138,13 @@ function CalendarScreen() {
             <View style={styles.modalContent}>
               <View style={calendarModalStyles.dateRow}>
                 <TouchableOpacity onPress={() => moveDate('prev')}>
-                  <Ionicons name="chevron-back" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
+                  <Ionicons name="chevron-back" size={20} color= "#96A0CC" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
                 <Text style={calendarModalStyles.dateText}>
                   {new Date(selectedDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </Text>
                 <TouchableOpacity onPress={() => moveDate('next')}>
-                  <Ionicons name="chevron-forward" size={20} color="#00BFFF" style={calendarModalStyles.arrowIcon} />
+                  <Ionicons name="chevron-forward" size={20} color= "#96A0CC" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
               </View>
               <View style={calendarModalStyles.tabContainer}>
@@ -164,7 +175,9 @@ function CalendarScreen() {
                     <Text style={calendarModalStyles.diaryText}>{diary.data.content}</Text>
                   </ScrollView>
                 ) : (
-                  <Text>일기 없음</Text>
+                  <View style={calendarModalStyles.tabNoContent}>
+                    <Text style={calendarModalStyles.diaryText}>일기 없음</Text>
+                  </View>
                 )
               ) : (
                 analysis.isLoading ? (
@@ -174,7 +187,9 @@ function CalendarScreen() {
                     <Text style={calendarModalStyles.analysisText}>{analysis.data.analysis}</Text>
                   </ScrollView>
                 ) : (
-                  <Text>분석 없음</Text>
+                  <View style={calendarModalStyles.tabNoContent}>
+                    <Text style={calendarModalStyles.analysisText}>분석 없음</Text>
+                  </View>
                 )
               )}
               <View style={calendarModalStyles.modalButtonContainer}>
@@ -188,8 +203,9 @@ function CalendarScreen() {
             </View>
           </View>
         </Modal>
+        <Book />
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 

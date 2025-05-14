@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable } from "react-native";
-import { dailyAnalysisScreenStyles } from "@/styles/dailyAnalysisScreenStyles";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import usePostAnalyze from '@/hooks/usePostAnalyze';
 import useToken from '@/hooks/useToken';
+import usePostAnalyze from '@/hooks/usePostAnalyze';
+import usePostBook from '@/hooks/usePostBook';
+import { dailyAnalysisScreenStyles } from "@/styles/dailyAnalysisScreenStyles";
 
 function DailyAnalysisScreen() {
   const token = useToken();
@@ -11,6 +12,7 @@ function DailyAnalysisScreen() {
   const { diaryId } = useLocalSearchParams();
   const numericDiaryId = Number(diaryId);
   const { mutate: analysisMutate, data, isPending} = usePostAnalyze();
+  const { mutate: bookMutate } = usePostBook();
 
   const handleSubmitPress = useCallback(() => {
     router.push('/(tabs)/record');
@@ -18,7 +20,14 @@ function DailyAnalysisScreen() {
 
   useEffect(() => {
     if (token && !isNaN(numericDiaryId)) {
-      analysisMutate({ token, diaryId: numericDiaryId });
+      analysisMutate(
+        { token, diaryId: numericDiaryId },
+        {
+          onSuccess: () => {
+            bookMutate({ token, diaryId: numericDiaryId });
+          }
+        }
+      );
     }
   }, [token, numericDiaryId]);
 

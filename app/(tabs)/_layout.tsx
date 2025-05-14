@@ -1,9 +1,9 @@
 import React from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Entypo from '@expo/vector-icons/Entypo';
 import { Tabs, usePathname, useRouter } from 'expo-router';
-import { Pressable, View } from 'react-native';
+import { Pressable, SafeAreaView, View } from 'react-native';
 import { layoutStyles } from '../../styles/layoutStyles';
 
 function TabLayout() {
@@ -13,11 +13,7 @@ function TabLayout() {
       style={layoutStyles.settingButton}
       onPress={() => router.push('/setting')}
     >
-      <Ionicons
-        name="settings-outline"
-        size={24}
-        color="white"
-      />
+      <MaterialIcons name="person-outline" size={26} color="#ddd" />
     </Pressable>
   );
 
@@ -25,77 +21,77 @@ function TabLayout() {
   const isModeTab = pathname === "/record";
 
   return (
-    <Tabs
-      screenOptions={({ navigation }) => ({
-        headerShown: true,
-        headerStyle: isModeTab ? layoutStyles.modeTabHeader : layoutStyles.header,
-        headerTitle: '오늘의 하루',
-        headerTitleStyle: layoutStyles.headerTitle,
-        headerBackgroundContainerStyle: isModeTab ? layoutStyles.modeTabHeaderContainer : layoutStyles.headerContainer,
-        headerRight: () => <SettingButton />,
-        tabBarStyle: layoutStyles.tabBar,
-        tabBarLabelStyle: layoutStyles.tabBarLabel,
-        tabBarIconStyle: layoutStyles.tabBarIcon,
-        tabBarActiveTintColor: '#001D6E',
-        tabBarInactiveTintColor: '#cecfd5',
-      })}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Calendar',
-          tabBarIcon: ({ focused, color }) => (
-            <AntDesign 
-              name="calendar" 
-              size={24} 
-              color={focused ? '#001D6E' : '#cecfd5'}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="record"
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: ({ focused, color }) => (
-            <View
-              style={[
-                layoutStyles.recordButtonContainer,
-                focused && { backgroundColor: '#fff' },
-              ]}
-            >
-              <MaterialIcons 
-              name="keyboard-voice" 
-              size={32} 
-              style={[
-                layoutStyles.recordButton,
-                focused && { color: '#001D6E' },
-              ]}
-            />
-            </View>
-          ),
-        }}
-        listeners={({ navigation}) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            navigation.navigate('record', { openBottomSheet: true });
-          },
+    <SafeAreaView style={layoutStyles.container}>
+      <Tabs
+        screenOptions={({ }) => ({
+          headerShown: true,
+          headerStyle: layoutStyles.header,
+          headerTitle: '오늘의 하루',
+          headerTitleStyle: layoutStyles.headerTitle,
+          headerRight: () => <SettingButton />,
+          tabBarStyle: isModeTab ? layoutStyles.modeTabBar : layoutStyles.tabBar,
+          tabBarLabelStyle: layoutStyles.tabBarLabel,
+          tabBarActiveTintColor: '#fff',
+          tabBarInactiveTintColor: '#63636E',
         })}
-      />
-      <Tabs.Screen
-        name="analysis"
-        options={{
-          title: 'Analysis',
-          tabBarIcon: ({focused, color }) => (
-            <MaterialIcons 
-              name="menu-book" 
-              size={24}
-              color={focused ? '#001D6E' : '#cecfd5'}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: '홈',
+            tabBarIcon: ({ focused, color }) => (
+              <Entypo
+                name="home"
+                size={24}
+                color={focused ? '#fff' : '#63636E'}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="record"
+          options={{
+            tabBarLabel: '',
+            tabBarIcon: ({ focused, color }) => (
+              <View
+                style={[
+                  layoutStyles.recordButtonContainer,
+                  focused && { backgroundColor: '#17171C' },
+                ]}
+              >
+                <MaterialIcons 
+                name="keyboard-voice" 
+                size={32} 
+                style={[
+                  layoutStyles.recordButton,
+                  focused && { color: '#aaa' },
+                ]}
+              />
+              </View>
+            ),
+          }}
+          listeners={({ navigation}) => ({
+            tabPress: (e) => {
+              e.preventDefault();
+              navigation.navigate('record', { openBottomSheet: true });
+            },
+          })}
+        />
+        <Tabs.Screen
+          name="analysis"
+          options={{
+            title: '분석',
+            tabBarIcon: ({focused, color }) => (
+              <MaterialIcons 
+                name="menu-book" 
+                size={24}
+                color={focused ? '#fff' : '#63636E'}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </SafeAreaView>
   );
 }
 

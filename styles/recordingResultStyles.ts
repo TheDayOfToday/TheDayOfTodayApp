@@ -4,7 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const recordingResultStyles = StyleSheet.create({
   Screen: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#17171E',
   },
   container: {
     padding: 30,
@@ -20,20 +20,21 @@ export const recordingResultStyles = StyleSheet.create({
     fontFamily: 'Pretendard5',
     fontSize: RFValue(16),
     borderBottomWidth: 2,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: '#999',
+    color: '#ddd',
     paddingBottom: 4,
   },
   titleInputContainer: {
     display: 'flex',
     alignSelf: 'flex-start',
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#999',
   },
   title: {
     padding: 5,
     fontFamily: 'Hakgyoansim',
-    fontSize: RFValue(22),
-    color: '#132a9e',
+    fontSize: RFValue(20),
+    color: '#ddd',
   },
   resultContainer: {
     flex: 1,
@@ -41,16 +42,17 @@ export const recordingResultStyles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderWidth: 1,
     borderRadius: 15,
-    borderColor: '#132a9e',
+    backgroundColor: '#2C2C35',
     padding: 15,
   },
   resultText: {
     flex: 1,
     width: '100%',
     fontFamily: 'Hakgyoansim',
-    fontSize: RFValue(18),
+    fontSize: RFValue(16),
+    color: '#ddd',
+    lineHeight: 28,
   },
   saveButtonContainer: {
     alignItems: 'flex-end',
@@ -59,12 +61,14 @@ export const recordingResultStyles = StyleSheet.create({
   saveButton: {
     paddingVertical: 12,
     paddingHorizontal: 30,
-    borderRadius: 130,
-    backgroundColor: '#f5f5f5',
+    borderRadius: 30,
+    borderWidth: 3,
+    borderColor: '#2C2C35',
+    backgroundColor: '#1f1f24',
   },
   saveButtonText: {
     fontFamily: 'Pretendard4',
     fontSize: RFValue(16),
-    color: '#333',
+    color: '#ddd',
   },
 });

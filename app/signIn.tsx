@@ -37,6 +37,7 @@ function SignInScreen() {
 
       <TextInput
         placeholder="이메일"
+        placeholderTextColor="#69728F"
         style={styles.input}
         value={email}
         onChangeText={setEmail}
@@ -46,6 +47,7 @@ function SignInScreen() {
       <View style={styles.passwordContainer}>
         <TextInput
           placeholder="비밀번호"
+          placeholderTextColor="#69728F"
           style={styles.inputPassword}
           value={password}
           onChangeText={setPassword}
@@ -55,7 +57,7 @@ function SignInScreen() {
           <Ionicons 
             name={passwordVisible ? 'eye-outline' : 'eye-off-outline'} 
             size={20} 
-            color="#aaa" 
+            color="#D6DEFD" 
           />
         </TouchableOpacity>
       </View>

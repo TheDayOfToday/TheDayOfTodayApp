@@ -4,15 +4,16 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#17171E',
     padding: 20,
   },
   headerContainer: {
     marginBottom: '10%',
   },
   headerText: {
-    fontFamily: 'Pretendard8',
+    fontFamily: 'Pretendard6',
     fontSize: RFValue(22),
+    color: '#D6DEFD',
   },
   contentContainer: {
     display: 'flex',
@@ -22,23 +23,23 @@ export const styles = StyleSheet.create({
     lineHeight: 30,
     fontFamily: 'Pretendard4',
     fontSize: RFValue(16),
-    color: '#333'
+    color: '#7A7E9B'
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#69728F',
     borderRadius: 8,
     padding: 15,
     fontSize: RFValue(16),
   },
   saveButton: {
-    backgroundColor: '#0e0c26',
+    backgroundColor: '#D6DEFD',
     paddingVertical: 15,
     borderRadius: 8,
   },
   saveButtonText: {
     fontFamily: 'Pretendard6',
-    color: '#fff',
+    color: '#69728F',
     textAlign: 'center',
     fontSize: RFValue(16),
   },

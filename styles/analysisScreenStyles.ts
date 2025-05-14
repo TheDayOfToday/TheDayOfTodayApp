@@ -4,7 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const analysisScreenStyles = StyleSheet.create({
   Screen: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#101013',
   },
   container: {
     alignItems: 'center',
@@ -13,6 +13,9 @@ export const analysisScreenStyles = StyleSheet.create({
     gap: 10,
   },
   dateContainer: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#2C2C35',
     width: '100%',
     height: '20%',
     display: 'flex',
@@ -36,14 +39,13 @@ export const analysisScreenStyles = StyleSheet.create({
   headerText: {
     fontFamily: 'Hakgyoansim',
     fontSize: RFValue(20),
+    color: '#D6DEFD',
   },
   contentContainer: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#fafafa',
-    borderColor: '#fff',
-    borderWidth: 2,
+    backgroundColor: '#2C2C35',
     borderRadius: 15,
     padding: 25,
     gap: 16,
@@ -51,11 +53,13 @@ export const analysisScreenStyles = StyleSheet.create({
   contentDate: {
     fontFamily: 'Hakgyoansim',
     fontSize: RFValue(14),
-    color: '#666',
+    color: '#D6DEFD',
+    lineHeight: 22,
   },
   contentFeedback: {
     fontFamily: 'Hakgyoansim',
     fontSize: RFValue(16),
+    color: '#ddd',
     lineHeight: 22,
   },
 });

@@ -101,7 +101,8 @@ function SelectModeTab() {
     >
       <BottomSheetView style={modeSlidingTabStyles.sheetView}>
         <View style={modeSlidingTabStyles.sheetHeaderContainer}>
-          <Text style={modeSlidingTabStyles.sheetHeaderTitle}>일기 작성 모드를 선택해주세요</Text>
+          <Text style={modeSlidingTabStyles.sheetHeaderTitle}>일기 작성 모드를</Text>
+          <Text style={modeSlidingTabStyles.sheetHeaderTitle}>선택해주세요</Text>
         </View>
         <View style={modeSlidingTabStyles.recordButtonContainer}>
           <Pressable style={modeSlidingTabStyles.recordButton} onPress={() => onPressMonologue()}>

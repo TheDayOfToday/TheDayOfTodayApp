@@ -1,3 +1,4 @@
+import { commonStyles } from "@/styles/common";
 import { Stack } from "expo-router";
 
 export default function RecordLayout() {
@@ -27,7 +28,7 @@ export default function RecordLayout() {
       />
       <Stack.Screen
         name="daily-analysis"
-        options={{ headerShown: true, title: '', headerShadowVisible: false, }}
+        options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}}
       />
     </Stack>
   );
