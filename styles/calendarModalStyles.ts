@@ -7,8 +7,6 @@ export const calendarModalStyles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         marginVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
       },
       tabButton: {
         flex: 1,
@@ -17,35 +15,41 @@ export const calendarModalStyles = StyleSheet.create({
       },
       selectedTab: {
         borderBottomWidth: 2,
-        borderBottomColor: '#001D6E',
+        borderBottomColor: '#96A0CC',
       },
       tabText: {
         fontFamily: 'Pretendard4',
         fontSize: RFValue(16),
-        color: '#999',
+        color: '#ddd',
       },
       selectedTabText: {
-        color: '#001D6E',
+        color: '#96A0CC',
         fontFamily: 'Pretendard7',
       },
       tabContent: {
         height: 'auto',
         width: '100%',
       },
+      tabNoContent: {
+        alignItems: 'center',
+      },
       diaryTitle: {
         fontFamily: 'Pretendard7',
         fontSize: RFValue(18),
+        color: '#ddd',
         marginBottom: 5,
       },
       diaryText: {
         fontFamily: 'Pretendard4',
         fontSize: RFValue(14),
-        color: '#333',
+        color: '#ddd',
+        lineHeight: 22,
       },
       analysisText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(14),
-        color: '#333',
+        color: '#ddd',
+        lineHeight: 22,
       },
       modalButtonContainer: {
         width: '100%',
@@ -57,7 +61,7 @@ export const calendarModalStyles = StyleSheet.create({
       deleteDiaryButton: {
         marginTop: 15,
         padding: 10,
-        backgroundColor: '#EEE',
+        backgroundColor: '#5F5E6D',
         borderRadius: 5,
         alignItems: 'center',
         width: '45%',
@@ -65,12 +69,12 @@ export const calendarModalStyles = StyleSheet.create({
       deleteDiaryButtonText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(16),
-        color: '#ff4f4f',
+        color: '#ed3e3e',
       },
       modalButton: {
         marginTop: 15,
         padding: 10,
-        backgroundColor: '#001D6E',
+        backgroundColor: '#96A0CC',
         borderRadius: 5,
         alignItems: 'center',
         width: '45%',
@@ -92,8 +96,9 @@ export const calendarModalStyles = StyleSheet.create({
         marginTop: 4,
       },      
       dateText: {
-        fontFamily: 'Pretendard8',
+        fontFamily: 'Pretendard6',
         fontSize: RFValue(18),
+        color: '#ddd',
         marginHorizontal: 12,
       },
       moodTag: {

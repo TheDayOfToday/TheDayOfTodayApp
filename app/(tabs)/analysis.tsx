@@ -47,6 +47,9 @@ function AnalysisScreen() {
     });
   };
 
+  const todayObj = new Date();
+  const isFutureDate = weeklyAnalysis?.endDate ? new Date(weeklyAnalysis.endDate) > todayObj : false;
+
   useDoubleBackExit(true);
 
   return (
@@ -60,14 +63,14 @@ function AnalysisScreen() {
           onPress={() => handlePressLeft()}
           style={analysisScreenStyles.dataButton}
         >
-          <AntDesign name="caretleft" size={24} color="#191D42" />
+          <AntDesign name="caretleft" size={24} color="#D6DEFD" />
         </Pressable>
         <Text style={analysisScreenStyles.contentDate}>{weeklyAnalysis?.startDate}~{weeklyAnalysis?.endDate}</Text>
         <Pressable
           onPress={() => handlePressRight()}
           style={analysisScreenStyles.dataButton}
         >
-          <AntDesign name="caretright" size={24} color="#191D42" />
+          <AntDesign name="caretright" size={24} color="#D6DEFD" />
         </Pressable>
       </View>
       <View style={analysisScreenStyles.headerContainer}>
@@ -84,9 +87,11 @@ function AnalysisScreen() {
       )}
       {weeklyAnalysis?.title ? (
         <Text style={analysisScreenStyles.headerText}>{weeklyAnalysis?.title}</Text>
-      ): 
-        <Text style={analysisScreenStyles.headerText}>이 기간에 일기가 없습니다!</Text>
-      }
+      ) : (
+        <Text style={analysisScreenStyles.headerText}>
+          {isFutureDate ? '아직 분석할 수 없습니다!' : '분석할 일기가 없습니다!'}
+        </Text>
+      )}
       </View>
       <View style={analysisScreenStyles.contentContainer}>
         {weeklyAnalysis?.title ? (

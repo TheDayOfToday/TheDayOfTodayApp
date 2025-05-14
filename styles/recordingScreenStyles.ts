@@ -4,10 +4,10 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const recordingScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0e0c26',
+        backgroundColor: '#101013',
     },
     recordScreen: {
-        backgroundColor: '#010717',
+        backgroundColor: '#101013',
         flex: 1,
         justifyContent: 'space-between',
         gap: 15,
@@ -35,7 +35,7 @@ export const recordingScreenStyles = StyleSheet.create({
     },
     message: {
         textAlign: 'center',
-        color: '#aac9ff',
+        color: '#eee',
         fontFamily: 'Pretendard3',
         fontSize: RFValue(22),
     },
@@ -58,7 +58,7 @@ export const recordingScreenStyles = StyleSheet.create({
     nextButtonText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(18),
-        color: '#aac9ff',
+        color: '#D6DEFD',
     },
     // 대화 모드 녹음 플레이 버튼
     playButton: {

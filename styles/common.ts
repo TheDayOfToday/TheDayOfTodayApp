@@ -13,4 +13,7 @@ export const commonStyles = StyleSheet.create({
         fontSize: RFValue(24),
         color: '#001D6E',
     },
+    headerStyle: {
+        backgroundColor: '#17171E',
+    },
 });

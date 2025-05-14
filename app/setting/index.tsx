@@ -80,7 +80,7 @@ function SettingScreen() {
       {/* 상단 프로필 */}
       <View style={styles.profileSection}>
         <Image source={{ uri: user.profileImage || 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.profileImage} />
-        <View style={{ flex: 1 }}>
+        <View style={styles.headerContainer}>
           <View style={styles.nameRow}>
             <Text style={styles.userName}>{user.name}</Text>
           </View>
@@ -114,10 +114,9 @@ function SettingScreen() {
       </View>
       <TouchableOpacity
         onPress={() => setModalIsOpen(true)}
-        style={[styles.logoutButton, { marginTop: 20, }]}
-        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        style={styles.userDeleteButton}
         >
-        <Text style={[styles.deleteUsetText]}>회원 탈퇴</Text>
+        <Text style={[styles.deleteUserText]}>회원 탈퇴</Text>
       </TouchableOpacity>
       {modalIsOpen && (
         <Modal

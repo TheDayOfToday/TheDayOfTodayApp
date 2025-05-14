@@ -4,13 +4,16 @@ import { RFValue } from 'react-native-responsive-fontsize';
 export const styles = StyleSheet.create({        
     safeArea: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#101013',
       },
       container: {
         flex: 1,
+        backgroundColor: '#101013',
+        gap: '1.5%',
       },
       loadingLottieContainer: {
         flex: 1,
+        backgroundColor: '#101013',
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -18,41 +21,34 @@ export const styles = StyleSheet.create({
         width: '50%',
         height: '50%',
       },
-      calendar: {        
+      calendar: {
+        marginHorizontal: '3%',
+        borderRadius: 20,
+        backgroundColor: '#17171C',     
         paddingHorizontal: 10,
         paddingVertical: 10,
       },
-      dayContainer: {        
+      dayContainer: {
+        backgroundColor: '#17171C',     
         width: 50,
         height: 60,
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        paddingBottom: 4,
+        justifyContent: 'space-around',
       },
       dayText: {
         fontFamily: 'Pretendard4',
-        fontSize: RFValue(16),
-        color: '#2d4150',
+        fontSize: RFValue(14),
+        color: '#ddd',
         marginTop: 4,
       },    
       disabledText: {
-        color: '#e0e0e0',
+        color: '#6B6B73',
       },          
-      circleIcon: {
-        position: 'absolute',
-        top: 2,
-        width: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
       circle: {
-        width: 24,
-        height: 24,
-        borderRadius: 12,
+        borderRadius: 10,
+        width: '80%',
+        height: '10%',
         marginBottom: 4,
-        borderWidth: 1,
-        borderColor: '#e8e8e8',
       },     
       modalOverlay: {
         flex: 1,
@@ -61,7 +57,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
       },
       modalContent: {
-        backgroundColor: 'white',
+        backgroundColor: '#2c2c35',
         borderRadius: 20,
         padding: 20,
         width: '80%',
@@ -73,7 +69,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 24,
         minHeight: 300,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#16161b',
         borderRadius: 10,
       },
 });

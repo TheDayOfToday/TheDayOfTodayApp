@@ -7,6 +7,7 @@ import CustomToast from '@/components/CustomToast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useShowToast from "@/hooks/useShowToast";
+import { commonStyles } from "@/styles/common";
 
 const queryClient = new QueryClient();
 
@@ -67,11 +68,11 @@ export default function RootLayout() {
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
+        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD', }} />
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
-        <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
-        <Stack.Screen name="edit-password" options={{ headerShown: true, title: '', headerShadowVisible: false, }} />
+        <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />
+        <Stack.Screen name="edit-password" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />
         <Stack.Screen name="recording" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>

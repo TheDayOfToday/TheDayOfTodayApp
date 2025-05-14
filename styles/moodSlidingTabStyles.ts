@@ -25,7 +25,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 40,
         borderRadius: 20,
-        backgroundColor: '#010717',
+        backgroundColor: '#101013',
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',

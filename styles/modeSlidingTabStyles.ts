@@ -6,18 +6,21 @@ export const modeSlidingTabStyles = StyleSheet.create({
         paddingHorizontal: 25,
     },
     backgroundSheet: {
-        //add
+        borderRadius: 25,
+        backgroundColor: '#212129',
     },
     sheetView: {
-        //add
+        backgroundColor: '#212129',
     },
     sheetHeaderContainer: {
         alignItems: 'center',
         marginVertical: 10,
     },
     sheetHeaderTitle: {
-        fontFamily: 'Pretendard6',
+        flexWrap: 'wrap',
+        fontFamily: 'Pretendard4',
         fontSize: RFValue(24),
+        color: '#ccc',
         textAlign: 'center',
         width: '100%',
     },
@@ -33,11 +36,11 @@ export const modeSlidingTabStyles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 15,
         marginVertical: 20,
-        backgroundColor: '#0e0c26',
+        backgroundColor: '#17171C',
     },
     recordButtonText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(16),
-        color: '#fff',
+        color: '#ddd',
     },
 });

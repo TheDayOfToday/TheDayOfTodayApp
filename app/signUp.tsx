@@ -23,18 +23,20 @@ function SignUpScreen() {
 
   return (
     <>
-      {isPending ? <LoadingScreen  backgroundColor='#fff'/> : (
+      {isPending ? <LoadingScreen  backgroundColor='#17171E'/> : (
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>오늘의 하루</Text>
           <Text style={styles.signUpLabel}>회원가입</Text>  
           <TextInput
             placeholder="이름"
+            placeholderTextColor="#69728F"
             style={styles.input}
             value={name}
             onChangeText={setName}
           />
           <TextInput
             placeholder="이메일"
+            placeholderTextColor="#69728F"
             style={styles.input}
             value={email}
             onChangeText={setEmail}
@@ -43,6 +45,7 @@ function SignUpScreen() {
           />
           <TextInput
             placeholder="비밀번호"
+            placeholderTextColor="#69728F"
             style={styles.input}
             value={password}
             onChangeText={setPassword}
@@ -50,6 +53,7 @@ function SignUpScreen() {
           />
           <TextInput
             placeholder="전화번호"
+            placeholderTextColor="#69728F"
             style={styles.input}
             value={phoneNumber}
             onChangeText={(text) => setPhoneNumber(text.replace(/[^0-9]/g, ''))}

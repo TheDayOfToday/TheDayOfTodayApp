@@ -1,0 +1,48 @@
+import { Text, View, Image } from "react-native";
+import useGetBook from "@/hooks/useGetBook";
+import useToken from "@/hooks/useToken";
+import { bookStyles } from "@/styles/bookStyles";
+
+function Book() {
+  const token = useToken();
+  const { data: recommendedBook } = useGetBook(token!);
+  console.log(recommendedBook);
+
+  return (
+    <View style={bookStyles.component}>
+      <View style={bookStyles.titleContainer}>
+        <Text style={bookStyles.titleText}>오늘의 책 추천</Text>
+      </View>
+      <View style={bookStyles.container}>
+        <View style={bookStyles.contentContainer}>
+          <View style={bookStyles.imgContainer}>
+            <Image
+              source={recommendedBook?.coverImageUrl || require("@/assets/images/book-and-pencil.png")}
+              style={
+                recommendedBook?.coverImageUrl
+                  ? bookStyles.cover
+                  : bookStyles.fallbackCover
+              }
+            />
+          </View>
+          <>
+          {true ? (
+            <View style={bookStyles.infoContainer}>
+              <Text style={bookStyles.bookTitle}>짜라투스트라는 이렇게 말했다.{recommendedBook?.title}</Text>
+              <Text style={bookStyles.bookAuthor}>저자 | 프리드리히 니체{recommendedBook?.author}</Text>
+              <Text style={bookStyles.bookDescription}>소개 | {recommendedBook?.description}</Text>
+            </View>
+          ) : (
+            <View style={bookStyles.noBookInfo}>
+              <Text style={bookStyles.noBookInfoText}>하루를 기록하고</Text>
+              <Text style={bookStyles.noBookInfoText}>책을 추천 받아보세요!</Text>
+            </View>
+          )}
+          </>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+export default Book;

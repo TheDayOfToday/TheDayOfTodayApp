@@ -38,7 +38,7 @@ export const ModalStyles = StyleSheet.create({
   finishButton: {
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#0e0c26',
+    backgroundColor: '#101013',
     borderRadius: 5,
     alignItems: 'center',
     width: '45%',
@@ -51,7 +51,7 @@ export const ModalStyles = StyleSheet.create({
   deleteDiaryButton: {
     marginTop: 15,
     padding: 10,
-    backgroundColor: '#0e0c26',
+    backgroundColor: '#101013',
     borderRadius: 5,
     alignItems: 'center',
     width: '45%',
@@ -59,7 +59,7 @@ export const ModalStyles = StyleSheet.create({
   deleteDiaryButtonText: {
     fontFamily: 'Pretendard5',
     fontSize: RFValue(16),
-    color: '#ff4f4f',
+    color: '#ed3e3e',
   },
   cancelButton: {
     marginTop: 15,
