@@ -80,4 +80,14 @@ export const styles = StyleSheet.create({
         fontSize: RFValue(12),
         color: '#989BD2',
     },
+    autoLoginContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 20,
+    },
+    autoLoginLabel: {
+        color: '#D6DEFD',
+        marginRight: 10,
+    },
 });

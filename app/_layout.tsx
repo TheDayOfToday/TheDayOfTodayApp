@@ -46,10 +46,14 @@ export default function RootLayout() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = await AsyncStorage.getItem('accessToken');
-      if (!token) {
+      const autoLogin = await AsyncStorage.getItem('autoLogin');
+
+      if (token && autoLogin === 'true') {
+        router.replace('/(tabs)');
+      } else {
         showToast('info', '로그인 필요', '로그인이 필요합니다.');  
+        router.replace('/signIn');
       }
-      router.replace('/signIn');
     };
 
     if (!isSplashVisible) {

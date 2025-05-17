@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSignIn } from '../hooks/useSignIn';
@@ -8,6 +8,7 @@ import { styles } from '@/styles/signInStyles';
 
 function SignInScreen() {
   const { login, goToSignUp, loading } = useSignIn();
+  const [autoLogin, setAutoLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');  
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -25,7 +26,7 @@ function SignInScreen() {
       return;
     }    
 
-    login(email, password);
+    login(email, password, autoLogin);
   };
 
   useDoubleBackExit(true);
@@ -69,6 +70,15 @@ function SignInScreen() {
       >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
+      <View style={styles.autoLoginContainer}>
+        <Text style={styles.autoLoginLabel}>자동 로그인</Text>
+        <Switch
+          value={autoLogin}
+          onValueChange={setAutoLogin}
+          trackColor={{ false: '#ccc', true: '#84b9ff' }}
+          thumbColor={autoLogin ? '#007AFF' : '#f4f3f4'}
+        />
+      </View>
 
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpLabelText}>회원이 아니신가요? </Text>
