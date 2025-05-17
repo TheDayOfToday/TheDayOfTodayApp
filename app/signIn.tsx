@@ -27,6 +27,7 @@ function SignInScreen() {
     }    
 
     login(email, password, autoLogin);
+    // login(email, password);
   };
 
   useDoubleBackExit(true);
