@@ -38,5 +38,6 @@ export interface LoginResponse {
 }
 
 export interface EditPasswordRequest {
+    currentPassword: string;
     newPassword: string;
 }

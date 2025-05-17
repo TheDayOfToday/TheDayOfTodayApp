@@ -26,11 +26,12 @@ export const styles = StyleSheet.create({
     color: '#7A7E9B'
   },
   input: {
+    color: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#69728F',
     borderRadius: 8,
     padding: 15,
-    fontSize: RFValue(16),
+    fontSize: RFValue(13),
   },
   saveButton: {
     backgroundColor: '#D6DEFD',

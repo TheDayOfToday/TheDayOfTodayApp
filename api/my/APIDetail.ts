@@ -49,5 +49,5 @@ export class UpdatePassword implements APIRequest<string> {
   response!: string;
   auth = true;
 
-  constructor(public authorization: string, public data: { newPassword: string }) {}
+  constructor(public authorization: string, public data: EditPasswordRequest) {}
 }

@@ -16,10 +16,16 @@ import { updatePassword } from '@/api/my';
 const EditPassword = () => {
   const router = useRouter();
   const showToast = useShowToast();
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handlePasswordChange = async () => {  
+  const handlePasswordChange = async () => { 
+    if (!currentPassword.trim()) {
+      showToast('error', '입력 필요', '현재 비밀번호를 입력해주세요.');
+      return;
+    }
+
     if (!newPassword.trim()) {
       showToast('error', '입력 필요', '새 비밀번호를 입력해주세요.');
       return;
@@ -42,12 +48,11 @@ const EditPassword = () => {
     }
   
     try {
-      const result = await updatePassword(token, { newPassword });
-      // showToast('success', '비밀번호 변경 완료', result || '다시 로그인해주세요.');
+      const result = await updatePassword(token, { currentPassword, newPassword });
+      console.log(result);   
       showToast('success', '비밀번호 변경 완료', '다시 로그인해주세요.');
       router.replace('/signIn');
-    } catch (error: any) {
-      // showToast('error', '에러 발생', error.message || '비밀번호 변경 실패');
+    } catch (error: any) {      
       showToast('error', '비밀번호 변경 실패', '비밀 번호 변경에 실패하였습니다.');
     }
   };
@@ -62,6 +67,15 @@ const EditPassword = () => {
             <Text style={styles.headerText}>비밀번호 변경</Text>
           </View>
           <View style={styles.contentContainer}>
+            <View>
+              <Text style={styles.label}>현재 비밀번호</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={currentPassword}
+                onChangeText={setCurrentPassword}
+              />
+            </View>
             <View>
               <Text style={styles.label}>새 비밀번호</Text>
               <TextInput
