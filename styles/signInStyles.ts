@@ -34,6 +34,34 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 15,
         marginBottom: 10,
     },
+    emailCheckButton: {
+        backgroundColor: '#4B72FF',
+        paddingVertical: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 12,
+    },
+    emailCheckButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    verificationContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 12,
+    },
+    verifyButton: {
+        backgroundColor: '#28A745',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        justifyContent: 'center',
+    },
+    verifyButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
     passwordContainer: {
         width: '100%',
         flexDirection: 'row',
