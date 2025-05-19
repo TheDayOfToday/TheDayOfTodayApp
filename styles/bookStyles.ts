@@ -47,22 +47,24 @@ export const bookStyles = StyleSheet.create({
     resizeMode: 'contain',
   },
   infoContainer: {
-    gap: '10%',
   },
   bookTitle: {
     fontFamily: 'Pretendard6',
     fontSize: RFValue(16),
     color: '#eee',
+    marginBottom: '5%',
   },
   bookAuthor: {
     fontFamily: 'Pretendard4',
     fontSize: RFValue(12),
     color: '#ccc',
+    marginBottom: '5%',
   },
   bookDescription: {
     fontFamily: 'Pretendard4',
     fontSize: RFValue(12),
     color: '#ccc',
+    marginBottom: '5%',
   },
   noBookInfo: {
     justifyContent: 'center',

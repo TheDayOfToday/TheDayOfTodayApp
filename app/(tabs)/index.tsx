@@ -98,7 +98,6 @@ function CalendarScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.container}>
-        {/* {moodColorsReady ? ( */}
           <Calendar
             style={styles.calendar}
             theme={{
@@ -116,17 +115,6 @@ function CalendarScreen() {
             markedDates={markedDates}            
             dayComponent={CustomDay}
           />
-        {/* ) : ( */}
-          {/* <SafeAreaView style={styles.loadingLottieContainer}> */}
-            {/* <LottieView */}
-              {/* source={require('../../assets/loading.json')} */}
-              {/* autoPlay */}
-              {/* loop */}
-              {/* speed={1} */}
-              {/* style={styles.loadingLottie} */}
-            {/* /> */}
-          {/* </SafeAreaView> */}
-        {/* )} */}
 
         <Modal
           animationType="slide"

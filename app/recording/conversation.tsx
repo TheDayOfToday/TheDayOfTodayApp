@@ -77,6 +77,7 @@ function Conversation() {
         setRecording(newRecording);
         setIsRecording(true);
       } catch (error) {
+        stopRecording();
         showToast('error', '녹음 시도 싪패', '녹음을 다시 시도해주세요.')
       }
     };

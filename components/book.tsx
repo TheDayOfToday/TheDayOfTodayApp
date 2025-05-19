@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, ScrollView } from "react-native";
 import useGetBook from "@/hooks/useGetBook";
 import useToken from "@/hooks/useToken";
 import { bookStyles } from "@/styles/bookStyles";
@@ -6,7 +6,6 @@ import { bookStyles } from "@/styles/bookStyles";
 function Book() {
   const token = useToken();
   const { data: recommendedBook } = useGetBook(token!);
-  console.log(recommendedBook);
 
   return (
     <View style={bookStyles.component}>
@@ -17,7 +16,11 @@ function Book() {
         <View style={bookStyles.contentContainer}>
           <View style={bookStyles.imgContainer}>
             <Image
-              source={recommendedBook?.coverImageUrl || require("@/assets/images/book-and-pencil.png")}
+              source={
+                recommendedBook?.coverImageUrl
+                  ? { uri: recommendedBook.coverImageUrl }
+                  : require("@/assets/images/book-and-pencil.png")
+              }
               style={
                 recommendedBook?.coverImageUrl
                   ? bookStyles.cover
@@ -27,11 +30,11 @@ function Book() {
           </View>
           <>
           {true ? (
-            <View style={bookStyles.infoContainer}>
-              <Text style={bookStyles.bookTitle}>짜라투스트라는 이렇게 말했다.{recommendedBook?.title}</Text>
-              <Text style={bookStyles.bookAuthor}>저자 | 프리드리히 니체{recommendedBook?.author}</Text>
+            <ScrollView style={bookStyles.infoContainer}>
+              <Text style={bookStyles.bookTitle}>{recommendedBook?.title}</Text>
+              <Text style={bookStyles.bookAuthor}>저자 | {recommendedBook?.author}</Text>
               <Text style={bookStyles.bookDescription}>소개 | {recommendedBook?.description}</Text>
-            </View>
+            </ScrollView>
           ) : (
             <View style={bookStyles.noBookInfo}>
               <Text style={bookStyles.noBookInfoText}>하루를 기록하고</Text>
