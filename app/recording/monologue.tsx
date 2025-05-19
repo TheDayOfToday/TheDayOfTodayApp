@@ -57,6 +57,7 @@ function Monologue() {
       setRecording(newRecording);
       setIsRecording(true);
     } catch (error) {
+      stopRecording();
       showToast('error', '녹음 실패', '독백 서비스를 다시 시도해주세요.');
       router.push('/record');
     }
