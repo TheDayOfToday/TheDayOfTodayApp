@@ -75,13 +75,12 @@ export class UpdatePassword implements APIRequest<string> {
 // 이메일 존재 여부 판단
 export class GetFindEmail implements APIRequest<FindEmailResponse> {
   method = HTTP_METHOD.GET;
-  path = '/user/find-email';
+  path: string;
   response!: FindEmailResponse;
   auth = false;
-  params: { email: string };
 
   constructor(public email: string) {
-    this.params = { email };
+    this.path = `/user/find-email?email=${email}`;
   }
 }
 

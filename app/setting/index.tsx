@@ -51,7 +51,7 @@ function SettingScreen() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken');
-    await AsyncStorage.removeItem('autoLogin');
+    await AsyncStorage.removeItem('autoLogin');    
     showToast('success', '로그아웃 되었습니다.', '다음에 또 만나요 👋');
     router.replace('/signIn');
   };

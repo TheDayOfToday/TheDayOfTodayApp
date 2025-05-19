@@ -108,14 +108,78 @@ export const styles = StyleSheet.create({
         fontSize: RFValue(12),
         color: '#989BD2',
     },
+    bottomRowContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '90%',
+      paddingHorizontal: 10,
+      marginTop: 10,
+    },
     autoLoginContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
-        marginBottom: 20,
+        marginBottom: 10,  
     },
     autoLoginLabel: {
         color: '#D6DEFD',
-        marginRight: 10,
+        marginRight: 8,  
+        marginBottom: 4,
+        fontSize: 15,
     },
+    autoLoginSwitch: {
+      transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }],
+    },
+    resetText: {
+      color: '#9CB1FF',      
+      textDecorationLine: 'underline',
+      fontSize: 15,
+    },
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.6)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalBox: {
+      width: '85%',
+      backgroundColor: '#1C1C1E',
+      padding: 20,
+      borderRadius: 12,
+    },
+    modalTitle: {
+      fontSize: 18,
+      color: '#fff',
+      marginBottom: 10,
+      fontWeight: 'bold',
+    },
+    modalInput: {
+      borderWidth: 1,
+      borderColor: '#ccc',
+      padding: 10,
+      marginTop: 10,
+      color: '#fff',
+      borderRadius: 8,
+    },
+    modalButton: {
+      backgroundColor: '#6F88FF',
+      padding: 10,
+      marginTop: 10,
+      alignItems: 'center',
+      borderRadius: 8,
+    },
+    modalButtonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    modalClose: {
+      marginTop: 10,
+      alignItems: 'center',
+    },
+    modalCloseText: {
+      color: '#ccc',
+      fontSize: 13,
+    },
+
 });
