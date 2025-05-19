@@ -46,10 +46,14 @@ export default function RootLayout() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = await AsyncStorage.getItem('accessToken');
-      if (!token) {
+      const autoLogin = await AsyncStorage.getItem('autoLogin');
+
+      if (token && autoLogin === 'true') {
+        router.replace('/(tabs)');
+      } else {
         showToast('info', '로그인 필요', '로그인이 필요합니다.');  
+        router.replace('/signIn');
       }
-      router.replace('/signIn');
     };
 
     if (!isSplashVisible) {
@@ -68,8 +72,8 @@ export default function RootLayout() {
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD', }} />
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
+        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD', }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
         <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />
         <Stack.Screen name="edit-password" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />

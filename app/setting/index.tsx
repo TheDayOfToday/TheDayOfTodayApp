@@ -51,6 +51,7 @@ function SettingScreen() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('autoLogin');    
     showToast('success', '로그아웃 되었습니다.', '다음에 또 만나요 👋');
     router.replace('/signIn');
   };
@@ -66,7 +67,7 @@ function SettingScreen() {
     try {
       await deleteUser(token);
       showToast('success', '회원 탈퇴 완료', '그동안 이용해주셔서 감사합니다.');
-      await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('accessToken');      
       router.replace('/signIn');
     } catch (error) {
       showToast('error', '회원 탈퇴 실패', '다시 시도해주세요.');

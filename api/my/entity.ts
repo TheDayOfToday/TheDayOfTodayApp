@@ -27,6 +27,7 @@ export interface SignUpResponse extends APIResponse {
     message: string;
 }
 
+// 로그인
 export type LoginRequest = {
     email: string;
     password: string;
@@ -37,6 +38,33 @@ export interface LoginResponse {
     refreshToken: string;
 }
 
-export interface EditPasswordRequest {
+// 유저 정보 수정
+export interface EditPasswordRequest {    
     newPassword: string;
 }
+
+// 이메일 존재 여부 판단
+export type FindEmailResponse = string;
+
+// 인증번호 전송
+export type SendCodeRequest = {
+  email: string;
+};
+
+export type SendCodeResponse = string;
+
+// 인증번호 확인 및 비밀번호 확인
+export type CheckCodeRequest = {
+  email: string;
+  code: string;
+};
+
+export type CheckCodeResponse = string;
+
+// 비밀번호 재설정(초기화)
+export type ResetPasswordRequest = {
+  email: string;
+  newPassword: string;
+};
+
+export type ResetPasswordResponse = string;
