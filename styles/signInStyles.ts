@@ -120,20 +120,21 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
-        marginBottom: 10,  
+        marginBottom: 10,
     },
     autoLoginLabel: {
         color: '#D6DEFD',
-        marginRight: 8,  
-        marginBottom: 4,
+        marginRight: 5,  
+        marginBottom: 5,
         fontSize: 15,
     },
     autoLoginSwitch: {
-      transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }],
+      transform: [{ scaleX: 0.87 }, { scaleY: 0.87 }],
     },
     resetText: {
-      color: '#9CB1FF',      
+      color: '#9CB1FF',
       textDecorationLine: 'underline',
+      marginBottom: 3,
       fontSize: 15,
     },
     modalOverlay: {

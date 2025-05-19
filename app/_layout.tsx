@@ -72,8 +72,8 @@ export default function RootLayout() {
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD', }} />
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
+        <Stack.Screen name="signUp" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD', }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
         <Stack.Screen name="setting" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />
         <Stack.Screen name="edit-password" options={{ headerShown: true, title: '', headerShadowVisible: false, headerStyle: commonStyles.headerStyle, headerTintColor: '#D6DEFD',}} />
