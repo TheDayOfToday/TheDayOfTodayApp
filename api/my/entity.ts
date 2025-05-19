@@ -39,8 +39,7 @@ export interface LoginResponse {
 }
 
 // 유저 정보 수정
-export interface EditPasswordRequest {
-    currentPassword: string;
+export interface EditPasswordRequest {    
     newPassword: string;
 }
 

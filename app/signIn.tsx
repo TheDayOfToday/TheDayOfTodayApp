@@ -29,12 +29,12 @@ function SignInScreen() {
 
   const handleLogin = () => {
     if (!email || !password) {
-      showToast('error', '입력 오류', '이메일과 비밀번호를 모두 입력하세요.');
+      showToast('error', '입력 오류', '이메일과 비밀번호를 모두 입력해주세요.');
       return;
     }
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
-      showToast('error', '이메일 오류', '유효한 이메일 형식을 입력하세요.');
+      showToast('error', '이메일 오류', '유효한 이메일 형식을 입력해주세요.');
       return;
     }
     login(email, password, autoLogin);
@@ -48,12 +48,12 @@ function SignInScreen() {
     }
     findEmailMutation.mutate(resetEmail, {
       onSuccess: () => {
-        showToast('success', '이메일 확인', '인증코드를 전송합니다.');
+        showToast('success', '이메일 확인', '해당 이메일로 인증코드를 전송했습니다.');
         setEmailChecked(true);
         sendCodeMutation.mutate(resetEmail);
       },
       onError: (err) => {
-        showToast('error', '존재하지 않는 이메일', "해당 이메일은 존재하지 않습니다.");
+        showToast('error', '존재하지 않는 이메일', "존재하지 않는 이메일 주소입니다.");
       },
     });
   };
@@ -61,7 +61,7 @@ function SignInScreen() {
   // check-code 로 이메일로 전송된 인증번호 확인하는 부분
   const handleResetCodeCheck = () => {
     if (!resetCode.trim()) {
-      showToast('error', '입력 오류', '인증코드를 입력해주세요.');
+      showToast('error', '입력 필요', '인증코드를 입력해주세요.');
       return;
     }
     checkCodeMutation.mutate({ email: resetEmail, code: resetCode }, {
@@ -78,7 +78,7 @@ function SignInScreen() {
   // reset-password 로 비밀번호 변경하는 부분
   const handleResetPassword = () => {
     if (!resetNewPassword.trim()) {
-      showToast('error', '입력 오류', '새 비밀번호를 입력해주세요.');
+      showToast('error', '입력 없음', '새 비밀번호를 입력해주세요.');
       return;
     }
     resetPasswordMutation.mutate({ email: resetEmail, newPassword: resetNewPassword }, {
@@ -92,7 +92,7 @@ function SignInScreen() {
         setCodeChecked(false);
       },
       onError: (err) => {
-        showToast('error', '오류', err.message);
+        showToast('error', '오류', err.message); // 여기 에러 메시지 수정 필요함!!!!!!!!!!!!!
       },
     });
   };
@@ -146,7 +146,7 @@ function SignInScreen() {
           <Switch
             value={autoLogin}
             onValueChange={setAutoLogin}
-            trackColor={{ false: '#ccc', true: '#84b9ff' }}
+            trackColor={{ false: '#f4f3f4', true: '#007AFF' }}
             thumbColor={autoLogin ? '#007AFF' : '#f4f3f4'} 
             style={styles.autoLoginSwitch}
           />
