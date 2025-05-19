@@ -3,7 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const moodSlidingTabStyles = StyleSheet.create({
     backgroundSheet: {
-        backgroundColor: '#fff',
+        backgroundColor: '#212129',
     },
     sheetView: {
         padding: 25,
@@ -16,21 +16,21 @@ export const moodSlidingTabStyles = StyleSheet.create({
         alignItems: 'center',
     },
     headerTitle: {
-        fontFamily: 'Pretendard8',
+        fontFamily: 'Pretendard6',
         fontSize: RFValue(20),
-        color: '#000',
+        color: '#fff',
         textAlign: 'left',
     },
     submitButton: {
         paddingVertical: 12,
         paddingHorizontal: 40,
         borderRadius: 20,
-        backgroundColor: '#101013',
+        backgroundColor: '#434347',
     },
     submitButtonText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(16),
-        color: '#fff',
+        color: '#eee',
     },
     content: {
         paddingVertical: 20,
@@ -46,6 +46,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     suggestionLabelText: {
         fontFamily: 'Pretendard4',
         fontSize: RFValue(18),
+        color: '#eee',
     },
     suggestedMood: {
         flexDirection: 'row',
@@ -57,7 +58,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     suggestedMoodText: {
         fontFamily: 'Pretendard6',
         fontSize: RFValue(18),
-        color: '#000',
+        color: '#eee',
     },
     moodContainer: {
         width: '100%',
@@ -68,6 +69,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
     moodDegreeText: {
         fontFamily: 'Pretendard3',
         fontSize: RFValue(18),
+        color: '#eee',
     },
     moodButtonContainer: {
         marginVertical: '5%',
@@ -83,11 +85,11 @@ export const moodSlidingTabStyles = StyleSheet.create({
         borderWidth: 1,
     },
     selectedMoodButton: {
-        backgroundColor: '#eee',
+        backgroundColor: '#000',
     },
     moodButtonText: {
         fontFamily: 'Pretendard4',
         fontSize: RFValue(14),
-        color: '#000',
+        color: '#eee',
     },
 });
