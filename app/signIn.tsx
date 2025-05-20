@@ -190,7 +190,8 @@ function SignInScreen() {
                   style={styles.modalInput}
                   value={resetCode}
                   onChangeText={setResetCode}
-                  keyboardType="numeric"
+                  keyboardType="default"
+                  autoCapitalize="none"
                 />
                 <TouchableOpacity style={styles.modalButton} onPress={handleResetCodeCheck}>
                   <Text style={styles.modalButtonText}>코드 확인</Text>
