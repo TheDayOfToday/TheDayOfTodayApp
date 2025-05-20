@@ -70,7 +70,7 @@ function SignInScreen() {
         setCodeChecked(true);
       },
       onError: (err) => {
-        showToast('error', '인증 실패', err.message);
+        showToast('error', '인증번호 불일치', '인증번호가 일치하지 않습니다.');
       },
     });
   };
@@ -92,7 +92,7 @@ function SignInScreen() {
         setCodeChecked(false);
       },
       onError: (err) => {
-        showToast('error', '오류', err.message); // 여기 에러 메시지 수정 필요함!!!!!!!!!!!!!
+        showToast('error', '비밀번호 재설정', '기존 비밀번호와 일치합니다.'); 
       },
     });
   };
