@@ -151,9 +151,6 @@ function SignInScreen() {
             style={styles.autoLoginSwitch}
           />
         </View>
-        <TouchableOpacity onPress={() => setResetModalVisible(true)}>
-          <Text style={styles.resetText}>비밀번호 초기화</Text>
-        </TouchableOpacity>        
       </View>
 
       <View style={styles.signUpContainer}>
@@ -162,7 +159,9 @@ function SignInScreen() {
           <Text style={styles.signUpText}>회원가입하기</Text>
         </TouchableOpacity>
       </View>
-
+      <TouchableOpacity onPress={() => setResetModalVisible(true)}>
+        <Text style={styles.resetText}>비밀번호를 잊으셨습니까?</Text>
+      </TouchableOpacity>
       <Modal visible={resetModalVisible} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalBox}>
