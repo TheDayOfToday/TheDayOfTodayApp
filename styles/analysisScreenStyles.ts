@@ -17,7 +17,7 @@ export const analysisScreenStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#2C2C35',
     width: '100%',
-    height: '20%',
+    height: 60,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -60,6 +60,6 @@ export const analysisScreenStyles = StyleSheet.create({
     fontFamily: 'Hakgyoansim',
     fontSize: RFValue(16),
     color: '#ddd',
-    lineHeight: 22,
+    lineHeight: 28,
   },
 });
