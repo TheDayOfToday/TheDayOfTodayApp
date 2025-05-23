@@ -95,7 +95,7 @@ export class PostSendCode implements APIRequest<SendCodeResponse> {
 }
 
 
-// 인증번호 확인 및 비밀번호 확인
+// 인증번호 확인
 export class PostCheckCode implements APIRequest<CheckCodeResponse> {
   method = HTTP_METHOD.POST;
   path = '/user/check-code';
