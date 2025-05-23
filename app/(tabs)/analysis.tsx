@@ -65,7 +65,7 @@ function AnalysisScreen() {
         >
           <AntDesign name="caretleft" size={24} color="#D6DEFD" />
         </Pressable>
-        <Text style={analysisScreenStyles.contentDate}>{weeklyAnalysis?.startDate}~{weeklyAnalysis?.endDate}</Text>
+          <Text style={analysisScreenStyles.contentDate}>{weeklyAnalysis?.startDate}~{weeklyAnalysis?.endDate}</Text>
         <Pressable
           onPress={() => handlePressRight()}
           style={analysisScreenStyles.dataButton}

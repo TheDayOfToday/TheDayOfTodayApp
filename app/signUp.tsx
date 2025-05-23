@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { useSignUp } from '@/hooks/useSignUp';
 import { styles } from '@/styles/signUpStyles';
@@ -34,15 +34,20 @@ function SignUpScreen() {
             value={name}
             onChangeText={setName}
           />
-          <TextInput
-            placeholder="이메일"
-            placeholderTextColor="#69728F"
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
+          <View style={styles.emailContainer}>
+            <TextInput
+              placeholder="이메일"
+              placeholderTextColor="#69728F"
+              style={styles.inputEmail}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <Pressable style={styles.authButton}>
+              <Text style={styles.authText}>인증하기</Text>
+            </Pressable>
+          </View>
           <TextInput
             placeholder="비밀번호"
             placeholderTextColor="#69728F"
