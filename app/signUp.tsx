@@ -4,7 +4,6 @@ import { useSignUp } from '@/hooks/useSignUp';
 import { styles } from '@/styles/signUpStyles';
 import useShowToast from '@/hooks/useShowToast';
 import LoadingScreen from '@/components/Loading';
-import { useSendCode, useCheckCode } from '@/hooks/useEmailVerify';
 
 function SignUpScreen() {
   const { mutate: signUpMutate, isPending } = useSignUp();
@@ -12,54 +11,11 @@ function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  const [emailSent, setEmailSent] = useState(false);
-  const [emailCode, setEmailCode] = useState('');
-  const [emailVerified, setEmailVerified] = useState(false);
-
-  const sendCodeMutation = useSendCode();
-  const checkCodeMutation = useCheckCode();
-
   const showToast = useShowToast();
-
-  const handleSendCode = () => {
-  if (!email.trim()) {
-    showToast('error', '입력 오류', '이메일을 입력해주세요.');
-    return;
-  }
-
-  
-  setEmailSent(true);
-
-  sendCodeMutation.mutate(email, {
-    onSuccess: () => {
-      showToast('success', '전송 완료', '입력한 이메일로 인증번호가 전송되었습니다.');
-    },
-    onError: (err) => {
-      showToast('error', '전송 실패', '인증번호 전송에 실패했습니다.');
-    },
-  });
-};
-
-  const handleCheckCode = () => {
-    checkCodeMutation.mutate({ email, code: emailCode }, {
-      onSuccess: () => {
-        showToast('success', '인증 완료', '이메일 인증이 완료되었습니다.');
-        setEmailVerified(true);
-      },
-      onError: (err) => {
-        showToast('error', '인증 실패', '인증번호가 일치하지 않습니다.');
-      },
-    });
-  };
 
   const handleSubmit = () => {
     if (!name || !email || !password || !phoneNumber) {
       showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
-      return;
-    }
-    if (!emailVerified) {
-      showToast('error', '인증 오류', '이메일 인증을 완료해주세요.');
       return;
     }
     signUpMutate({ name, email, password, phoneNumber });
@@ -67,11 +23,10 @@ function SignUpScreen() {
 
   return (
     <>
-      {isPending ? <LoadingScreen backgroundColor='#17171E'/> : (
+      {isPending ? <LoadingScreen  backgroundColor='#17171E'/> : (
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>오늘의 하루</Text>
-          <Text style={styles.signUpLabel}>회원가입</Text>
-
+          <Text style={styles.signUpLabel}>회원가입</Text>  
           <TextInput
             placeholder="이름"
             placeholderTextColor="#69728F"
@@ -79,7 +34,6 @@ function SignUpScreen() {
             value={name}
             onChangeText={setName}
           />
-
           <View style={styles.emailContainer}>
             <TextInput
               placeholder="이메일"
@@ -90,28 +44,10 @@ function SignUpScreen() {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-            <Pressable style={styles.authButton} onPress={handleSendCode}>
+            <Pressable style={styles.authButton}>
               <Text style={styles.authText}>인증하기</Text>
             </Pressable>
           </View>
-
-          {emailSent && (
-            <View style={styles.emailContainer}>
-              <TextInput
-                placeholder="인증번호 입력"
-                placeholderTextColor="#69728F"
-                style={styles.inputEmail}
-                value={emailCode}
-                onChangeText={setEmailCode}
-                keyboardType="default"
-                autoCapitalize="none"
-              />
-              <Pressable style={styles.authButton} onPress={handleCheckCode}>
-                <Text style={styles.authText}>코드 확인</Text>
-              </Pressable>
-            </View>
-          )}
-
           <TextInput
             placeholder="비밀번호"
             placeholderTextColor="#69728F"
@@ -119,9 +55,7 @@ function SignUpScreen() {
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            editable={emailVerified}
           />
-
           <TextInput
             placeholder="전화번호"
             placeholderTextColor="#69728F"
@@ -130,7 +64,6 @@ function SignUpScreen() {
             onChangeText={(text) => setPhoneNumber(text.replace(/[^0-9]/g, ''))}
             keyboardType="phone-pad"
           />
-
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>가입하기</Text>
           </TouchableOpacity>
