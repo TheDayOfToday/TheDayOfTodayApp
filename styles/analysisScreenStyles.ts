@@ -10,6 +10,7 @@ export const analysisScreenStyles = StyleSheet.create({
     alignItems: 'center',
     padding: 30,
     paddingTop: 0,
+    paddingBottom: 50,
     gap: 10,
   },
   dateContainer: {
