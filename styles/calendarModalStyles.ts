@@ -43,13 +43,11 @@ export const calendarModalStyles = StyleSheet.create({
         fontFamily: 'Pretendard4',
         fontSize: RFValue(14),
         color: '#ddd',
-        lineHeight: 22,
       },
       analysisText: {
         fontFamily: 'Pretendard5',
         fontSize: RFValue(14),
         color: '#ddd',
-        lineHeight: 22,
       },
       modalButtonContainer: {
         width: '100%',
