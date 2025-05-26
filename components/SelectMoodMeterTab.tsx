@@ -90,7 +90,7 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
               <Text style={moodSlidingTabStyles.submitButtonText}>완료</Text>
             </Pressable>
         </View>
-        {loading && <Text>로딩 중...</Text>}
+        {loading && <Text style={{color: '#fff'}}>로딩 중...</Text>}
         <View style={moodSlidingTabStyles.content}>
           <View style={moodSlidingTabStyles.suggestedMoodContainer}>
             <Text style={moodSlidingTabStyles.suggestionLabelText}>오늘의 당신은</Text>
