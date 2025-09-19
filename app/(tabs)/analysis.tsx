@@ -20,11 +20,11 @@ function AnalysisScreen() {
   const { data: weeklyAnalysis, isLoading, error } = useGetWeeklyAnalysis({ token: token!, date: todayDate });
 
   const degreeImageMap: Record<string, any> = {
-    GOOD: require('../../assets/images/good.png'),
-    BAD: require('../../assets/images/bad.png'),
-    COMFORT: require('../../assets/images/comfort.png'),
-    HARD: require('../../assets/images/hard.png'),
-    UNKNOWN: require('../../assets/images/unknown.png'),
+    GOOD: require('../../assets/images/goodv2.png'),
+    BAD: require('../../assets/images/badv2.png'),
+    COMFORT: require('../../assets/images/comfortv2.png'),
+    HARD: require('../../assets/images/hardv2.png'),
+    UNKNOWN: require('../../assets/images/unknownv2.png'),
   };
 
   const handlePressLeft = () => {
@@ -95,7 +95,7 @@ function AnalysisScreen() {
       </View>
       <View style={analysisScreenStyles.contentContainer}>
         {weeklyAnalysis?.title ? (
-          <Text style={analysisScreenStyles.contentFeedback}>분석 내용: {weeklyAnalysis?.feedback}</Text>
+          <Text style={analysisScreenStyles.contentFeedback}>{weeklyAnalysis?.feedback}</Text>
         ) : (
           <Text style={analysisScreenStyles.contentFeedback}>오늘의 하루를 기록해보아요</Text>
         )}

@@ -17,7 +17,7 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <View style={splashStyles.container}>
       <Image
-        source={require('@/assets/images/splash-icon.png')}
+        source={require('@/assets/images/splash-iconv3.png')}
         style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, height: 200, resizeMode: 'contain'}}
         resizeMode="contain"
       />
