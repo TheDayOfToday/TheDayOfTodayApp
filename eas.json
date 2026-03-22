@@ -12,7 +12,7 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "API_BASE_URL": "https://thedayoftoday.kro.kr"
+        "API_BASE_URL": "https://thedayoftoday-api.kro.kr"
       }
     }
   }
