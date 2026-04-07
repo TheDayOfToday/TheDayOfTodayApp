@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
-import useToken from '@/hooks/useToken';
+import useToken from '@/src/hooks/useToken';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from '@/components/SelectMoodMeterTab';
-import useConversationQuestion from '@/hooks/useConversationQuestion';
-import useConversationEnd from '@/hooks/useConversationEnd';
+import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
+import { useConversationQuestion, useConversationEnd } from '@/src/queries/useRecordQuery';
 import { Audio } from 'expo-av';
 import { useLocalSearchParams, useRouter } from "expo-router";
 import LottieView from 'lottie-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import useShowToast from '@/hooks/useShowToast';
-import LoadingScreen from '@/components/Loading';
-import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
-import { ModalStyles } from '@/styles/modalStyles';
+import useShowToast from '@/src/hooks/useShowToast';
+import LoadingScreen from '@/src/components/common/Loading';
+import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
+import { ModalStyles } from '@/src/styles/modalStyles';
 
 const recordingOptions = {
   android: {

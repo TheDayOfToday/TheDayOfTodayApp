@@ -2,8 +2,8 @@ import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SelectModeTab from '../recording/index';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
-import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
 
 function RecordingScreen() {
   useDoubleBackExit(true);

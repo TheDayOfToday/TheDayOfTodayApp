@@ -6,7 +6,13 @@
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@components/*": ["./src/components/*"],
+      "@service/*": ["./src/service/*"],
+      "@queries/*": ["./src/queries/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@interface/*": ["./src/interface/*"]
     }
   },
   "include": [

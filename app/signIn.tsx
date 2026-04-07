@@ -1,11 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity, Switch, ActivityIndicator, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { useSignIn } from '../hooks/useSignIn';
-import useShowToast from '@/hooks/useShowToast';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
-import { styles } from '@/styles/signInStyles';
-import { useFindEmail, useSendCode, useCheckCode, useResetPassword } from '@/hooks/useEmailVerify';
+import { useSignIn } from '@/src/hooks/useSignIn';
+import useShowToast from '@/src/hooks/useShowToast';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import { styles } from '@/src/styles/signInStyles';
+import { useFindEmail, useSendCode, useCheckCode, useResetPassword } from '@/src/queries/useAuthQuery';
 
 function SignInScreen() {
   const { login, goToSignUp, loading } = useSignIn();

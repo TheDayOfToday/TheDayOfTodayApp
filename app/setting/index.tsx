@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '../../hooks/useShowToast';
+import useShowToast from '@/src/hooks/useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { styles } from '@/styles/settingScreenStyles';
-import { getUserInfo, deleteUser } from '@/api/my';
-import { UserInfoResponse } from '@/api/my/entity';
-import { ModalStyles } from '@/styles/modalStyles';
+import { styles } from '@/src/styles/settingScreenStyles';
+import { getUserInfo, deleteUser } from '@/src/service/auth';
+import { UserInfoResponse } from '@/src/service/auth/type';
+import { ModalStyles } from '@/src/styles/modalStyles';
 
 function SettingScreen() {
   const router = useRouter();

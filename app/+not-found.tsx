@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
 
 function NotFoundScreen() {
   useDoubleBackExit(true);

@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { ScrollView, View, Text, Pressable, TextInput } from "react-native";
-import useToken from '@/hooks/useToken';
+import useToken from '@/src/hooks/useToken';
 import { useRouter, useLocalSearchParams } from "expo-router";
-import useShowToast from '@/hooks/useShowToast';
-import useGetTodayDiary from '@/hooks/useGetTodayDiary';
-import usePutUpdateDiary from '@/hooks/usePutUpdateDiary';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
-import { recordingResultStyles } from "@/styles/recordingResultStyles";
+import useShowToast from '@/src/hooks/useShowToast';
+import { useGetTodayDiary, usePutUpdateDiary } from '@/src/queries/useDiaryQuery';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import { recordingResultStyles } from "@/src/styles/recordingResultStyles";
 
 function ResultScreen() {
   const token = useToken();

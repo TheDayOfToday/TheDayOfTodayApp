@@ -1,10 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
-import { useSignUp } from '@/hooks/useSignUp';
-import { styles } from '@/styles/signUpStyles';
-import useShowToast from '@/hooks/useShowToast';
-import LoadingScreen from '@/components/Loading';
-import { useSendCode, useCheckCode } from '@/hooks/useEmailVerify';
+import { useSignUp } from '@/src/hooks/useSignUp';
+import { styles } from '@/src/styles/signUpStyles';
+import useShowToast from '@/src/hooks/useShowToast';
+import LoadingScreen from '@/src/components/common/Loading';
+import { useSendCode, useCheckCode } from '@/src/queries/useAuthQuery';
 
 function SignUpScreen() {
   const { mutate: signUpMutate, isPending } = useSignUp();

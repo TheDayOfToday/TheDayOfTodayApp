@@ -1,18 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable, ScrollView } from 'react-native';
-import useToken from '@/hooks/useToken';
-import useShowToast from '@/hooks/useShowToast';
+import useToken from '@/src/hooks/useToken';
+import useShowToast from '@/src/hooks/useShowToast';
 import { Calendar } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
-import { useDiaryEntry } from '@/hooks/useDiaryEntry';
-import { useAnalysisEntry } from '@/hooks/useAnalysisEntry';
-import useDeleteDiary from '@/hooks/useDeleteDiary';
-import { useCalendarColors } from '@/hooks/useCalendarColor';
+import { useDiaryEntry, useDeleteDiary } from '@/src/queries/useDiaryQuery';
+import { useAnalysisEntry, useCalendarColors } from '@/src/queries/useCalendarQuery';
 import LottieView from 'lottie-react-native';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
-import { calendarModalStyles } from '@/styles/calendarModalStyles';
-import { styles } from '../../styles/calendarScreenStyles';
-import Book from '@/components/book';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import { calendarModalStyles } from '@/src/styles/calendarModalStyles';
+import { styles } from '@/src/styles/calendarScreenStyles';
+import Book from '@/src/components/common/Book';
 
 function CalendarScreen() {
   const token = useToken();

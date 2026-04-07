@@ -3,11 +3,11 @@ import { Stack, useRouter } from "expo-router";
 import * as Font from "expo-font";
 import SplashScreen from "./splash";
 import Toast, { BaseToastProps } from "react-native-toast-message";
-import CustomToast from '@/components/CustomToast';
+import CustomToast from '@/src/components/common/CustomToast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useShowToast from "@/hooks/useShowToast";
-import { commonStyles } from "@/styles/common";
+import useShowToast from "@/src/hooks/useShowToast";
+import { commonStyles } from "@/src/styles/common";
 
 const queryClient = new QueryClient();
 

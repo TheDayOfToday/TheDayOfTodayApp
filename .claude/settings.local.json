@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/user/ppi_solar_fe/src/pages/Home/components/CurrentEnergy/**)",
+      "Read(//c/Users/user/ppi_solar_fe/src/pages/Home/components/GenerationChart/**)"
+    ]
+  }
+}

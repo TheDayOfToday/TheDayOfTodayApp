@@ -2,14 +2,13 @@ import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import { useRouter } from "expo-router";
 import { useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
-import useToken from '@/hooks/useToken';
-import useShowToast from '@/hooks/useShowToast';
-import { useDiaryEntry } from '@/hooks/useDiaryEntry';
-import useDeleteDiary from '@/hooks/useDeleteDiary';
+import useToken from '@/src/hooks/useToken';
+import useShowToast from '@/src/hooks/useShowToast';
+import { useDiaryEntry, useDeleteDiary } from '@/src/queries/useDiaryQuery';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import useConversationStart from '@/hooks/useConversationStart';
-import { modeSlidingTabStyles } from '@/styles/modeSlidingTabStyles';
-import { ModalStyles } from '@/styles/modalStyles';
+import { useConversationStart } from '@/src/queries/useRecordQuery';
+import { modeSlidingTabStyles } from '@/src/styles/modeSlidingTabStyles';
+import { ModalStyles } from '@/src/styles/modalStyles';
 
 type SelectModeTabRouteProp = RouteProp<
   { recording: { openBottomSheet?: boolean } },

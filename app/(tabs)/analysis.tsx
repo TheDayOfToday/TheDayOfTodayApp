@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { Image } from 'react-native';
-import useGetWeeklyAnalysis from '@/hooks/useGetWeeklyAnalysis';
-import useToken from '@/hooks/useToken';
+import { useGetWeeklyAnalysis } from '@/src/queries/useWeeklyQuery';
+import useToken from '@/src/hooks/useToken';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import useDoubleBackExit from '@/hooks/useDoubleBackExit';
-import { analysisScreenStyles } from '@/styles/analysisScreenStyles';
+import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import { analysisScreenStyles } from '@/src/styles/analysisScreenStyles';
 
 function AnalysisScreen() {
   const token = useToken();

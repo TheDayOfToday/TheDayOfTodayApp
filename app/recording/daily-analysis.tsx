@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import useToken from '@/hooks/useToken';
-import usePostAnalyze from '@/hooks/usePostAnalyze';
-import usePostBook from '@/hooks/usePostBook';
-import { dailyAnalysisScreenStyles } from "@/styles/dailyAnalysisScreenStyles";
+import useToken from '@/src/hooks/useToken';
+import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
+import { usePostBook } from '@/src/queries/useBookQuery';
+import { dailyAnalysisScreenStyles } from "@/src/styles/dailyAnalysisScreenStyles";
 
 function DailyAnalysisScreen() {
   const token = useToken();

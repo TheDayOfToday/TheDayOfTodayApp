@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from '@/components/SelectMoodMeterTab';
-import usePostMonologue from '@/hooks/usePostMonologue';
+import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
+import { usePostMonologue } from '@/src/queries/useRecordQuery';
 import { Audio } from 'expo-av';
 import LottieView from 'lottie-react-native';
-import LoadingScreen from '@/components/Loading';
-import useShowToast from '@/hooks/useShowToast';
+import LoadingScreen from '@/src/components/common/Loading';
+import useShowToast from '@/src/hooks/useShowToast';
 import { useRouter } from 'expo-router';
-import { recordingScreenStyles } from '@/styles/recordingScreenStyles';
-import { ModalStyles } from '@/styles/modalStyles';
+import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
+import { ModalStyles } from '@/src/styles/modalStyles';
 
 const recordingOptions = {
   android: {

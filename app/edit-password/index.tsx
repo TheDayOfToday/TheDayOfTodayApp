@@ -8,10 +8,10 @@ import { View,
   Pressable,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import useShowToast from '@/hooks/useShowToast';
-import { styles } from '@/styles/editProfileStyles';
+import useShowToast from '@/src/hooks/useShowToast';
+import { styles } from '@/src/styles/editProfileStyles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updatePassword } from '@/api/my';
+import { updatePassword } from '@/src/service/auth';
 
 const EditPassword = () => {
   const router = useRouter();
