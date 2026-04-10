@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Read(//c/Users/user/ppi_solar_fe/src/pages/Home/components/CurrentEnergy/**)",
-      "Read(//c/Users/user/ppi_solar_fe/src/pages/Home/components/GenerationChart/**)"
+      "Read(//c/Users/user/ppi_solar_fe/src/pages/Home/components/GenerationChart/**)",
+      "Read(//c/Users/jkcore/lsj/projects/ppi_solar_fe/**)"
     ]
   }
 }
