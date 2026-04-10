@@ -1,18 +1,19 @@
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Audio } from 'expo-av';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
-import useToken from '@/src/hooks/useToken';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
-import { useConversationQuestion, useConversationEnd } from '@/src/queries/useRecordQuery';
-import { Audio } from 'expo-av';
-import { useLocalSearchParams, useRouter } from "expo-router";
-import LottieView from 'lottie-react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import useShowToast from '@/src/hooks/useShowToast';
+
 import LoadingScreen from '@/src/components/common/Loading';
-import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
+import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
+import useShowToast from '@/src/hooks/useShowToast';
+import useToken from '@/src/hooks/useToken';
+import { useConversationQuestion, useConversationEnd } from '@/src/queries/useRecordQuery';
 import { ModalStyles } from '@/src/styles/modalStyles';
+import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
 
 const recordingOptions = {
   android: {
@@ -41,7 +42,7 @@ function Conversation() {
     mutateAsync: questionMutate,
     isPending: isNextPending,
   } = useConversationQuestion();
-  
+
   const {
     mutateAsync: conversationEndMutate,
     isSuccess,
@@ -64,33 +65,33 @@ function Conversation() {
       try {
         const permission = await Audio.requestPermissionsAsync();
         if (!permission.granted) return;
-    
+
         await Audio.setAudioModeAsync({
           allowsRecordingIOS: true,
           playsInSilentModeIOS: true,
         });
-    
+
         const newRecording = new Audio.Recording();
         await newRecording.prepareToRecordAsync(recordingOptions);
         await newRecording.startAsync();
         setRecording(newRecording);
         setIsRecording(true);
-      } catch (error) {
+      } catch {
         stopRecording();
-        showToast('error', '녹음 시도 싪패', '녹음을 다시 시도해주세요.')
+        showToast('error', '녹음 시도 실패', '녹음을 다시 시도해주세요.');
       }
     };
 
     const stopRecording = async (): Promise<string | null> => {
       if (!recording) return null;
-    
+
       try {
         await recording.stopAndUnloadAsync();
         const uri = recording.getURI();
         setRecording(null);
         setIsRecording(false);
         return uri;
-      } catch (error) {
+      } catch {
         return null;
       }
     };
@@ -110,7 +111,7 @@ function Conversation() {
         setQuestionButtonEnabled(false);
         setRecordedUri(null);
       }
-    } catch (error) {
+    } catch {
       showToast('error', '질문 요청 실패', '질문 요청을 다시 시도해주세요.');
     }
   };
@@ -145,7 +146,7 @@ function Conversation() {
         diaryId: Number(diaryId),
         audioUri: recordedUri ?? undefined,
       });
-    } catch (error) {
+    } catch {
       showToast('error', '대화 종료 실패', '대화를 다시 시도해주세요.');
       router.push('/record');
     }
@@ -178,7 +179,8 @@ function Conversation() {
           {isNextPending ? (
             <SafeAreaView style={recordingScreenStyles.loadingLottieContainer}>
               <LottieView
-                source={require('../../assets/loading.json')}
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+    source={require('../../assets/loading.json')}
                 autoPlay
                 loop
                 speed={1}
@@ -204,7 +206,8 @@ function Conversation() {
           </View>
           <SafeAreaView style={recordingScreenStyles.recordingContainer}>
             <LottieView
-              source={require('../../assets/RecordingAnimation.json')}
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+    source={require('../../assets/RecordingAnimation.json')}
               autoPlay
               loop
               speed={isRecording ? 5 : 0}
@@ -233,7 +236,7 @@ function Conversation() {
               <MaterialIcons name="call-end" size={30} color="#fff" />
             </Pressable>
           </View>
-        </View>  
+        </View>
       )}
       {showExitModal && (
         <Modal
@@ -269,6 +272,6 @@ function Conversation() {
       )}
     </GestureHandlerRootView>
   );
-};
+}
 
 export default Conversation;

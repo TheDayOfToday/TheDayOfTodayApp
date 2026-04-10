@@ -1,6 +1,7 @@
-import { View, Image } from "react-native";
-import { useEffect, useState } from "react";
-import { splashStyles } from '../styles/splashStyles';
+import { useEffect, useState } from 'react';
+import { View, Image } from 'react-native';
+
+import { splashStyles } from '@/src/styles/splashStyles';
 
 function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [visible, setVisible] = useState(true);
@@ -17,6 +18,7 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <View style={splashStyles.container}>
       <Image
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         source={require('@/assets/images/splash-iconv3.png')}
         style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, height: 200, resizeMode: 'contain'}}
         resizeMode="contain"

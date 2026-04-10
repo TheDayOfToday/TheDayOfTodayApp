@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View,
   Text,
@@ -7,11 +9,10 @@ import { View,
   ScrollView,
   Pressable,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+
 import useShowToast from '@/src/hooks/useShowToast';
-import { styles } from '@/src/styles/editProfileStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { updatePassword } from '@/src/service/auth';
+import { styles } from '@/src/styles/editProfileStyles';
 
 const EditPassword = () => {
   const router = useRouter();
@@ -42,11 +43,10 @@ const EditPassword = () => {
     }
   
     try {
-      const result = await updatePassword(token, { newPassword });
-      console.log(result);   
+      await updatePassword(token, { newPassword });
       showToast('success', '비밀번호 변경 완료', '다시 로그인해주세요.');
       router.replace('/signIn');
-    } catch (error: any) {      
+    } catch {
       showToast('error', '비밀번호 변경 실패', '기존 비밀번호와 같습니다.');
     }
   };

@@ -1,7 +1,8 @@
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import SelectModeTab from '../recording/index';
-import AntDesign from '@expo/vector-icons/AntDesign';
+
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
 import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
 
@@ -12,6 +13,6 @@ function RecordingScreen() {
       <SelectModeTab/>
     </GestureHandlerRootView>
   );
-};
+}
 
 export default RecordingScreen;

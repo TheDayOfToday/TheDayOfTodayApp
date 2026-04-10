@@ -1,5 +1,6 @@
 import APIClient from '../index';
 import { APIRequest, HTTP_METHOD } from '../type';
+
 import { CalendarRequest, CalendarColorResponse, DiaryResponse, AnalysisResponse } from './type';
 
 class GetCalendarColor<R extends CalendarColorResponse> implements APIRequest<R> {

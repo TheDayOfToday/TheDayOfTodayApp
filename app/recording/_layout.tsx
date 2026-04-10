@@ -1,5 +1,6 @@
-import { commonStyles } from "@/styles/common";
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router';
+
+import { commonStyles } from '@/styles/common';
 
 export default function RecordLayout() {
   return (

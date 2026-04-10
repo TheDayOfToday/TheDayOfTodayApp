@@ -1,10 +1,10 @@
-import React from 'react';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs, usePathname, useRouter } from 'expo-router';
+import React from 'react';
 import { Pressable, SafeAreaView, View } from 'react-native';
-import { layoutStyles } from '../../styles/layoutStyles';
+
+import { layoutStyles } from '@/src/styles/layoutStyles';
 
 function TabLayout() {
   const router = useRouter();
@@ -18,12 +18,12 @@ function TabLayout() {
   );
 
   const pathname = usePathname();
-  const isModeTab = pathname === "/record";
+  const isModeTab = pathname === '/record';
 
   return (
     <SafeAreaView style={layoutStyles.container}>
       <Tabs
-        screenOptions={({ }) => ({
+        screenOptions={() => ({
           headerShown: true,
           headerStyle: layoutStyles.header,
           headerTitle: '오늘의 하루',
@@ -39,7 +39,7 @@ function TabLayout() {
           name="index"
           options={{
             title: '홈',
-            tabBarIcon: ({ focused, color }) => (
+            tabBarIcon: ({ focused, color: _color }) => (
               <Entypo
                 name="home"
                 size={24}
@@ -52,7 +52,7 @@ function TabLayout() {
           name="record"
           options={{
             tabBarLabel: '',
-            tabBarIcon: ({ focused, color }) => (
+            tabBarIcon: ({ focused, color: _color }) => (
               <View
                 style={[
                   layoutStyles.recordButtonContainer,
@@ -81,7 +81,7 @@ function TabLayout() {
           name="analysis"
           options={{
             title: '분석',
-            tabBarIcon: ({focused, color }) => (
+            tabBarIcon: ({ focused, color: _color }) => (
               <MaterialIcons 
                 name="menu-book" 
                 size={24}

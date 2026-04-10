@@ -6,7 +6,7 @@ export type DeleteDiaryRequest = {
   day: string;
 };
 
-export interface DeleteResponse extends APIResponse {}
+export type DeleteResponse = APIResponse;
 
 export interface StartConversationResponse extends APIResponse {
   diaryId: number;
@@ -37,7 +37,7 @@ export interface UpdateMoodRequest {
   moodColor: string;
 }
 
-export interface UpdateMoodResponse extends APIResponse {}
+export type UpdateMoodResponse = APIResponse;
 
 export interface DiaryResponse extends APIResponse {
   title: string;
@@ -50,7 +50,7 @@ export interface UpdateDiaryRequest {
   content: string;
 }
 
-export interface UpdateDiaryResponse extends APIResponse {}
+export type UpdateDiaryResponse = APIResponse;
 
 export interface DiaryAnalysisResponse extends APIResponse {
   analysis: string;

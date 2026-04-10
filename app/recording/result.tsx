@@ -1,11 +1,12 @@
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import { ScrollView, View, Text, Pressable, TextInput } from "react-native";
-import useToken from '@/src/hooks/useToken';
-import { useRouter, useLocalSearchParams } from "expo-router";
-import useShowToast from '@/src/hooks/useShowToast';
-import { useGetTodayDiary, usePutUpdateDiary } from '@/src/queries/useDiaryQuery';
+import { ScrollView, View, Text, Pressable, TextInput } from 'react-native';
+
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import { recordingResultStyles } from "@/src/styles/recordingResultStyles";
+import useShowToast from '@/src/hooks/useShowToast';
+import useToken from '@/src/hooks/useToken';
+import { useGetTodayDiary, usePutUpdateDiary } from '@/src/queries/useDiaryQuery';
+import { recordingResultStyles } from '@/src/styles/recordingResultStyles';
 
 function ResultScreen() {
   const token = useToken();
@@ -17,9 +18,10 @@ function ResultScreen() {
   const [content, onChangeContent] = useState('');
   const showToast = useShowToast();
 
-  const {data: diaryData, isLoading, error} = useGetTodayDiary(token!, numericDiaryId);
+  const { data: diaryData, isLoading } = useGetTodayDiary(token!, numericDiaryId);
   const { mutate: updateDiaryMutate } = usePutUpdateDiary();
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const handleNextButtonPress = useCallback(() => {
     router.push({
       pathname: '/recording/daily-analysis',
@@ -38,23 +40,26 @@ function ResultScreen() {
         token: token!,
         diaryContent: {
           diaryId: numericDiaryId,
-          title: title,
-          content: content,
+          title,
+          content,
         },
       });
       showToast('success', '저장 완료', '오늘의 일기가 저장되었습니다.');
-    } catch (error) {
+    } catch {
       showToast('error', '업로드 실패', '일기를 저장하는 데에 실패했습니다.');
     }
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (diaryData?.title) onChangeTitle(diaryData.title);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (diaryData?.content) onChangeContent(diaryData.content);
   }, [diaryData]);
 
   useEffect(() => {
     if (isLoading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       onChangeContent('로딩 중...');
     }
   }, [isLoading]);
@@ -70,7 +75,7 @@ function ResultScreen() {
     >
       <View style={recordingResultStyles.nextButtonContainer}>
         <Pressable style={recordingResultStyles.nextButton} onPress={handleNextButtonPress}>
-          <Text style={recordingResultStyles.nextButtonText}>일기 분석 보러가기 {">>"}</Text>
+          <Text style={recordingResultStyles.nextButtonText}>일기 분석 보러가기 {'>>'}</Text>
         </Pressable>
       </View>
       <View style={recordingResultStyles.titleInputContainer}>

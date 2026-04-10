@@ -1,10 +1,11 @@
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
-import { ScrollView, View, Text, Pressable } from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { ScrollView, View, Text, Pressable } from 'react-native';
+
 import useToken from '@/src/hooks/useToken';
-import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
 import { usePostBook } from '@/src/queries/useBookQuery';
-import { dailyAnalysisScreenStyles } from "@/src/styles/dailyAnalysisScreenStyles";
+import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
+import { dailyAnalysisScreenStyles } from '@/src/styles/dailyAnalysisScreenStyles';
 
 function DailyAnalysisScreen() {
   const token = useToken();
@@ -14,6 +15,7 @@ function DailyAnalysisScreen() {
   const { mutate: analysisMutate, data, isPending} = usePostAnalyze();
   const { mutate: bookMutate } = usePostBook();
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const handleSubmitPress = useCallback(() => {
     router.push('/(tabs)/record');
   }, []);
@@ -38,7 +40,7 @@ function DailyAnalysisScreen() {
     >
       <View style={dailyAnalysisScreenStyles.finishButtonContainer}>
         <Pressable style={dailyAnalysisScreenStyles.finishButton} onPress={handleSubmitPress}>
-          <Text style={dailyAnalysisScreenStyles.finishButtonText}>마치기 {">>"}</Text>
+          <Text style={dailyAnalysisScreenStyles.finishButtonText}>마치기 {'>>'}</Text>
         </Pressable>
       </View>
       <Text style={dailyAnalysisScreenStyles.title}>오늘의 일기 분석</Text>
@@ -49,6 +51,6 @@ function DailyAnalysisScreen() {
       </View>
     </ScrollView>
   );
-};
+}
 
 export default DailyAnalysisScreen;

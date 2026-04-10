@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 export const splashStyles = StyleSheet.create({
     container: {

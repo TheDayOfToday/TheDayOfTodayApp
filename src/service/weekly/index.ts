@@ -1,5 +1,6 @@
 import APIClient from '../index';
 import { APIRequest, HTTP_METHOD } from '../type';
+
 import { AnalysisRequest, WeeklyAnalysisResponse } from './type';
 
 class GetWeeklyAnalysis<R extends WeeklyAnalysisResponse> implements APIRequest<R> {

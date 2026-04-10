@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCalendarColor, getAnalysis } from '@/src/service/diary';
-import { CalendarRequest } from '@/src/service/diary/type';
+
 import useToken from '@/src/hooks/useToken';
 import { QUERY_KEY } from '@/src/interface/key/queryKey';
+import { getCalendarColor, getDiary, getAnalysis } from '@/src/service/diary';
+import { CalendarRequest } from '@/src/service/diary/type';
 
 const resolveDotColor = (raw: string) => {
   return raw === '미분석' ? '#ffffff' : raw;
@@ -22,7 +23,7 @@ export const useCalendarColors = () => {
     });
 
     const results = await Promise.all(monthPromises);
-    const markedDates: { [key: string]: any } = {};
+    const markedDates: { [key: string]: { marked: boolean; dotColor: string } } = {};
 
     results.forEach((res) => {
       Object.entries(res?.colors ?? {}).forEach(([date, color]) => {
@@ -54,7 +55,7 @@ export const useDiaryEntry = (date: CalendarRequest, enabled: boolean) => {
     queryKey: QUERY_KEY.CALENDAR.DIARY(date.year, date.month, date.day),
     queryFn: async () => {
       if (!token) throw new Error('토큰 없음');
-      return await getAnalysis(token, date);
+      return await getDiary(token, date);
     },
     enabled,
     staleTime: 0,

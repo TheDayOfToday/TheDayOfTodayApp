@@ -1,6 +1,7 @@
-import { toastStyles } from '@/src/styles/toastStyles';
 import React from 'react';
 import { BaseToast, BaseToastProps } from 'react-native-toast-message';
+
+import { toastStyles } from '@/src/styles/toastStyles';
 
 type CustomToastProps = BaseToastProps & {
   type: 'success' | 'error' | 'info';

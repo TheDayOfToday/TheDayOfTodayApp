@@ -1,8 +1,11 @@
-import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation } from '@tanstack/react-query';
-import { postLogin, getFindEmail, postSendCode, postCheckCode, putResetPassword } from '@/src/service/auth';
+import { useState } from 'react';
+
 import type { LoginRequest } from '@/src/service/auth/type';
+
+import { postLogin, getFindEmail, postSendCode, postCheckCode, putResetPassword } from '@/src/service/auth';
+
 
 export const useFetchToken = () => {
   const [loading, setLoading] = useState(false);
@@ -25,8 +28,8 @@ export const useFetchToken = () => {
       }
 
       return response;
-    } catch (err: any) {
-      setError(err);
+    } catch (err: unknown) {
+      setError(err as Error);
       throw err;
     } finally {
       setLoading(false);

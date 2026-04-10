@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const recordingResultStyles = StyleSheet.create({
@@ -39,7 +39,7 @@ export const recordingResultStyles = StyleSheet.create({
   resultContainer: {
     flex: 1,
     width: '100%',
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 15,

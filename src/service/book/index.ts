@@ -1,5 +1,6 @@
 import APIClient from '../index';
 import { APIRequest, HTTP_METHOD } from '../type';
+
 import { RecommendedBookResponse } from './type';
 
 class GetRecommendedBook<R extends RecommendedBookResponse> implements APIRequest<R> {

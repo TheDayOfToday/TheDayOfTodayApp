@@ -1,10 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
-import { useSignUp } from '@/src/hooks/useSignUp';
-import { styles } from '@/src/styles/signUpStyles';
-import useShowToast from '@/src/hooks/useShowToast';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+
 import LoadingScreen from '@/src/components/common/Loading';
+import useShowToast from '@/src/hooks/useShowToast';
+import { useSignUp } from '@/src/hooks/useSignUp';
 import { useSendCode, useCheckCode } from '@/src/queries/useAuthQuery';
+import { styles } from '@/src/styles/signUpStyles';
 
 function SignUpScreen() {
   const { mutate: signUpMutate, isPending } = useSignUp();
@@ -34,7 +35,7 @@ function SignUpScreen() {
     onSuccess: () => {
       showToast('success', '전송 완료', '입력한 이메일로 인증번호가 전송되었습니다.');
     },
-    onError: (err) => {
+    onError: (_err) => {
       showToast('error', '전송 실패', '인증번호 전송 실패');
     },
   });
@@ -46,7 +47,7 @@ function SignUpScreen() {
         showToast('success', '인증 완료', '이메일 인증이 완료되었습니다.');
         setEmailVerified(true);
       },
-      onError: (err) => {
+      onError: (_err) => {
         showToast('error', '인증 실패', '인증번호가 일치하지 않습니다.');
       },
     });

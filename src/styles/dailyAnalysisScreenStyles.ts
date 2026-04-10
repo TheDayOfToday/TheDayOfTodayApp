@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const dailyAnalysisScreenStyles = StyleSheet.create({
@@ -31,7 +31,7 @@ export const dailyAnalysisScreenStyles = StyleSheet.create({
     color: '#ddd',
   },
   resultContainer: {
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     alignItems: 'center',
     borderWidth: 0,
     borderRadius: 15,

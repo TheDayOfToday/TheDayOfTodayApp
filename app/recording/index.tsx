@@ -1,14 +1,16 @@
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import { useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import { useRouter } from "expo-router";
-import { useFocusEffect, useRoute, RouteProp } from '@react-navigation/native';
-import useToken from '@/src/hooks/useToken';
+
 import useShowToast from '@/src/hooks/useShowToast';
-import { useDiaryEntry, useDeleteDiary } from '@/src/queries/useDiaryQuery';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import useToken from '@/src/hooks/useToken';
+import { useDiaryEntry } from '@/src/queries/useCalendarQuery';
+import { useDeleteDiary } from '@/src/queries/useDiaryQuery';
 import { useConversationStart } from '@/src/queries/useRecordQuery';
-import { modeSlidingTabStyles } from '@/src/styles/modeSlidingTabStyles';
 import { ModalStyles } from '@/src/styles/modalStyles';
+import { modeSlidingTabStyles } from '@/src/styles/modeSlidingTabStyles';
 
 type SelectModeTabRouteProp = RouteProp<
   { recording: { openBottomSheet?: boolean } },
@@ -20,7 +22,7 @@ function SelectModeTab() {
   const showToast = useShowToast();
   const router = useRouter();
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["35%", "100%"], []);
+  const snapPoints = useMemo(() => ['35%', '100%'], []);
   const route = useRoute<SelectModeTabRouteProp>();
   
   const today = new Date();
@@ -33,7 +35,7 @@ function SelectModeTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const { mutateAsync: deleteDiary } = useDeleteDiary();
 
-  const { mutateAsync: startConversation, data } = useConversationStart();
+  const { mutateAsync: startConversation } = useConversationStart();
 
   // 기록 화면에 있을 때 슬라이딩 탭 오픈
   useFocusEffect(
@@ -72,7 +74,7 @@ function SelectModeTab() {
         pathname: '/recording/conversation',
         params: { diaryId: diaryId.toString() },
       });
-    } catch (error) {
+    } catch {
       showToast('error', '대화 시작 실패', '서버와 통신 중 문제가 발생했습니다.');
     }
   };
@@ -85,10 +87,10 @@ function SelectModeTab() {
       });
       showToast('success', '삭제 완료', '일기가 삭제되었습니다.');
       setModalVisible(false);
-    } catch (error) {
+    } catch {
       showToast('error', '삭제 실패', '일기를 삭제하는 데에 실패했습니다.');
     }
-  }
+  };
 
   return (
     <BottomSheet
@@ -127,7 +129,7 @@ function SelectModeTab() {
                     style={ModalStyles.deleteDiaryButton}
                     onPress={() => {
                       onPressDeleteDiary();
-                      setModalVisible(false)
+                      setModalVisible(false);
                     }
                   }>
                     <Text style={ModalStyles.deleteDiaryButtonText}>삭제</Text>
@@ -146,6 +148,6 @@ function SelectModeTab() {
       </BottomSheetView>
     </BottomSheet>
   );
-};
+}
 
 export default SelectModeTab;

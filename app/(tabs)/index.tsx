@@ -1,16 +1,17 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, SafeAreaView, Modal, TouchableOpacity, Pressable, ScrollView } from 'react-native';
-import useToken from '@/src/hooks/useToken';
-import useShowToast from '@/src/hooks/useShowToast';
-import { Calendar } from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
-import { useDiaryEntry, useDeleteDiary } from '@/src/queries/useDiaryQuery';
-import { useAnalysisEntry, useCalendarColors } from '@/src/queries/useCalendarQuery';
-import LottieView from 'lottie-react-native';
+import React, { useState, useMemo } from 'react';
+import { View, Text, Modal, TouchableOpacity, Pressable, ScrollView } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+
+import Book from '@/src/components/common/Book';
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import useShowToast from '@/src/hooks/useShowToast';
+import useToken from '@/src/hooks/useToken';
+import { useAnalysisEntry, useCalendarColors } from '@/src/queries/useCalendarQuery';
+import { useDiaryEntry } from '@/src/queries/useCalendarQuery';
+import { useDeleteDiary } from '@/src/queries/useDiaryQuery';
 import { calendarModalStyles } from '@/src/styles/calendarModalStyles';
 import { styles } from '@/src/styles/calendarScreenStyles';
-import Book from '@/src/components/common/Book';
 
 function CalendarScreen() {
   const token = useToken();
@@ -21,11 +22,12 @@ function CalendarScreen() {
   const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
   const selectedDate = selectedDateObj.toISOString().split('T')[0];
   const [year, month, day] = selectedDate.split('-');
-  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);  
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
+  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);
 
   const diary = useDiaryEntry(calendarDate, modalVisible);
   const analysis = useAnalysisEntry(calendarDate, modalVisible);
-  const { markedDates, moodColorsReady } = useCalendarColors();
+  const { markedDates } = useCalendarColors();
 
   const moveDate = (direction: 'prev' | 'next') => {
     const newDate = new Date(selectedDateObj);
@@ -33,11 +35,13 @@ function CalendarScreen() {
     setSelectedDateObj(newDate);
   };
 
-  const handleDayPress = (day: any) => {    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleDayPress = (day: any) => {
     setSelectedDateObj(new Date(day.dateString));
     setModalVisible(true);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const CustomDay = ({ date, state, marking }: any) => {
     const today = new Date();
     const isToday =
@@ -83,7 +87,7 @@ function CalendarScreen() {
       });
       showToast('success', '삭제 완료', '일기가 삭제되었습니다.');
       setModalVisible(false);
-    } catch (error) {
+    } catch {
       showToast('error', '삭제 실패', '일기를 삭제하는 데에 실패했습니다.');
     }
   };

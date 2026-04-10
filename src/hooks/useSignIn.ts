@@ -1,7 +1,9 @@
-import { useRouter } from 'expo-router';
-import { useFetchToken } from '@/src/queries/useAuthQuery';
-import useShowToast from './useShowToast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
+
+import useShowToast from './useShowToast';
+
+import { useFetchToken } from '@/src/queries/useAuthQuery';
 
 export const useSignIn = () => {
   const router = useRouter();
@@ -17,7 +19,7 @@ export const useSignIn = () => {
         await AsyncStorage.removeItem('autoLogin');
       }
       router.replace('/(tabs)');
-    } catch (err: any) {
+    } catch {
       showToast('error', '로그인 실패', '이메일 또는 비밀번호가 잘못되었습니다.');
     }
   };

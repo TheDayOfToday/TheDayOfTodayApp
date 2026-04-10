@@ -1,6 +1,6 @@
+import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useRef } from 'react';
 import { BackHandler, ToastAndroid } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
 
 export default function useDoubleBackExit(enabled = true) {
   const isFocused = useIsFocused();

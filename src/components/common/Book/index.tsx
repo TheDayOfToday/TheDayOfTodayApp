@@ -1,7 +1,8 @@
-import { Text, View, Image, ScrollView } from "react-native";
-import useGetBook from "@/src/queries/useBookQuery";
-import useToken from "@/src/hooks/useToken";
-import { bookStyles } from "@/src/styles/bookStyles";
+import { Text, View, Image, ScrollView } from 'react-native';
+
+import useToken from '@/src/hooks/useToken';
+import useGetBook from '@/src/queries/useBookQuery';
+import { bookStyles } from '@/src/styles/bookStyles';
 
 function Book() {
   const token = useToken();
@@ -19,7 +20,8 @@ function Book() {
               source={
                 recommendedBook?.coverImageUrl
                   ? { uri: recommendedBook.coverImageUrl }
-                  : require("../../../assets/images/book-and-pencil.png")
+                  // eslint-disable-next-line @typescript-eslint/no-require-imports
+                  : require('../../../assets/images/book-and-pencil.png')
               }
               style={
                 recommendedBook?.coverImageUrl
@@ -29,6 +31,7 @@ function Book() {
             />
           </View>
           <>
+            {/* eslint-disable-next-line no-constant-condition */}
             {true ? (
               <ScrollView style={bookStyles.infoContainer}>
                 <Text style={bookStyles.bookTitle}>{recommendedBook?.title}</Text>

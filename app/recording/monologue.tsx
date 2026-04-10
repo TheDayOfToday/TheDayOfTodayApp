@@ -1,15 +1,16 @@
+import { Audio } from 'expo-av';
+import { useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
-import { usePostMonologue } from '@/src/queries/useRecordQuery';
-import { Audio } from 'expo-av';
-import LottieView from 'lottie-react-native';
+
 import LoadingScreen from '@/src/components/common/Loading';
+import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
 import useShowToast from '@/src/hooks/useShowToast';
-import { useRouter } from 'expo-router';
-import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
+import { usePostMonologue } from '@/src/queries/useRecordQuery';
 import { ModalStyles } from '@/src/styles/modalStyles';
+import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';
 
 const recordingOptions = {
   android: {
@@ -56,7 +57,7 @@ function Monologue() {
       await newRecording.startAsync();
       setRecording(newRecording);
       setIsRecording(true);
-    } catch (error) {
+    } catch {
       stopRecording();
       showToast('error', '녹음 실패', '독백 서비스를 다시 시도해주세요.');
       router.push('/record');
@@ -72,7 +73,7 @@ function Monologue() {
       setRecording(null);
       setIsRecording(false);
       return uri;
-    } catch (error) {
+    } catch {
       return null;
     }
   };
@@ -96,7 +97,7 @@ function Monologue() {
     start();
     return () => {
       stopRecording();
-    }
+    };
   }, []);
 
   const handelExit = async () => {
@@ -128,7 +129,8 @@ function Monologue() {
           </View>
           <SafeAreaView style={recordingScreenStyles.recordingContainer}>
             <LottieView
-              source={require('../../assets/RecordingAnimation.json')}
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+    source={require('../../assets/RecordingAnimation.json')}
               autoPlay
               loop
               speed={3}
@@ -179,6 +181,6 @@ function Monologue() {
       )}
     </GestureHandlerRootView>
   );
-};
+}
 
 export default Monologue;

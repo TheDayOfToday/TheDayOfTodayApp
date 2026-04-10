@@ -1,12 +1,13 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
+
 import useShowToast from '@/src/hooks/useShowToast';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { styles } from '@/src/styles/settingScreenStyles';
 import { getUserInfo, deleteUser } from '@/src/service/auth';
 import { UserInfoResponse } from '@/src/service/auth/type';
 import { ModalStyles } from '@/src/styles/modalStyles';
+import { styles } from '@/src/styles/settingScreenStyles';
 
 function SettingScreen() {
   const router = useRouter();
@@ -41,7 +42,7 @@ function SettingScreen() {
       try {
         const data: UserInfoResponse = await getUserInfo(token);
         setUser(data);
-      } catch (err) {
+      } catch {
         showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
       }
     };
@@ -69,7 +70,7 @@ function SettingScreen() {
       showToast('success', '회원 탈퇴 완료', '그동안 이용해주셔서 감사합니다.');
       await AsyncStorage.removeItem('accessToken');      
       router.replace('/signIn');
-    } catch (error) {
+    } catch {
       showToast('error', '회원 탈퇴 실패', '다시 시도해주세요.');
     }
   };
@@ -95,7 +96,7 @@ function SettingScreen() {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => { router.push('/edit-password') }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
+          <TouchableOpacity onPress={() => { router.push('/edit-password'); }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
             <Text style={styles.editText}>비밀번호 수정</Text>
           </TouchableOpacity>
         </View>
@@ -137,8 +138,8 @@ function SettingScreen() {
                 <Pressable
                   style={ModalStyles.finishButton}
                   onPress={() => {
-                    handleDeleteAccount()
-                    setModalIsOpen(false)
+                    handleDeleteAccount();
+                    setModalIsOpen(false);
                   }
                 }>
                   <Text style={ModalStyles.finishButtonText}>확인</Text>

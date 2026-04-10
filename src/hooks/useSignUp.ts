@@ -1,7 +1,9 @@
-import { postSignUp } from '@/src/service/auth';
-import useShowToast from './useShowToast';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
+
+import useShowToast from './useShowToast';
+
+import { postSignUp } from '@/src/service/auth';
 
 interface SignUpProps {
   name: string;
@@ -21,6 +23,7 @@ export const useSignUp = () => {
       router.back();
       showToast('success', '회원가입 완료', '성공적으로 가입되었습니다.');
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       const message = error?.response?.data?.message || error?.message || '서버 오류가 발생했습니다.';
       showToast('error', '회원가입 실패', message);

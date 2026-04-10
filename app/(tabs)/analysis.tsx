@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { Image } from 'react-native';
-import { useGetWeeklyAnalysis } from '@/src/queries/useWeeklyQuery';
-import useToken from '@/src/hooks/useToken';
-import AntDesign from '@expo/vector-icons/AntDesign';
+
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
+import useToken from '@/src/hooks/useToken';
+import { useGetWeeklyAnalysis } from '@/src/queries/useWeeklyQuery';
 import { analysisScreenStyles } from '@/src/styles/analysisScreenStyles';
 
 function AnalysisScreen() {
@@ -17,15 +18,17 @@ function AnalysisScreen() {
     day: String(today.getDate()),
   });
 
-  const { data: weeklyAnalysis, isLoading, error } = useGetWeeklyAnalysis({ token: token!, date: todayDate });
+  const { data: weeklyAnalysis } = useGetWeeklyAnalysis({ token: token!, date: todayDate });
 
-  const degreeImageMap: Record<string, any> = {
+  /* eslint-disable @typescript-eslint/no-require-imports */
+  const degreeImageMap: Record<string, ReturnType<typeof require>> = {
     GOOD: require('../../assets/images/goodv2.png'),
     BAD: require('../../assets/images/badv2.png'),
     COMFORT: require('../../assets/images/comfortv2.png'),
     HARD: require('../../assets/images/hardv2.png'),
     UNKNOWN: require('../../assets/images/unknownv2.png'),
   };
+  /* eslint-enable @typescript-eslint/no-require-imports */
 
   const handlePressLeft = () => {
     const currentDate = new Date(`${todayDate.year}-${todayDate.month}-${todayDate.day}`);

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Stack, useRouter } from "expo-router";
-import * as Font from "expo-font";
-import SplashScreen from "./splash";
-import Toast, { BaseToastProps } from "react-native-toast-message";
-import CustomToast from '@/src/components/common/CustomToast';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useShowToast from "@/src/hooks/useShowToast";
-import { commonStyles } from "@/src/styles/common";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import * as Font from 'expo-font';
+import { Stack, useRouter } from 'expo-router';
+import React, { useState, useEffect } from 'react';
+import Toast, { BaseToastProps } from 'react-native-toast-message';
+
+import SplashScreen from './splash';
+
+import CustomToast from '@/src/components/common/CustomToast';
+import useShowToast from '@/src/hooks/useShowToast';
+import { commonStyles } from '@/src/styles/common';
 
 const queryClient = new QueryClient();
 
@@ -21,22 +23,24 @@ export default function RootLayout() {
     success: (props: BaseToastProps) => <CustomToast {...props} type="success" />,
     error: (props: BaseToastProps) => <CustomToast {...props} type="error" />,
     info: (props: BaseToastProps) => <CustomToast {...props} type="info" />,
-  }
+  };
 
   useEffect(() => {
     async function loadFonts() {
+      /* eslint-disable @typescript-eslint/no-require-imports */
       await Font.loadAsync({
-        "Hakgyoansim": require("../assets/fonts/Hakgyoansim-Geurimilgi.otf"),
-        "Pretendard9": require("../assets/fonts/Pretendard-Black.otf"),
-        "Pretendard8": require("../assets/fonts/Pretendard-ExtraBold.otf"),
-        "Pretendard7": require("../assets/fonts/Pretendard-Bold.otf"),
-        "Pretendard6": require("../assets/fonts/Pretendard-SemiBold.otf"),
-        "Pretendard5": require("../assets/fonts/Pretendard-Medium.otf"),
-        "Pretendard4": require("../assets/fonts/Pretendard-Regular.otf"),
-        "Pretendard3": require("../assets/fonts/Pretendard-Light.otf"),
-        "Pretendard2": require("../assets/fonts/Pretendard-ExtraLight.otf"),
-        "Pretendard1": require("../assets/fonts/Pretendard-Thin.otf"),
+        'Hakgyoansim': require('../assets/fonts/Hakgyoansim-Geurimilgi.otf'),
+        'Pretendard9': require('../assets/fonts/Pretendard-Black.otf'),
+        'Pretendard8': require('../assets/fonts/Pretendard-ExtraBold.otf'),
+        'Pretendard7': require('../assets/fonts/Pretendard-Bold.otf'),
+        'Pretendard6': require('../assets/fonts/Pretendard-SemiBold.otf'),
+        'Pretendard5': require('../assets/fonts/Pretendard-Medium.otf'),
+        'Pretendard4': require('../assets/fonts/Pretendard-Regular.otf'),
+        'Pretendard3': require('../assets/fonts/Pretendard-Light.otf'),
+        'Pretendard2': require('../assets/fonts/Pretendard-ExtraLight.otf'),
+        'Pretendard1': require('../assets/fonts/Pretendard-Thin.otf'),
       });
+      /* eslint-enable @typescript-eslint/no-require-imports */
       setIsReady(true);
     }
     
@@ -63,6 +67,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (isReady) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSplashVisible(true);
     }
   }, [isReady]);

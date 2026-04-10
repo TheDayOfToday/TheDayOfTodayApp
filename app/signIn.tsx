@@ -1,11 +1,12 @@
-import { View, Text, TextInput, TouchableOpacity, Switch, ActivityIndicator, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { useSignIn } from '@/src/hooks/useSignIn';
-import useShowToast from '@/src/hooks/useShowToast';
+import { View, Text, TextInput, TouchableOpacity, Switch, ActivityIndicator, Modal } from 'react-native';
+
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import { styles } from '@/src/styles/signInStyles';
+import useShowToast from '@/src/hooks/useShowToast';
+import { useSignIn } from '@/src/hooks/useSignIn';
 import { useFindEmail, useSendCode, useCheckCode, useResetPassword } from '@/src/queries/useAuthQuery';
+import { styles } from '@/src/styles/signInStyles';
 
 function SignInScreen() {
   const { login, goToSignUp, loading } = useSignIn();
@@ -52,8 +53,8 @@ function SignInScreen() {
         setEmailChecked(true);
         sendCodeMutation.mutate(resetEmail);
       },
-      onError: (err) => {
-        showToast('error', '존재하지 않는 이메일', "존재하지 않는 이메일 주소입니다.");
+      onError: (_err) => {
+        showToast('error', '존재하지 않는 이메일', '존재하지 않는 이메일 주소입니다.');
       },
     });
   };
@@ -69,7 +70,7 @@ function SignInScreen() {
         showToast('success', '인증 성공', '새 비밀번호를 입력해주세요.');
         setCodeChecked(true);
       },
-      onError: (err) => {
+      onError: (_err) => {
         showToast('error', '인증번호 불일치', '인증번호가 일치하지 않습니다.');
       },
     });
@@ -91,7 +92,7 @@ function SignInScreen() {
         setEmailChecked(false);
         setCodeChecked(false);
       },
-      onError: (err) => {
+      onError: (_err) => {
         showToast('error', '비밀번호 재설정', '기존 비밀번호와 일치합니다.'); 
       },
     });
