@@ -1,6 +1,5 @@
-import { AxiosResponse } from 'axios';
-
-import { APIResponse } from './responseType';
+import type { APIResponse } from './responseType';
+import type { AxiosResponse } from 'axios';
 
 export const HTTP_METHOD = {
   GET: 'GET',
@@ -12,18 +11,15 @@ export const HTTP_METHOD = {
 
 export type HTTPMethod = typeof HTTP_METHOD[keyof typeof HTTP_METHOD];
 
-export type APIRequest<R extends APIResponse> = {
+export interface APIRequest<R extends APIResponse> {
   response: R;
   path: string;
   method: HTTPMethod;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  params?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
+  params?: Record<string, unknown>;
+  data?: unknown;
   baseURL?: string;
   authorization?: string;
   headers?: Record<string, string | number>;
   parse?: (data: AxiosResponse<R>) => R;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  convertBody?: (data: any) => any;
-};
+  convertBody?: (data: unknown) => unknown;
+}

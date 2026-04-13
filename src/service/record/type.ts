@@ -1,10 +1,10 @@
 import type { APIResponse } from '../responseType';
 
-export type DeleteDiaryRequest = {
+export interface DeleteDiaryRequest {
   year: string;
   month: string;
   day: string;
-};
+}
 
 export type DeleteResponse = APIResponse;
 
@@ -12,20 +12,20 @@ export interface StartConversationResponse extends APIResponse {
   diaryId: number;
 }
 
-export type DiarySuggestionMood = {
+export interface DiarySuggestionMood {
   moodName: string;
   moodColor: string;
-};
+}
 
-export type MoodCategory = {
+export interface MoodCategory {
   degree: string;
   moods: Mood[];
-};
+}
 
-export type Mood = {
+export interface Mood {
   moodName: string;
   color: string;
-};
+}
 
 export interface MoodMetersResponse extends APIResponse {
   diaryMood: DiarySuggestionMood;

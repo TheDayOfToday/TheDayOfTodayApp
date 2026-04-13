@@ -1,14 +1,12 @@
 import type { APIResponse } from '../responseType';
 
-export type CalendarRequest = {
+export interface CalendarRequest {
   year: string;
   month: string;
   day: string;
-};
+}
 
-export type Color = {
-  [date: string]: string;
-};
+export type Color = Record<string, string>;
 
 export interface CalendarColorResponse extends APIResponse {
   colors: Color;

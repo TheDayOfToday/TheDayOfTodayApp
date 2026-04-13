@@ -5,7 +5,6 @@ import qs from 'qs';
 import { APIResponse } from './responseType';
 import { APIRequest, HTTP_METHOD } from './type';
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T> = new (...args: any[]) => T;
 type ResponseType<T> = T extends APIRequest<infer R> ? R : never;
