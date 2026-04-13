@@ -1,17 +1,25 @@
-export const QUERY_KEY = {
-  CALENDAR: {
-    COLORS: () => ['calendarColors'] as const,
-    DIARY: (year: string, month: string, day: string) => ['diary', { year, month, day }] as const,
-    ANALYSIS: (year: string, month: string, day: string) => ['analysis', { year, month, day }] as const,
-  },
-  DIARY: {
-    TODAY: () => ['todayDiary'] as const,
-    MOOD_METERS: (diaryId: number) => ['moodMeters', diaryId] as const,
-  },
-  WEEKLY: {
-    ANALYSIS: (year: string, month: string, day: string) => ['weeklyAnalysis', year, month, day] as const,
-  },
-  BOOK: {
-    RECOMMENDED: () => ['recommendedBook'] as const,
-  },
-} as const;
+export const calendarKeys = {
+  all: ['calendar'] as const,
+  colors: () => [...calendarKeys.all, 'colors'] as const,
+  diary: (year: string, month: string, day: string) =>
+    [...calendarKeys.all, 'diary', { year, month, day }] as const,
+  analysis: (year: string, month: string, day: string) =>
+    [...calendarKeys.all, 'analysis', { year, month, day }] as const,
+};
+
+export const diaryKeys = {
+  all: ['diary'] as const,
+  today: () => [...diaryKeys.all, 'today'] as const,
+  moodMeters: (diaryId: number) => [...diaryKeys.all, 'moodMeters', diaryId] as const,
+};
+
+export const weeklyKeys = {
+  all: ['weekly'] as const,
+  analysis: (year: string, month: string, day: string) =>
+    [...weeklyKeys.all, 'analysis', year, month, day] as const,
+};
+
+export const bookKeys = {
+  all: ['book'] as const,
+  recommended: () => [...bookKeys.all, 'recommended'] as const,
+};
