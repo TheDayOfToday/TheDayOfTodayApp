@@ -1,6 +1,4 @@
-import type { APIResponse } from '../responseType';
-
-export interface DeleteUserResponse extends APIResponse {
+export interface DeleteUserResponse {
   message: string;
 }
 
@@ -19,7 +17,7 @@ export interface SignUpRequest {
   phoneNumber: string;
 }
 
-export interface SignUpResponse extends APIResponse {
+export interface SignUpResponse {
   message: string;
 }
 

@@ -1,6 +1,4 @@
-import type { APIResponse } from '../responseType';
-
-export interface RecommendedBookResponse extends APIResponse {
+export interface RecommendedBookResponse {
   title: string;
   author: string;
   description: string;

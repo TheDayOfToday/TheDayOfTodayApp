@@ -21,7 +21,7 @@ function Book() {
                 recommendedBook?.coverImageUrl
                   ? { uri: recommendedBook.coverImageUrl }
                   // eslint-disable-next-line @typescript-eslint/no-require-imports
-                  : require('../../../assets/images/book-and-pencil.png')
+                  : require('@/assets/images/book-and-pencil.png')
               }
               style={
                 recommendedBook?.coverImageUrl

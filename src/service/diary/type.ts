@@ -1,5 +1,3 @@
-import type { APIResponse } from '../responseType';
-
 export interface CalendarRequest {
   year: string;
   month: string;
@@ -8,15 +6,15 @@ export interface CalendarRequest {
 
 export type Color = Record<string, string>;
 
-export interface CalendarColorResponse extends APIResponse {
+export interface CalendarColorResponse {
   colors: Color;
 }
 
-export interface DiaryResponse extends APIResponse {
+export interface DiaryResponse  {
   title: string;
   content: string;
 }
 
-export interface AnalysisResponse extends APIResponse {
+export interface AnalysisResponse  {
   analysis: string;
 }
