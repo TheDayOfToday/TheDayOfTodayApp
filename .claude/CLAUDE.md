@@ -2,8 +2,8 @@
 
 ## 프로젝트 소개
 
-**오늘의 하루(TheDayOfToday)** 는 AI 기반 감정 분석 모바일 앱이다.  
-사용자가 음성으로 일기를 기록하면, AI가 감정을 분석하고 피드백을 제공한다.  
+**오늘의 하루(TheDayOfToday)** 는 AI 기반 감정 분석 모바일 앱이다.
+사용자가 음성으로 일기를 기록하면, AI가 감정을 분석하고 피드백을 제공한다.
 React Native + Expo 기반의 프론트엔드 프로젝트이며, Android 우선 빌드 환경이다.
 
 ---
@@ -61,16 +61,10 @@ APIClient.of(SomeAPIClass)(arg1, arg2)
 - `type.ts`: 해당 도메인의 요청/응답 타입
 
 ### 3. React Query 훅
-`src/queries/useXxxQuery.ts`에서 `useMutation` / `useQuery`로 래핑.  
+`src/queries/useXxxQuery.ts`에서 `useMutation` / `useQuery`로 래핑.
 파일 업로드(multipart)는 `expo-file-system`의 `FileSystem.uploadAsync` 직접 사용.
 
-### 4. 스타일 분리
-- 모든 스타일은 `src/styles/`에 `StyleSheet.create()`로 정의
-- 화면/컴포넌트별로 파일 분리 (`recordingScreenStyles.ts` 등)
-- 공통 스타일은 `src/styles/common.ts`
-- 폰트 크기는 반드시 `RFValue()`로 처리
-
-### 5. 인증 흐름
+### 4. 인증 흐름
 - `accessToken`: `AsyncStorage`에 저장 (자동 로그인 여부 포함)
 - 실제 토큰 값: `expo-secure-store` 사용 (`useToken` 훅)
 - 앱 시작 시 `app/_layout.tsx`에서 인증 상태 확인 후 라우팅 분기
@@ -96,7 +90,7 @@ API_BASE_URL  — 백엔드 서버 기본 URL
 | `Hakgyoansim` | Hakgyoansim-Geurimilgi | 포인트 손글씨체 |
 | `Pretendard1`~`Pretendard9` | Pretendard Thin~Black | 숫자 = 굵기 단계 (1=Thin, 9=Black) |
 
-기본 본문: `Pretendard4` (Regular)  
+기본 본문: `Pretendard4` (Regular)
 주요 UI 텍스트: `Pretendard6` (SemiBold) 또는 `Pretendard7` (Bold)
 
 ---
@@ -104,4 +98,4 @@ API_BASE_URL  — 백엔드 서버 기본 URL
 ## 참고 사항
 
 - Android 패키지명: `com.thedayoftoday.app`
-- 세부 규칙은 각 폴더의 `CLAUDE.md` 참고
+- 코드 컨벤션·린트 규칙: `.claude/rules/conventions-and-lint.md` 참고
