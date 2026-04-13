@@ -10,18 +10,9 @@ React Native + Expo 기반의 프론트엔드 프로젝트이며, Android 우선
 
 ## 기술 스택
 
-| 항목 | 버전 |
-|------|------|
-| React Native | 0.76.6 |
-| Expo SDK | ~52.0.27 |
-| Expo Router | ~4.0.17 |
-| TypeScript | ^5.3.3 |
-| TanStack React Query | ^5.74.0 |
-| Axios | ^1.8.4 |
-| React Native Reanimated | ~3.16.1 |
+React Native + Expo (SDK 52) + TypeScript + Expo Router (파일 기반 라우팅)
 
 ### 주요 패키지
-- **라우팅**: `expo-router` (파일 기반 라우팅)
 - **서버 상태 관리**: `@tanstack/react-query`
 - **HTTP 클라이언트**: `axios` + 자체 `APIClient` 클래스
 - **인증 토큰 저장**: `expo-secure-store`
@@ -38,60 +29,15 @@ React Native + Expo 기반의 프론트엔드 프로젝트이며, Android 우선
 
 ## 폴더 구조
 
-```
-TheDayOfTodayApp/
-├── app/                        # Expo Router 라우트 (화면 단위)
-│   ├── _layout.tsx             # 루트 레이아웃 (QueryClientProvider, Toast, 폰트 로드, 인증 분기)
-│   ├── splash.tsx              # 스플래시 화면
-│   ├── signIn.tsx              # 로그인
-│   ├── signUp.tsx              # 회원가입
-│   ├── (tabs)/                 # 하단 탭 네비게이션
-│   │   ├── _layout.tsx
-│   │   ├── index.tsx           # 캘린더(홈) 탭
-│   │   ├── record.tsx          # 녹음 진입 탭
-│   │   └── analysis.tsx        # 분석 탭
-│   ├── recording/              # 녹음 플로우 (모놀로그 / 대화 모드)
-│   │   ├── index.tsx           # 녹음 모드 선택
-│   │   ├── monologue.tsx       # 혼잣말 모드 녹음
-│   │   ├── conversation.tsx    # 대화 모드 녹음
-│   │   ├── result.tsx          # 녹음 결과
-│   │   └── daily-analysis.tsx  # 일별 감정 분석 결과
-│   ├── setting/                # 설정
-│   └── edit-password/          # 비밀번호 변경
-│
-├── src/
-│   ├── components/
-│   │   └── common/             # 공용 컴포넌트 (폴더/index.tsx 구조)
-│   │       ├── Book/
-│   │       ├── CustomToast/
-│   │       ├── Loading/
-│   │       └── SelectMoodMeterTab/
-│   ├── hooks/                  # 커스텀 훅
-│   ├── queries/                # TanStack Query 훅 (useXxxQuery.ts)
-│   ├── service/                # API 서비스 레이어
-│   │   ├── index.ts            # APIClient 클래스 (싱글턴)
-│   │   ├── type.ts             # APIRequest, HTTP_METHOD 타입
-│   │   ├── responseType.ts     # 공통 응답 타입
-│   │   ├── auth/               # 도메인별 API (index.ts + type.ts)
-│   │   ├── book/
-│   │   ├── diary/
-│   │   ├── record/
-│   │   └── weekly/
-│   ├── interface/
-│   │   └── key/
-│   │       └── queryKey.ts     # React Query 키 상수
-│   └── styles/                 # StyleSheet 파일 (화면/컴포넌트별 분리)
-│
-├── assets/
-│   ├── fonts/                  # Pretendard (가중치별), Hakgyoansim
-│   ├── images/                 # 아이콘, 이모지 이미지
-│   └── *.json                  # Lottie 애니메이션
-│
-├── android/                    # Android 네이티브 빌드
-├── app.config.ts               # Expo 설정 (동적, dotenv 사용)
-├── eas.json                    # EAS Build 설정
-└── tsconfig.json
-```
+- `app/` — Expo Router 라우트. `_layout.tsx`(루트), `(tabs)/`(하단 탭), `recording/`(녹음 플로우), `setting/`, `edit-password/`
+- `src/components/common/` — 공용 컴포넌트 (폴더/index.tsx 구조)
+- `src/hooks/` — 커스텀 훅
+- `src/queries/` — TanStack Query 훅 (`useXxxQuery.ts`)
+- `src/service/` — API 서비스 레이어. 도메인별 폴더(`auth/`, `book/`, `diary/`, `record/`, `weekly/`)
+- `src/interface/key/queryKey.ts` — React Query 키 상수
+- `src/styles/` — StyleSheet 파일 (화면/컴포넌트별 분리)
+- `assets/` — 폰트, 이미지, Lottie JSON
+- `app.config.ts` — Expo 설정 (dotenv 사용)
 
 ---
 
@@ -157,8 +103,5 @@ API_BASE_URL  — 백엔드 서버 기본 URL
 
 ## 참고 사항
 
-- 화면 방향은 `portrait` 고정
-- 다크모드: `userInterfaceStyle: 'automatic'` (지원)
-- New Architecture 활성화 (`newArchEnabled: true`)
 - Android 패키지명: `com.thedayoftoday.app`
 - 세부 규칙은 각 폴더의 `CLAUDE.md` 참고
