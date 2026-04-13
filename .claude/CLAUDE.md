@@ -60,11 +60,7 @@ APIClient.of(SomeAPIClass)(arg1, arg2)
 - `index.ts`: API 함수 정의 (`APIClient.of(XxxAPI)(...)` 형태)
 - `type.ts`: 해당 도메인의 요청/응답 타입
 
-### 3. React Query 훅
-`src/queries/useXxxQuery.ts`에서 `useMutation` / `useQuery`로 래핑.
-파일 업로드(multipart)는 `expo-file-system`의 `FileSystem.uploadAsync` 직접 사용.
-
-### 4. 인증 흐름
+### 3. 인증 흐름
 - `accessToken`: `AsyncStorage`에 저장 (자동 로그인 여부 포함)
 - 실제 토큰 값: `expo-secure-store` 사용 (`useToken` 훅)
 - 앱 시작 시 `app/_layout.tsx`에서 인증 상태 확인 후 라우팅 분기
@@ -80,18 +76,6 @@ API_BASE_URL  — 백엔드 서버 기본 URL
 ```
 
 접근: `Constants.expoConfig?.extra?.API_BASE_URL`
-
----
-
-## 폰트 사용 규칙
-
-| 폰트명 | 원본 | 설명 |
-|--------|------|------|
-| `Hakgyoansim` | Hakgyoansim-Geurimilgi | 포인트 손글씨체 |
-| `Pretendard1`~`Pretendard9` | Pretendard Thin~Black | 숫자 = 굵기 단계 (1=Thin, 9=Black) |
-
-기본 본문: `Pretendard4` (Regular)
-주요 UI 텍스트: `Pretendard6` (SemiBold) 또는 `Pretendard7` (Bold)
 
 ---
 

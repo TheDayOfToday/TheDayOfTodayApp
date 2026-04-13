@@ -9,7 +9,7 @@ import SplashScreen from './splash';
 
 import CustomToast from '@/src/components/common/CustomToast';
 import useShowToast from '@/src/hooks/useShowToast';
-import { commonStyles } from '@/src/styles/common';
+import { commonStyles } from '@/src/styles/commonStyles';
 
 const queryClient = new QueryClient();
 
@@ -43,7 +43,7 @@ export default function RootLayout() {
       /* eslint-enable @typescript-eslint/no-require-imports */
       setIsReady(true);
     }
-    
+
     loadFonts();
   }, []);
 
@@ -55,7 +55,7 @@ export default function RootLayout() {
       if (token && autoLogin === 'true') {
         router.replace('/(tabs)');
       } else {
-        showToast('info', '로그인 필요', '로그인이 필요합니다.');  
+        showToast('info', '로그인 필요', '로그인이 필요합니다.');
         router.replace('/signIn');
       }
     };
