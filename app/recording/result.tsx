@@ -21,13 +21,12 @@ function ResultScreen() {
   const { data: diaryData, isLoading } = useGetTodayDiary(token!, numericDiaryId);
   const { mutate: updateDiaryMutate } = usePutUpdateDiary();
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const handleNextButtonPress = useCallback(() => {
     router.push({
       pathname: '/recording/daily-analysis',
       params: { diaryId: diaryId.toString() },
     });
-  }, []);
+  }, [router, diaryId]);
 
   const handleSaveButtonPress = async () => {
     if (!content) {

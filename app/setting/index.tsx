@@ -48,7 +48,7 @@ function SettingScreen() {
     };
   
     fetchUserInfo();
-  }, []);
+  }, [router, showToast]);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken');

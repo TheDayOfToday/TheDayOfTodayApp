@@ -1,7 +1,7 @@
 import { Audio } from 'expo-av';
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -38,11 +38,25 @@ function Monologue() {
   const router = useRouter();
   const showToast = useShowToast();
   const [showExitModal, setShowExitModal] = useState(false);
-  const [recording, setRecording] = useState<Audio.Recording | null>(null);
-  const [isRecording, setIsRecording] = useState(false);
+  const recordingRef = useRef<Audio.Recording | null>(null);
+  const isRecordingRef = useRef(false);
   const { mutate: sendMonologue, data, isSuccess, isPending} = usePostMonologue();
 
-  const startRecording = async () => {
+  const stopRecording = useCallback(async (): Promise<string | null> => {
+    if (!recordingRef.current) return null;
+
+    try {
+      await recordingRef.current.stopAndUnloadAsync();
+      const uri = recordingRef.current.getURI();
+      recordingRef.current = null;
+      isRecordingRef.current = false;
+      return uri;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const startRecording = useCallback(async () => {
     try {
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) return;
@@ -55,31 +69,17 @@ function Monologue() {
       const newRecording = new Audio.Recording();
       await newRecording.prepareToRecordAsync(recordingOptions);
       await newRecording.startAsync();
-      setRecording(newRecording);
-      setIsRecording(true);
+      recordingRef.current = newRecording;
+      isRecordingRef.current = true;
     } catch {
       stopRecording();
       showToast('error', '녹음 실패', '독백 서비스를 다시 시도해주세요.');
       router.push('/record');
     }
-  };
-
-  const stopRecording = async (): Promise<string | null> => {
-    if (!recording) return null;
-  
-    try {
-      await recording.stopAndUnloadAsync();
-      const uri = recording.getURI();
-      setRecording(null);
-      setIsRecording(false);
-      return uri;
-    } catch {
-      return null;
-    }
-  };
+  }, [stopRecording, showToast, router]);
 
   const onPressSubmitButton = async () => {
-    if (!isRecording) {
+    if (!isRecordingRef.current) {
       showToast('error', '서비스 에러', '독백 서비스를 다시 시도해주세요.');
       router.push('/record');
       return;
@@ -91,17 +91,14 @@ function Monologue() {
   };
 
   useEffect(() => {
-    const start = async () => {
-      await startRecording();
-    };
-    start();
+    startRecording();
     return () => {
       stopRecording();
     };
-  }, []);
+  }, [startRecording, stopRecording]);
 
-  const handelExit = async () => {
-    if (isRecording) {
+  const handleExit = async () => {
+    if (isRecordingRef.current) {
       await stopRecording();
     }
     router.back();
@@ -113,7 +110,7 @@ function Monologue() {
         setShowExitModal(true);
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
       return () => backHandler.remove();
     }, []);
@@ -130,7 +127,7 @@ function Monologue() {
           <SafeAreaView style={recordingScreenStyles.recordingContainer}>
             <LottieView
               // eslint-disable-next-line @typescript-eslint/no-require-imports
-    source={require('../../assets/RecordingAnimation.json')}
+              source={require('../../assets/RecordingAnimation.json')}
               autoPlay
               loop
               speed={3}
@@ -161,7 +158,7 @@ function Monologue() {
                     <View style={ModalStyles.modalButtonContainer}>
                       <Pressable
                         style={ModalStyles.finishButton}
-                        onPress={handelExit}
+                        onPress={handleExit}
                       >
                         <Text style={ModalStyles.finishButtonText}>확인</Text>
                       </Pressable>

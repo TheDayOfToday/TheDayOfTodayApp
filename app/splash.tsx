@@ -7,11 +7,12 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setVisible(false);
-      onFinish(); // 스플래쉬 화면 종료 콜백 호출
-    }, 2000); // 2초 후 종료
-  }, []);
+      onFinish();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [onFinish]);
 
   if (!visible) return null; // 스플래쉬 화면 숨김
 
