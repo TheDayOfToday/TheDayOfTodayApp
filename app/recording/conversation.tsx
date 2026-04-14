@@ -7,8 +7,8 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, Pressable, Modal, BackHandler } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import LoadingScreen from '@/src/components/common/Loading';
-import SelectMoodTab from '@/src/components/common/SelectMoodMeterTab';
+import { LoadingScreen } from '@/src/components/common/Loading';
+import { SelectMoodTab } from '@/src/components/common/SelectMoodMeterTab';
 import useShowToast from '@/src/hooks/useShowToast';
 import useToken from '@/src/hooks/useToken';
 import { useConversationQuestion, useConversationEnd } from '@/src/queries/useRecordQuery';

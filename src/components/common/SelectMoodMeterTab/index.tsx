@@ -124,4 +124,4 @@ function SelectMoodTab({ diaryId }: SelectMoodTabProps) {
   );
 }
 
-export default SelectMoodTab;
+export { SelectMoodTab };

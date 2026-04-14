@@ -7,7 +7,7 @@ import Toast, { BaseToastProps } from 'react-native-toast-message';
 
 import SplashScreen from './splash';
 
-import CustomToast from '@/src/components/common/CustomToast';
+import { CustomToast } from '@/src/components/common/CustomToast';
 import useShowToast from '@/src/hooks/useShowToast';
 import { commonStyles } from '@/src/styles/commonStyles';
 

@@ -9,7 +9,6 @@ React Native + Expo 기반의 프론트엔드 프로젝트이며, Android 우선
 ---
 
 ## 기술 스택
-
 React Native + Expo (SDK 52) + TypeScript + Expo Router (파일 기반 라우팅)
 
 ### 주요 패키지
@@ -42,44 +41,10 @@ React Native + Expo (SDK 52) + TypeScript + Expo Router (파일 기반 라우팅
 ---
 
 ## 아키텍처 핵심 패턴
-
-### 1. APIClient (싱글턴 클래스)
-`src/service/index.ts`의 `APIClient`는 모든 HTTP 요청의 진입점이다.
-
-```ts
-// 사용 예시
-APIClient.of(SomeAPIClass)(arg1, arg2)
-```
-
-- 각 도메인 API는 `APIRequest<ResponseType>`을 구현하는 클래스로 정의
-- `APIClient.of()`로 클래스를 callable 함수로 변환
-- Authorization 헤더는 `request.authorization` 필드로 주입
-
-### 2. 서비스 레이어 구조
+### 1. 서비스 레이어 구조
 도메인별 폴더(`src/service/<domain>/`) 구성:
 - `index.ts`: API 함수 정의 (`APIClient.of(XxxAPI)(...)` 형태)
 - `type.ts`: 해당 도메인의 요청/응답 타입
 
-### 3. 인증 흐름
-- `accessToken`: `AsyncStorage`에 저장 (자동 로그인 여부 포함)
-- 실제 토큰 값: `expo-secure-store` 사용 (`useToken` 훅)
-- 앱 시작 시 `app/_layout.tsx`에서 인증 상태 확인 후 라우팅 분기
-
----
-
-## 환경 변수
-
-`app.config.ts`에서 `dotenv/config`를 통해 주입.
-
-```
-API_BASE_URL  — 백엔드 서버 기본 URL
-```
-
-접근: `Constants.expoConfig?.extra?.API_BASE_URL`
-
----
-
 ## 참고 사항
-
-- Android 패키지명: `com.thedayoftoday.app`
 - 코드 컨벤션·린트 규칙: `.claude/rules/conventions-and-lint.md` 참고

@@ -22,4 +22,4 @@ function LoadingScreen({ backgroundColor = '#101013' }: LoadingScreenProps) {
   );
 }
 
-export default LoadingScreen;
+export { LoadingScreen };

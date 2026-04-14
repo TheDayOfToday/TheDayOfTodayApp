@@ -34,4 +34,4 @@ const CustomToast = ({ type, ...props }: CustomToastProps) => {
   );
 };
 
-export default CustomToast;
+export { CustomToast };

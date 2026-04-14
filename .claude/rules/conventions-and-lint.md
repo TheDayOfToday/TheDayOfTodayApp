@@ -39,19 +39,10 @@
 - `type`: 유니온, 인터섹션, 단순 alias에 사용한다.
 - 혼용하지 않는다.
 
-## 파일·폴더 네이밍
-
-- 컴포넌트 폴더·파일: PascalCase (`Book/`, `CustomToast.tsx`)
-- 훅·유틸·타입 파일: camelCase (`useToken.ts`, `type.ts`, `queryKey.ts`)
-- 서비스 폴더: 소문자 (`auth/`, `diary/`)
-
 ## 커밋 컨벤션
-
-| prefix | 용도 |
-|--------|------|
-| `feat` | 기능 추가 |
-| `fix` | 버그 수정 |
-| `refactor` | 코드 구조 개선 |
-| `style` | 스타일 변경 |
-| `docs` | 문서 변경 |
-| `chore` | 라이브러리 업데이트, 설정 변경 |
+- feat: 기능 추가
+- fix: 버그 수정
+- refactor: 코드 구조 개선
+- style: 스타일 변경
+- docs: 문서 변경
+- chore: 라이브러리 업데이트
