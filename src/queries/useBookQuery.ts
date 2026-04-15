@@ -1,12 +1,12 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import { QUERY_KEY } from '@/src/interface/key/queryKey';
+import { bookKeys } from '@/src/interface/key/queryKey';
 import { getRecommendedBook, postRecommendedBook } from '@/src/service/book';
 
 const useGetBook = (token: string) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: QUERY_KEY.BOOK.RECOMMENDED(),
+    queryKey: bookKeys.recommended(),
     queryFn: () => getRecommendedBook(token),
     enabled: !!token,
   });

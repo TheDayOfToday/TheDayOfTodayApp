@@ -1,35 +1,27 @@
-import APIClient from '../index';
-import { APIRequest, HTTP_METHOD } from '../type';
+import apiClient, { authHeader } from '../index';
 
-import { CalendarRequest, CalendarColorResponse, DiaryResponse, AnalysisResponse } from './type';
+import type { CalendarRequest, CalendarColorResponse, DiaryResponse, AnalysisResponse } from './type';
 
-class GetCalendarColor<R extends CalendarColorResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public data: CalendarRequest) {
-    this.path = `/calendar/${data.year}/${data.month}`;
-  }
-}
+export const getCalendarColor = async (token: string, date: CalendarRequest) => {
+  const { data } = await apiClient.get<CalendarColorResponse>(
+    `/calendar/${date.year}/${date.month}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class GetDiary<R extends DiaryResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public data: CalendarRequest) {
-    this.path = `/calendar/diary/${data.year}/${data.month}/${data.day}`;
-  }
-}
+export const getDiary = async (token: string, date: CalendarRequest) => {
+  const { data } = await apiClient.get<DiaryResponse>(
+    `/calendar/diary/${date.year}/${date.month}/${date.day}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class GetAnalysis<R extends AnalysisResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public data: CalendarRequest) {
-    this.path = `/calendar/analysis/${data.year}/${data.month}/${data.day}`;
-  }
-}
-
-export const getCalendarColor = APIClient.of(GetCalendarColor);
-export const getDiary = APIClient.of(GetDiary);
-export const getAnalysis = APIClient.of(GetAnalysis);
+export const getAnalysis = async (token: string, date: CalendarRequest) => {
+  const { data } = await apiClient.get<AnalysisResponse>(
+    `/calendar/analysis/${date.year}/${date.month}/${date.day}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};

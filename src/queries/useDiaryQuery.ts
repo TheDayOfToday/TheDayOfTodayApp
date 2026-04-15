@@ -1,13 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import { QUERY_KEY } from '@/src/interface/key/queryKey';
+import { calendarKeys, diaryKeys } from '@/src/interface/key/queryKey';
 import { getDiary, putUpdateDiary, deleteDiary, postDiaryAnalysis } from '@/src/service/record';
 import { DeleteDiaryRequest, UpdateDiaryRequest } from '@/src/service/record/type';
 
 export const useGetTodayDiary = (token: string, diaryId: number) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: QUERY_KEY.DIARY.TODAY(),
+    queryKey: diaryKeys.today(),
     queryFn: () => getDiary(token, diaryId),
     enabled: !!token && !!diaryId,
   });
@@ -23,8 +23,7 @@ export const useDeleteDiary = () => {
     mutationFn: async ({ token, data }: { token: string; data: DeleteDiaryRequest }) =>
       deleteDiary(token, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEY.CALENDAR.COLORS() });
-      queryClient.invalidateQueries({ queryKey: ['diary'] });
+      queryClient.invalidateQueries({ queryKey: calendarKeys.all });
     },
     onError: () => {
       showToast('error', '삭제 실패', '일기 삭제에 실패하였습니다.');

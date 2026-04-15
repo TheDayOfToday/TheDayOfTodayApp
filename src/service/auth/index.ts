@@ -1,7 +1,6 @@
-import APIClient from '../index';
-import { APIRequest, HTTP_METHOD } from '../type';
+import apiClient, { authHeader } from '../index';
 
-import {
+import type {
   SignUpRequest,
   SignUpResponse,
   UserInfoResponse,
@@ -18,77 +17,55 @@ import {
   ResetPasswordResponse,
 } from './type';
 
-class DeleteUser<R extends DeleteUserResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.DELETE;
-  path = '/user/delete';
-  response!: R;
-  constructor(public authorization: string) {}
-}
+export const deleteUser = async (token: string) => {
+  const { data } = await apiClient.delete<DeleteUserResponse>('/user/delete', {
+    headers: authHeader(token),
+  });
+  return data;
+};
 
-class GetUserInfo<R extends UserInfoResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path = '/user/info';
-  response!: R;
-  constructor(public authorization: string) {}
-}
+export const getUserInfo = async (token: string) => {
+  const { data } = await apiClient.get<UserInfoResponse>('/user/info', {
+    headers: authHeader(token),
+  });
+  return data;
+};
 
-class PostSignUp<R extends SignUpResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path = '/user/signup';
-  response!: R;
-  constructor(public data: SignUpRequest) {}
-}
+export const postSignUp = async (body: SignUpRequest) => {
+  const { data } = await apiClient.post<SignUpResponse>('/user/signup', body);
+  return data;
+};
 
-class PostLogin implements APIRequest<LoginResponse> {
-  method = HTTP_METHOD.POST;
-  path = '/swagger-auth/login';
-  response!: LoginResponse;
-  constructor(public data: LoginRequest) {}
-}
+export const postLogin = async (body: LoginRequest) => {
+  const { data } = await apiClient.post<LoginResponse>('/swagger-auth/login', body);
+  return data;
+};
 
-class UpdatePassword implements APIRequest<string> {
-  method = HTTP_METHOD.PUT;
-  path = '/user/update-password';
-  response!: string;
-  constructor(public authorization: string, public data: EditPasswordRequest) {}
-}
+export const updatePassword = async (token: string, body: EditPasswordRequest) => {
+  const { data } = await apiClient.put<string>('/user/update-password', body, {
+    headers: authHeader(token),
+  });
+  return data;
+};
 
-class GetFindEmail implements APIRequest<FindEmailResponse> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: FindEmailResponse;
-  constructor(public email: string) {
-    this.path = `/user/find-email?email=${email}`;
-  }
-}
+export const getFindEmail = async (email: string) => {
+  const { data } = await apiClient.get<FindEmailResponse>('/user/find-email', {
+    params: { email },
+  });
+  return data;
+};
 
-class PostSendCode implements APIRequest<SendCodeResponse> {
-  method = HTTP_METHOD.POST;
-  path = '/user/send-code';
-  response!: SendCodeResponse;
-  constructor(public data: SendCodeRequest) {}
-}
+export const postSendCode = async (body: SendCodeRequest) => {
+  const { data } = await apiClient.post<SendCodeResponse>('/user/send-code', body);
+  return data;
+};
 
-class PostCheckCode implements APIRequest<CheckCodeResponse> {
-  method = HTTP_METHOD.POST;
-  path = '/user/check-code';
-  response!: CheckCodeResponse;
-  constructor(public data: CheckCodeRequest) {}
-}
+export const postCheckCode = async (body: CheckCodeRequest) => {
+  const { data } = await apiClient.post<CheckCodeResponse>('/user/check-code', body);
+  return data;
+};
 
-class PutResetPassword implements APIRequest<ResetPasswordResponse> {
-  method = HTTP_METHOD.PUT;
-  path = '/user/reset-password';
-  response!: ResetPasswordResponse;
-  constructor(public data: ResetPasswordRequest) {}
-}
-
-export const deleteUser = APIClient.of(DeleteUser);
-export const getUserInfo = APIClient.of(GetUserInfo);
-export const postSignUp = APIClient.of(PostSignUp);
-export const postLogin = APIClient.of(PostLogin);
-export const updatePassword = APIClient.of(UpdatePassword);
-export const getFindEmail = APIClient.of(GetFindEmail);
-export const postSendCode = APIClient.of(PostSendCode);
-export const postCheckCode = APIClient.of(PostCheckCode);
-export const putResetPassword = APIClient.of(PutResetPassword);
+export const putResetPassword = async (body: ResetPasswordRequest) => {
+  const { data } = await apiClient.put<ResetPasswordResponse>('/user/reset-password', body);
+  return data;
+};

@@ -1,8 +1,8 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
-import { QUERY_KEY } from '@/src/interface/key/queryKey';
+import { useToken } from '@/src/hooks/useToken';
+import { diaryKeys } from '@/src/interface/key/queryKey';
 import { getMoodMeters, postMoodMeters } from '@/src/service/record';
 import { UpdateMoodRequest } from '@/src/service/record/type';
 
@@ -10,7 +10,7 @@ export const useGetMoodMeters = (diaryId: number | undefined) => {
   const token = useToken();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: QUERY_KEY.DIARY.MOOD_METERS(diaryId!),
+    queryKey: diaryKeys.moodMeters(diaryId!),
     queryFn: () => getMoodMeters(token!, diaryId!),
     enabled: !!token && !!diaryId,
   });

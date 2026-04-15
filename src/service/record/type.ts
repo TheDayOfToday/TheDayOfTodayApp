@@ -1,33 +1,29 @@
-import type { APIResponse } from '../responseType';
-
-export type DeleteDiaryRequest = {
+export interface DeleteDiaryRequest {
   year: string;
   month: string;
   day: string;
-};
+}
 
-export type DeleteResponse = APIResponse;
-
-export interface StartConversationResponse extends APIResponse {
+export interface StartConversationResponse {
   diaryId: number;
 }
 
-export type DiarySuggestionMood = {
+export interface DiarySuggestionMood {
   moodName: string;
   moodColor: string;
-};
+}
 
-export type MoodCategory = {
+export interface MoodCategory {
   degree: string;
   moods: Mood[];
-};
+}
 
-export type Mood = {
+export interface Mood {
   moodName: string;
   color: string;
-};
+}
 
-export interface MoodMetersResponse extends APIResponse {
+export interface MoodMetersResponse {
   diaryMood: DiarySuggestionMood;
   moodCategories: MoodCategory[];
 }
@@ -37,9 +33,7 @@ export interface UpdateMoodRequest {
   moodColor: string;
 }
 
-export type UpdateMoodResponse = APIResponse;
-
-export interface DiaryResponse extends APIResponse {
+export interface DiaryResponse {
   title: string;
   content: string;
 }
@@ -50,8 +44,6 @@ export interface UpdateDiaryRequest {
   content: string;
 }
 
-export type UpdateDiaryResponse = APIResponse;
-
-export interface DiaryAnalysisResponse extends APIResponse {
+export interface DiaryAnalysisResponse {
   analysis: string;
 }

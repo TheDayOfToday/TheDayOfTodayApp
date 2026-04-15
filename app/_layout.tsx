@@ -1,15 +1,15 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as Font from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import React, { useState, useEffect, useCallback } from 'react';
 import Toast, { BaseToastProps } from 'react-native-toast-message';
 
 import SplashScreen from './splash';
 
-import CustomToast from '@/src/components/common/CustomToast';
+import { CustomToast } from '@/src/components/common/CustomToast';
 import useShowToast from '@/src/hooks/useShowToast';
-import { commonStyles } from '@/src/styles/common';
+import { commonStyles } from '@/src/styles/commonStyles';
 
 const queryClient = new QueryClient();
 
@@ -43,19 +43,19 @@ export default function RootLayout() {
       /* eslint-enable @typescript-eslint/no-require-imports */
       setIsReady(true);
     }
-    
+
     loadFonts();
   }, []);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
-      const autoLogin = await AsyncStorage.getItem('autoLogin');
+      const token = await SecureStore.getItemAsync('accessToken');
+      const autoLogin = await SecureStore.getItemAsync('autoLogin');
 
       if (token && autoLogin === 'true') {
         router.replace('/(tabs)');
       } else {
-        showToast('info', '로그인 필요', '로그인이 필요합니다.');  
+        showToast('info', '로그인 필요', '로그인이 필요합니다.');
         router.replace('/signIn');
       }
     };
@@ -63,7 +63,7 @@ export default function RootLayout() {
     if (!isSplashVisible) {
       checkLoginStatus();
     }
-  }, [isSplashVisible]);
+  }, [isSplashVisible, router, showToast]);
 
   useEffect(() => {
     if (isReady) {
@@ -72,8 +72,10 @@ export default function RootLayout() {
     }
   }, [isReady]);
 
+  const handleSplashFinish = useCallback(() => setSplashVisible(false), []);
+
   return isSplashVisible ? (
-    <SplashScreen onFinish={() => setSplashVisible(false)} />
+    <SplashScreen onFinish={handleSplashFinish} />
   ) : (
     <QueryClientProvider client={queryClient}>
       <Stack>

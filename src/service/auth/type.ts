@@ -1,6 +1,4 @@
-import type { APIResponse } from '../responseType';
-
-export interface DeleteUserResponse extends APIResponse {
+export interface DeleteUserResponse {
   message: string;
 }
 
@@ -19,14 +17,14 @@ export interface SignUpRequest {
   phoneNumber: string;
 }
 
-export interface SignUpResponse extends APIResponse {
+export interface SignUpResponse {
   message: string;
 }
 
-export type LoginRequest = {
+export interface LoginRequest {
   email: string;
   password: string;
-};
+}
 
 export interface LoginResponse {
   accessToken: string;
@@ -39,22 +37,22 @@ export interface EditPasswordRequest {
 
 export type FindEmailResponse = string;
 
-export type SendCodeRequest = {
+export interface SendCodeRequest {
   email: string;
-};
+}
 
 export type SendCodeResponse = string;
 
-export type CheckCodeRequest = {
+export interface CheckCodeRequest {
   email: string;
   code: string;
-};
+}
 
 export type CheckCodeResponse = string;
 
-export type ResetPasswordRequest = {
+export interface ResetPasswordRequest {
   email: string;
   newPassword: string;
-};
+}
 
 export type ResetPasswordResponse = string;

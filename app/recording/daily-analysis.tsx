@@ -2,7 +2,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { usePostBook } from '@/src/queries/useBookQuery';
 import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
 import { dailyAnalysisScreenStyles } from '@/src/styles/dailyAnalysisScreenStyles';
@@ -15,10 +15,9 @@ function DailyAnalysisScreen() {
   const { mutate: analysisMutate, data, isPending} = usePostAnalyze();
   const { mutate: bookMutate } = usePostBook();
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const handleSubmitPress = useCallback(() => {
     router.push('/(tabs)/record');
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (token && !isNaN(numericDiaryId)) {
@@ -31,7 +30,7 @@ function DailyAnalysisScreen() {
         }
       );
     }
-  }, [token, numericDiaryId]);
+  }, [token, numericDiaryId, analysisMutate, bookMutate]);
 
   return(
     <ScrollView

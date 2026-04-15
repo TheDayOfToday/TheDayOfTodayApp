@@ -1,6 +1,6 @@
 import { Text, View, Image, ScrollView } from 'react-native';
 
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import useGetBook from '@/src/queries/useBookQuery';
 import { bookStyles } from '@/src/styles/bookStyles';
 
@@ -21,7 +21,7 @@ function Book() {
                 recommendedBook?.coverImageUrl
                   ? { uri: recommendedBook.coverImageUrl }
                   // eslint-disable-next-line @typescript-eslint/no-require-imports
-                  : require('../../../assets/images/book-and-pencil.png')
+                  : require('@/assets/images/book-and-pencil.png')
               }
               style={
                 recommendedBook?.coverImageUrl
@@ -51,4 +51,4 @@ function Book() {
   );
 }
 
-export default Book;
+export { Book };

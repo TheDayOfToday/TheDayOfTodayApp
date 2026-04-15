@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 
-import LoadingScreen from '@/src/components/common/Loading';
+import { LoadingScreen } from '@/src/components/common/Loading';
 import useShowToast from '@/src/hooks/useShowToast';
 import { useSignUp } from '@/src/hooks/useSignUp';
 import { useSendCode, useCheckCode } from '@/src/queries/useAuthQuery';

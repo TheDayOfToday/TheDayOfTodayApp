@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import { useState, useEffect } from 'react';
 
 function useToken() {
@@ -6,8 +6,12 @@ function useToken() {
 
   useEffect(() => {
     const loadToken = async () => {
-      const storedToken = await AsyncStorage.getItem('accessToken');
-      setToken(storedToken);
+      try {
+        const storedToken = await SecureStore.getItemAsync('accessToken');
+        setToken(storedToken);
+      } catch {
+        setToken(null);
+      }
     };
     loadToken();
   }, []);
@@ -15,4 +19,4 @@ function useToken() {
   return token;
 }
 
-export default useToken;
+export { useToken };

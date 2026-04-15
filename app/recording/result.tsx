@@ -4,7 +4,7 @@ import { ScrollView, View, Text, Pressable, TextInput } from 'react-native';
 
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useGetTodayDiary, usePutUpdateDiary } from '@/src/queries/useDiaryQuery';
 import { recordingResultStyles } from '@/src/styles/recordingResultStyles';
 
@@ -21,13 +21,12 @@ function ResultScreen() {
   const { data: diaryData, isLoading } = useGetTodayDiary(token!, numericDiaryId);
   const { mutate: updateDiaryMutate } = usePutUpdateDiary();
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const handleNextButtonPress = useCallback(() => {
     router.push({
       pathname: '/recording/daily-analysis',
       params: { diaryId: diaryId.toString() },
     });
-  }, []);
+  }, [router, diaryId]);
 
   const handleSaveButtonPress = async () => {
     if (!content) {

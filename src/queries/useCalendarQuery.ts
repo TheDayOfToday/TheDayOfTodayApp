@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import useToken from '@/src/hooks/useToken';
-import { QUERY_KEY } from '@/src/interface/key/queryKey';
+import { useToken } from '@/src/hooks/useToken';
+import { calendarKeys } from '@/src/interface/key/queryKey';
 import { getCalendarColor, getDiary, getAnalysis } from '@/src/service/diary';
 import { CalendarRequest } from '@/src/service/diary/type';
 
@@ -38,7 +38,7 @@ export const useCalendarColors = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: QUERY_KEY.CALENDAR.COLORS(),
+    queryKey: calendarKeys.colors(),
     queryFn: fetchAllMoodColors,
     enabled: !!token,
   });
@@ -52,7 +52,7 @@ export const useCalendarColors = () => {
 export const useDiaryEntry = (date: CalendarRequest, enabled: boolean) => {
   const token = useToken();
   return useQuery({
-    queryKey: QUERY_KEY.CALENDAR.DIARY(date.year, date.month, date.day),
+    queryKey: calendarKeys.diary(date.year, date.month, date.day),
     queryFn: async () => {
       if (!token) throw new Error('토큰 없음');
       return await getDiary(token, date);
@@ -65,7 +65,7 @@ export const useDiaryEntry = (date: CalendarRequest, enabled: boolean) => {
 export const useAnalysisEntry = (date: CalendarRequest, enabled: boolean) => {
   const token = useToken();
   return useQuery({
-    queryKey: QUERY_KEY.CALENDAR.ANALYSIS(date.year, date.month, date.day),
+    queryKey: calendarKeys.analysis(date.year, date.month, date.day),
     queryFn: async () => {
       return await getAnalysis(token!, date);
     },

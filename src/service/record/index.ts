@@ -1,82 +1,71 @@
-import APIClient from '../index';
-import { APIRequest, HTTP_METHOD } from '../type';
+import apiClient, { authHeader } from '../index';
 
-import {
+import type {
   DeleteDiaryRequest,
-  DeleteResponse,
   StartConversationResponse,
   MoodMetersResponse,
   UpdateMoodRequest,
-  UpdateMoodResponse,
   DiaryResponse,
   UpdateDiaryRequest,
-  UpdateDiaryResponse,
   DiaryAnalysisResponse,
 } from './type';
 
-class DeleteDiary<R extends DeleteResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.DELETE;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public data: DeleteDiaryRequest) {
-    this.path = `/diary/delete/${data.year}/${data.month}/${data.day}`;
-  }
-}
+export const deleteDiary = async (token: string, date: DeleteDiaryRequest) => {
+  const { data } = await apiClient.delete(
+    `/diary/delete/${date.year}/${date.month}/${date.day}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class PostStartConversation<R extends StartConversationResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path = '/diary/conversation-mode/start';
-  response!: R;
-  constructor(public authorization: string) {}
-}
+export const postStartConversation = async (token: string) => {
+  const { data } = await apiClient.post<StartConversationResponse>(
+    '/diary/conversation-mode/start',
+    null,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class GetMoodMeters<R extends MoodMetersResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/moodmeter?diaryId=${diaryId}`;
-  }
-}
+export const getMoodMeters = async (token: string, diaryId: number) => {
+  const { data } = await apiClient.get<MoodMetersResponse>(
+    `/diary/moodmeter?diaryId=${diaryId}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class PostMoodMeters<R extends UpdateMoodResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public diaryId: number, public data: UpdateMoodRequest) {
-    this.path = `/diary/moodmeter?diaryId=${diaryId}`;
-  }
-}
+export const postMoodMeters = async (token: string, diaryId: number, body: UpdateMoodRequest) => {
+  const { data } = await apiClient.post(
+    `/diary/moodmeter?diaryId=${diaryId}`,
+    body,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class GetDiary<R extends DiaryResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/show?diaryId=${diaryId}`;
-  }
-}
+export const getDiary = async (token: string, diaryId: number) => {
+  const { data } = await apiClient.get<DiaryResponse>(
+    `/diary/show?diaryId=${diaryId}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class PutUpdateDiary<R extends UpdateDiaryResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.PUT;
-  path = '/diary/update-diary';
-  response!: R;
-  constructor(public authorization: string, public data: UpdateDiaryRequest) {}
-}
+export const putUpdateDiary = async (token: string, body: UpdateDiaryRequest) => {
+  const { data } = await apiClient.put(
+    '/diary/update-diary',
+    body,
+    { headers: authHeader(token) },
+  );
+  return data;
+};
 
-class PostDiaryAnalysis<R extends DiaryAnalysisResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.POST;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public diaryId: number) {
-    this.path = `/diary/analyze?diaryId=${diaryId}`;
-  }
-}
-
-export const deleteDiary = APIClient.of(DeleteDiary);
-export const postStartConversation = APIClient.of(PostStartConversation);
-export const getMoodMeters = APIClient.of(GetMoodMeters);
-export const postMoodMeters = APIClient.of(PostMoodMeters);
-export const getDiary = APIClient.of(GetDiary);
-export const putUpdateDiary = APIClient.of(PutUpdateDiary);
-export const postDiaryAnalysis = APIClient.of(PostDiaryAnalysis);
+export const postDiaryAnalysis = async (token: string, diaryId: number) => {
+  const { data } = await apiClient.post<DiaryAnalysisResponse>(
+    `/diary/analyze?diaryId=${diaryId}`,
+    null,
+    { headers: authHeader(token) },
+  );
+  return data;
+};

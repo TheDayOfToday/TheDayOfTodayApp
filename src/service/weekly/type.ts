@@ -1,12 +1,10 @@
-import type { APIResponse } from '../responseType';
-
-export type AnalysisRequest = {
+export interface AnalysisRequest {
   year: string;
   month: string;
   day: string;
-};
+}
 
-export interface WeeklyAnalysisResponse extends APIResponse {
+export interface WeeklyAnalysisResponse {
   year: number;
   month: number;
   day: number;

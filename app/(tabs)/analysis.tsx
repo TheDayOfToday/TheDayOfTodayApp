@@ -1,10 +1,11 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Pressable } from 'react-native';
-import { Image } from 'react-native';
+import { ScrollView, View, Text, Pressable, Image } from 'react-native';
+
+import type { ImageSourcePropType } from 'react-native';
 
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useGetWeeklyAnalysis } from '@/src/queries/useWeeklyQuery';
 import { analysisScreenStyles } from '@/src/styles/analysisScreenStyles';
 
@@ -21,7 +22,7 @@ function AnalysisScreen() {
   const { data: weeklyAnalysis } = useGetWeeklyAnalysis({ token: token!, date: todayDate });
 
   /* eslint-disable @typescript-eslint/no-require-imports */
-  const degreeImageMap: Record<string, ReturnType<typeof require>> = {
+  const degreeImageMap: Record<string, ImageSourcePropType> = {
     GOOD: require('../../assets/images/goodv2.png'),
     BAD: require('../../assets/images/badv2.png'),
     COMFORT: require('../../assets/images/comfortv2.png'),

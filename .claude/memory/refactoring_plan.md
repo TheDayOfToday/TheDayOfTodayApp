@@ -62,12 +62,6 @@ export const postLogin = async (params: LoginRequest) => {
 - eslint --fix로 자동 정렬 가능한 부분 처리
 - 수동 정리 필요한 부분 확인
 
-## 적용하지 않을 것 (웹 전용)
-- CSS Modules / SCSS → RN은 StyleSheet 유지
-- Stylelint / BEM → 웹 CSS 전용
-- Zustand → 현재 AsyncStorage + React Query로 충분
-- jsx-a11y → 웹 접근성 전용
-
 ## 참고 파일 위치
 - 참고 프로젝트 1: `C:\Users\jkcore\lsj\projects\ppi_solar_fe`
 - 참고 프로젝트 2: `C:\Users\jkcore\lsj\projects\iceh_fe`

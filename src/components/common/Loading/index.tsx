@@ -12,7 +12,7 @@ function LoadingScreen({ backgroundColor = '#101013' }: LoadingScreenProps) {
     <SafeAreaView style={[loadingStyles.screenContainer, { backgroundColor }]}>
       <LottieView
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        source={require('../../../assets/loading.json')}
+        source={require('@/assets/loading.json')}
         autoPlay
         loop
         speed={1}
@@ -22,4 +22,4 @@ function LoadingScreen({ backgroundColor = '#101013' }: LoadingScreenProps) {
   );
 }
 
-export default LoadingScreen;
+export { LoadingScreen };

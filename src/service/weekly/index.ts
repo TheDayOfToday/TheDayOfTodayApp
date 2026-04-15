@@ -1,15 +1,11 @@
-import APIClient from '../index';
-import { APIRequest, HTTP_METHOD } from '../type';
+import apiClient, { authHeader } from '../index';
 
-import { AnalysisRequest, WeeklyAnalysisResponse } from './type';
+import type { AnalysisRequest, WeeklyAnalysisResponse } from './type';
 
-class GetWeeklyAnalysis<R extends WeeklyAnalysisResponse> implements APIRequest<R> {
-  method = HTTP_METHOD.GET;
-  path: string;
-  response!: R;
-  constructor(public authorization: string, public data: AnalysisRequest) {
-    this.path = `/weeklyAnalysis/${data.year}/${data.month}/${data.day}`;
-  }
-}
-
-export const getWeeklyAnalysis = APIClient.of(GetWeeklyAnalysis);
+export const getWeeklyAnalysis = async (token: string, date: AnalysisRequest) => {
+  const { data } = await apiClient.get<WeeklyAnalysisResponse>(
+    `/weeklyAnalysis/${date.year}/${date.month}/${date.day}`,
+    { headers: authHeader(token) },
+  );
+  return data;
+};

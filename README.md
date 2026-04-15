@@ -1,50 +1,112 @@
-# Welcome to your Expo app 👋
+# TheDayOfToday — 개발 명령어
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 설치
 
-## Get started
+```bash
+npm install
+```
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 실행
 
-2. Start the app
+### 개발 서버 시작 (Metro Bundler)
 
-   ```bash
-    npx expo start
-   ```
+```bash
+npm start
+# 또는
+npx expo start
+```
 
-In the output, you'll find options to open the app in a
+실행 후 터미널에서 다음 키로 디바이스를 선택한다:
+- `a` — Android 에뮬레이터 또는 연결된 기기
+- `i` — iOS 시뮬레이터 (macOS 전용)
+- `w` — 웹 브라우저
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Android 빌드 및 실행
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```bash
+npm run android
+# 또는
+npx expo run:android
+```
 
-## Get a fresh project
+> Android Studio 에뮬레이터 또는 USB 연결된 기기가 필요하다.
 
-When you're ready, run:
+### iOS 빌드 및 실행
+
+```bash
+npm run ios
+# 또는
+npx expo run:ios
+```
+
+> macOS + Xcode 환경에서만 동작한다.
+
+### 웹 실행
+
+```bash
+npm run web
+# 또는
+npx expo start --web
+```
+
+---
+
+## 린트
+
+```bash
+npm run lint
+# 또는
+npx expo lint
+```
+
+자동 수정:
+
+```bash
+npx eslint --fix src/ app/
+```
+
+---
+
+## 테스트
+
+```bash
+npm test
+# 또는
+npx jest --watchAll
+```
+
+---
+
+## 디버깅
+
+### React Native Debugger / Chrome DevTools
+
+`npm start` 실행 후 터미널에서 `j`를 누르면 JS 디버거가 열린다.
+
+### 로그 확인 (Android)
+
+```bash
+npx react-native log-android
+```
+
+### Expo Dev Client (개발 빌드)
+
+```bash
+npx expo start --dev-client
+```
+
+디바이스에 `expo-dev-client`가 설치된 개발 빌드가 있어야 한다.
+
+---
+
+## 기타
+
+### 프로젝트 초기화 (스타터 코드 제거)
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+> `app/` 디렉토리를 초기화하고 기존 코드를 `app-example/`로 이동한다. **주의해서 사용할 것.**
