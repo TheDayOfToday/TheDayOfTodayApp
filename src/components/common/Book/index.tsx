@@ -1,6 +1,6 @@
 import { Text, View, Image, ScrollView } from 'react-native';
 
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import useGetBook from '@/src/queries/useBookQuery';
 import { bookStyles } from '@/src/styles/bookStyles';
 

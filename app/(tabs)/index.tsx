@@ -6,7 +6,7 @@ import { Calendar } from 'react-native-calendars';
 import { Book } from '@/src/components/common/Book';
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useAnalysisEntry, useCalendarColors } from '@/src/queries/useCalendarQuery';
 import { useDiaryEntry } from '@/src/queries/useCalendarQuery';
 import { useDeleteDiary } from '@/src/queries/useDiaryQuery';

@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import React, { useState } from 'react';
 import { View,
   Text,
@@ -16,7 +16,7 @@ import { styles } from '@/src/styles/editProfileStyles';
 
 const EditPassword = () => {
   const router = useRouter();
-  const showToast = useShowToast();  
+  const showToast = useShowToast();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -25,23 +25,23 @@ const EditPassword = () => {
       showToast('error', '입력 필요', '새 비밀번호를 입력해주세요.');
       return;
     }
-  
+
     if (!confirmPassword.trim()) {
       showToast('error', '입력 필요', '비밀번호 확인란을 입력해주세요.');
       return;
     }
-  
+
     if (newPassword !== confirmPassword) {
       showToast('error', '비밀번호 불일치', '새 비밀번호가 일치하지 않습니다.');
       return;
     }
-  
-    const token = await AsyncStorage.getItem('accessToken');
+
+    const token = await SecureStore.getItemAsync('accessToken');
     if (!token) {
       showToast('error', '인증 오류', '다시 로그인해주세요.');
       return;
     }
-  
+
     try {
       await updatePassword(token, { newPassword });
       showToast('success', '비밀번호 변경 완료', '다시 로그인해주세요.');
@@ -60,7 +60,7 @@ const EditPassword = () => {
           <View style={styles.headerContainer}>
             <Text style={styles.headerText}>비밀번호 변경</Text>
           </View>
-          <View style={styles.contentContainer}>            
+          <View style={styles.contentContainer}>
             <View>
               <Text style={styles.label}>새 비밀번호</Text>
               <TextInput

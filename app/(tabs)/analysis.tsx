@@ -5,7 +5,7 @@ import { ScrollView, View, Text, Pressable, Image } from 'react-native';
 import type { ImageSourcePropType } from 'react-native';
 
 import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useGetWeeklyAnalysis } from '@/src/queries/useWeeklyQuery';
 import { analysisScreenStyles } from '@/src/styles/analysisScreenStyles';
 

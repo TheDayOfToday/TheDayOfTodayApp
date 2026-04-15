@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 
 import useShowToast from './useShowToast';
 
@@ -14,9 +14,9 @@ export const useSignIn = () => {
     try {
       await fetchToken(email, password);
       if (autoLogin) {
-        await AsyncStorage.setItem('autoLogin', 'true');
+        await SecureStore.setItemAsync('autoLogin', 'true');
       } else {
-        await AsyncStorage.removeItem('autoLogin');
+        await SecureStore.deleteItemAsync('autoLogin');
       }
       router.replace('/(tabs)');
     } catch {

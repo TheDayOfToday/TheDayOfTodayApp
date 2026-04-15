@@ -2,7 +2,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { usePostBook } from '@/src/queries/useBookQuery';
 import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
 import { dailyAnalysisScreenStyles } from '@/src/styles/dailyAnalysisScreenStyles';

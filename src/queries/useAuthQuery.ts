@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation } from '@tanstack/react-query';
+import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
 
 import type { LoginRequest } from '@/src/service/auth/type';
@@ -21,10 +21,10 @@ export const useFetchToken = () => {
       const response = await postLogin(payload);
 
       if (response.accessToken) {
-        await AsyncStorage.setItem('accessToken', response.accessToken);
+        await SecureStore.setItemAsync('accessToken', response.accessToken);
       }
       if (response.refreshToken) {
-        await AsyncStorage.setItem('refreshToken', response.refreshToken);
+        await SecureStore.setItemAsync('refreshToken', response.refreshToken);
       }
 
       return response;

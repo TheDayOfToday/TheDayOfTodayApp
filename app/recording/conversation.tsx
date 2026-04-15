@@ -10,7 +10,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LoadingScreen } from '@/src/components/common/Loading';
 import { SelectMoodTab } from '@/src/components/common/SelectMoodMeterTab';
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useConversationQuestion, useConversationEnd } from '@/src/queries/useRecordQuery';
 import { ModalStyles } from '@/src/styles/modalStyles';
 import { recordingScreenStyles } from '@/src/styles/recordingScreenStyles';

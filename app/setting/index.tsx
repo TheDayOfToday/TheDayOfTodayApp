@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
 
@@ -17,7 +17,7 @@ function SettingScreen() {
   // 서버에서 받아올 유저 정보 state
   const [user, setUser] = useState({
     name: '',
-    email: '',    
+    email: '',
     profileImage: '',
     phoneNumber: '',
   });
@@ -32,13 +32,13 @@ function SettingScreen() {
   // 마이페이지 진입 시 유저 정보 API 호출
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
+      const token = await SecureStore.getItemAsync('accessToken');
       if (!token) {
         router.replace('/signIn');
-        showToast('error', '로그인 필요', '로그인이 필요합니다.');  
+        showToast('error', '로그인 필요', '로그인이 필요합니다.');
         return;
       }
-  
+
       try {
         const data: UserInfoResponse = await getUserInfo(token);
         setUser(data);
@@ -46,29 +46,29 @@ function SettingScreen() {
         showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
       }
     };
-  
+
     fetchUserInfo();
   }, [router, showToast]);
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('accessToken');
-    await AsyncStorage.removeItem('autoLogin');    
+    await SecureStore.deleteItemAsync('accessToken');
+    await SecureStore.deleteItemAsync('autoLogin');
     showToast('success', '로그아웃 되었습니다.', '다음에 또 만나요 👋');
     router.replace('/signIn');
   };
 
   const handleDeleteAccount = async () => {
-    const token = await AsyncStorage.getItem('accessToken');
+    const token = await SecureStore.getItemAsync('accessToken');
     if (!token) {
       router.replace('/signIn');
       showToast('error', '계정 삭제 실패', '로그인이 필요합니다.');
       return;
     }
-  
+
     try {
       await deleteUser(token);
       showToast('success', '회원 탈퇴 완료', '그동안 이용해주셔서 감사합니다.');
-      await AsyncStorage.removeItem('accessToken');      
+      await SecureStore.deleteItemAsync('accessToken');
       router.replace('/signIn');
     } catch {
       showToast('error', '회원 탈퇴 실패', '다시 시도해주세요.');
@@ -88,7 +88,7 @@ function SettingScreen() {
           </View>
           <TouchableOpacity onPress={handleLogout} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.logoutButton}>
             <Text style={styles.logoutText}>로그아웃</Text>
-          </TouchableOpacity>          
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -104,7 +104,7 @@ function SettingScreen() {
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이름</Text>
           <Text style={styles.infoValue}>{user.name}</Text>
-        </View>        
+        </View>
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>이메일</Text>
           <Text style={styles.infoValue}>{user.email}</Text>
@@ -112,7 +112,7 @@ function SettingScreen() {
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>전화번호</Text>
           <Text style={styles.infoValue}>{formatPhoneNumber(user.phoneNumber)}</Text>
-        </View>       
+        </View>
       </View>
       <TouchableOpacity
         onPress={() => setModalIsOpen(true)}

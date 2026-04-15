@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { diaryKeys } from '@/src/interface/key/queryKey';
 import { getMoodMeters, postMoodMeters } from '@/src/service/record';
 import { UpdateMoodRequest } from '@/src/service/record/type';

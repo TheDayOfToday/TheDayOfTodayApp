@@ -5,7 +5,7 @@ import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { usePostMoodMeters, useGetMoodMeters } from '@/src/queries/useMoodQuery';
 import { moodSlidingTabStyles } from '@/src/styles/moodSlidingTabStyles';
 

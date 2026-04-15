@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { calendarKeys } from '@/src/interface/key/queryKey';
 import { getCalendarColor, getDiary, getAnalysis } from '@/src/service/diary';
 import { CalendarRequest } from '@/src/service/diary/type';

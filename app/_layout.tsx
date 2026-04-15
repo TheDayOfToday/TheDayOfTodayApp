@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as Font from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import React, { useState, useEffect, useCallback } from 'react';
 import Toast, { BaseToastProps } from 'react-native-toast-message';
 
@@ -49,8 +49,8 @@ export default function RootLayout() {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      const token = await AsyncStorage.getItem('accessToken');
-      const autoLogin = await AsyncStorage.getItem('autoLogin');
+      const token = await SecureStore.getItemAsync('accessToken');
+      const autoLogin = await SecureStore.getItemAsync('autoLogin');
 
       if (token && autoLogin === 'true') {
         router.replace('/(tabs)');

@@ -5,7 +5,7 @@ import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 
 import useShowToast from '@/src/hooks/useShowToast';
-import useToken from '@/src/hooks/useToken';
+import { useToken } from '@/src/hooks/useToken';
 import { useDiaryEntry } from '@/src/queries/useCalendarQuery';
 import { useDeleteDiary } from '@/src/queries/useDiaryQuery';
 import { useConversationStart } from '@/src/queries/useRecordQuery';
@@ -24,7 +24,7 @@ function SelectModeTab() {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['35%', '100%'], []);
   const route = useRoute<SelectModeTabRouteProp>();
-  
+
   const today = new Date();
   const todayDate = {
     year: String(today.getFullYear()),
