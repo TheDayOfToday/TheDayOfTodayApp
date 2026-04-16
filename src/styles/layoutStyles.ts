@@ -64,4 +64,10 @@ export const layoutStyles = StyleSheet.create({
         color: '#2C2C35',
         textAlign: 'center',
     },
+    recordButtonContainerFocused: {
+        backgroundColor: '#17171C',
+    },
+    recordButtonFocused: {
+        color: '#aaa',
+    },
 });

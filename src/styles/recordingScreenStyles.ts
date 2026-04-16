@@ -117,4 +117,7 @@ export const recordingScreenStyles = StyleSheet.create({
         borderRadius: 40,
         backgroundColor: '#ff5d5d',
     },
+    disabledOpacity: {
+        opacity: 0.4,
+    },
 });

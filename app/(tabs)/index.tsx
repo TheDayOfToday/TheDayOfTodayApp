@@ -1,98 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { View, Text, Modal, TouchableOpacity, Pressable, ScrollView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 import { Book } from '@/src/components/common/Book';
-import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import useShowToast from '@/src/hooks/useShowToast';
-import { useToken } from '@/src/hooks/useToken';
-import { useAnalysisEntry, useCalendarColors } from '@/src/queries/useCalendarQuery';
-import { useDiaryEntry } from '@/src/queries/useCalendarQuery';
-import { useDeleteDiary } from '@/src/queries/useDiaryQuery';
+import { CustomDay } from '@/src/components/common/CustomDay';
+import { useCalendarScreen } from '@/src/hooks/useCalendarScreen';
 import { calendarModalStyles } from '@/src/styles/calendarModalStyles';
 import { styles } from '@/src/styles/calendarScreenStyles';
 
 function CalendarScreen() {
-  const token = useToken();
-  const showToast = useShowToast();
-  const { mutateAsync: deleteDiary } = useDeleteDiary();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDateObj, setSelectedDateObj] = useState(new Date());
-  const [selectedTab, setSelectedTab] = useState<'diary' | 'analysis'>('diary');
-  const selectedDate = selectedDateObj.toISOString().split('T')[0];
-  const [year, month, day] = selectedDate.split('-');
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
-  const calendarDate = useMemo(() => ({ year, month, day }), [year, month, day]);
-
-  const diary = useDiaryEntry(calendarDate, modalVisible);
-  const analysis = useAnalysisEntry(calendarDate, modalVisible);
-  const { markedDates } = useCalendarColors();
-
-  const moveDate = (direction: 'prev' | 'next') => {
-    const newDate = new Date(selectedDateObj);
-    newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
-    setSelectedDateObj(newDate);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleDayPress = (day: any) => {
-    setSelectedDateObj(new Date(day.dateString));
-    setModalVisible(true);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CustomDay = ({ date, state, marking }: any) => {
-    const today = new Date();
-    const isToday =
-      Number(date.year) === today.getFullYear() &&
-      Number(date.month) === today.getMonth() + 1 &&
-      Number(date.day) === today.getDate();
-  
-    const dayTextStyle = [
-      styles.dayText,
-      state === 'disabled' && styles.disabledText,
-      isToday && {
-        fontFamily: 'Pretendard4',
-        color: '#6478c4',
-        borderBottomWidth: 2,
-        borderBottomColor: '#6478c4',
-      },
-    ];
-  
-    return (
-      <Pressable onPress={() => handleDayPress(date)} style={styles.dayContainer}>
-        <Text style={dayTextStyle}>{date.day}</Text>
-        <View
-          style={[
-            styles.circle,
-            marking?.dotColor ? { backgroundColor: marking.dotColor } : { backgroundColor: '#777' },
-          ]}
-        />
-      </Pressable>
-    );
-  };
-
-  // 삭제 버튼
-  const handleDeleteDiary = () => {
-    if (!diary.data) {
-      showToast('error', '삭제 실패', '삭제할 일기가 없습니다.');
-      return;
-    }
-
-    try {
-      deleteDiary({
-        token: token!,
-        data: { year, month, day },
-      });
-      showToast('success', '삭제 완료', '일기가 삭제되었습니다.');
-      setModalVisible(false);
-    } catch {
-      showToast('error', '삭제 실패', '일기를 삭제하는 데에 실패했습니다.');
-    }
-  };
-
-  useDoubleBackExit(!modalVisible);
+  const {
+    modalVisible,
+    selectedTab,
+    setSelectedTab,
+    formattedDate,
+    markedDates,
+    diary,
+    analysis,
+    moveDate,
+    handleDayPress,
+    closeModal,
+    handleDeleteDiary,
+  } = useCalendarScreen();
 
   return (
     <ScrollView
@@ -100,41 +30,47 @@ function CalendarScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.container}>
-          <Calendar
-            style={styles.calendar}
-            theme={{
-              calendarBackground: '#17171C', 
-              monthTextColor: '#D6DEFD',
-              textMonthFontSize: 18,
-              textMonthFontFamily: 'Pretendard4',
-              arrowColor: '#D6DEFD',
-              textSectionTitleColor: '#D6DEFD',
-            }}
-            current={new Date().toISOString().split('T')[0]}
-            onDayPress={handleDayPress}
-            key={JSON.stringify(markedDates)}
-            markingType="multi-dot"
-            markedDates={markedDates}            
-            dayComponent={CustomDay}
-          />
+        <Calendar
+          style={styles.calendar}
+          theme={{
+            calendarBackground: '#17171C',
+            monthTextColor: '#D6DEFD',
+            textMonthFontSize: 18,
+            textMonthFontFamily: 'Pretendard4',
+            arrowColor: '#D6DEFD',
+            textSectionTitleColor: '#D6DEFD',
+          }}
+          current={new Date().toISOString().split('T')[0]}
+          onDayPress={handleDayPress}
+          key={JSON.stringify(markedDates)}
+          markingType="multi-dot"
+          markedDates={markedDates}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          dayComponent={({ date, state, marking }: any) => (
+            <CustomDay
+              date={date}
+              state={state}
+              marking={marking}
+              onDayPress={handleDayPress}
+            />
+          )}
+        />
 
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
+          onRequestClose={closeModal}
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <View style={calendarModalStyles.dateRow}>
                 <TouchableOpacity onPress={() => moveDate('prev')}>
-                  <Ionicons name="chevron-back" size={20} color= "#96A0CC" style={calendarModalStyles.arrowIcon} />
+                  <Ionicons name="chevron-back" size={20} color="#96A0CC" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
-                <Text style={calendarModalStyles.dateText}>
-                  {new Date(selectedDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </Text>
+                <Text style={calendarModalStyles.dateText}>{formattedDate}</Text>
                 <TouchableOpacity onPress={() => moveDate('next')}>
-                  <Ionicons name="chevron-forward" size={20} color= "#96A0CC" style={calendarModalStyles.arrowIcon} />
+                  <Ionicons name="chevron-forward" size={20} color="#96A0CC" style={calendarModalStyles.arrowIcon} />
                 </TouchableOpacity>
               </View>
               <View style={calendarModalStyles.tabContainer}>
@@ -183,10 +119,10 @@ function CalendarScreen() {
                 )
               )}
               <View style={calendarModalStyles.modalButtonContainer}>
-                <Pressable style={calendarModalStyles.deleteDiaryButton} onPress={() => handleDeleteDiary()}>
+                <Pressable style={calendarModalStyles.deleteDiaryButton} onPress={handleDeleteDiary}>
                   <Text style={calendarModalStyles.deleteDiaryButtonText}>삭제</Text>
                 </Pressable>
-                <TouchableOpacity style={calendarModalStyles.modalButton} onPress={() => setModalVisible(false)}>
+                <TouchableOpacity style={calendarModalStyles.modalButton} onPress={closeModal}>
                   <Text style={calendarModalStyles.modalButtonText}>닫기</Text>
                 </TouchableOpacity>
               </View>

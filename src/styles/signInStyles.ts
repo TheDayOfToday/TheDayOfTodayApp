@@ -124,9 +124,9 @@ export const styles = StyleSheet.create({
     },
     autoLoginLabel: {
         color: '#D6DEFD',
-        marginRight: 5,  
+        marginRight: 5,
         marginBottom: 5,
-        fontSize: 15,
+        fontSize: RFValue(15),
     },
     autoLoginSwitch: {
       transform: [{ scaleX: 0.87 }, { scaleY: 0.87 }],
@@ -135,7 +135,7 @@ export const styles = StyleSheet.create({
       color: '#9CB1FF',
       textDecorationLine: 'underline',
       marginBottom: 3,
-      fontSize: 15,
+      fontSize: RFValue(15),
     },
     modalOverlay: {
       flex: 1,
@@ -150,7 +150,7 @@ export const styles = StyleSheet.create({
       borderRadius: 12,
     },
     modalTitle: {
-      fontSize: 18,
+      fontSize: RFValue(18),
       color: '#fff',
       marginBottom: 10,
       fontWeight: 'bold',
@@ -180,7 +180,7 @@ export const styles = StyleSheet.create({
     },
     modalCloseText: {
       color: '#ccc',
-      fontSize: 13,
+      fontSize: RFValue(13),
     },
 
 });

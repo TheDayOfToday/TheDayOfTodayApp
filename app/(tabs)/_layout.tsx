@@ -56,17 +56,17 @@ function TabLayout() {
               <View
                 style={[
                   layoutStyles.recordButtonContainer,
-                  focused && { backgroundColor: '#17171C' },
+                  focused && layoutStyles.recordButtonContainerFocused,
                 ]}
               >
-                <MaterialIcons 
-                name="keyboard-voice" 
-                size={32} 
-                style={[
-                  layoutStyles.recordButton,
-                  focused && { color: '#aaa' },
-                ]}
-              />
+                <MaterialIcons
+                  name="keyboard-voice"
+                  size={32}
+                  style={[
+                    layoutStyles.recordButton,
+                    focused && layoutStyles.recordButtonFocused,
+                  ]}
+                />
               </View>
             ),
           }}

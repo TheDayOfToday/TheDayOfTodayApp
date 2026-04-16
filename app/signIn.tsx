@@ -1,104 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Switch, ActivityIndicator, Modal } from 'react-native';
 
-import useDoubleBackExit from '@/src/hooks/useDoubleBackExit';
-import useShowToast from '@/src/hooks/useShowToast';
+import { usePasswordReset } from '@/src/hooks/usePasswordReset';
 import { useSignIn } from '@/src/hooks/useSignIn';
-import { useFindEmail, useSendCode, useCheckCode, useResetPassword } from '@/src/queries/useAuthQuery';
 import { styles } from '@/src/styles/signInStyles';
 
 function SignInScreen() {
-  const { login, goToSignUp, loading } = useSignIn();
-  const showToast = useShowToast();
-  const [autoLogin, setAutoLogin] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    autoLogin,
+    setAutoLogin,
+    passwordVisible,
+    togglePasswordVisible,
+    handleLogin,
+    goToSignUp,
+    loading,
+  } = useSignIn();
 
-  const [resetModalVisible, setResetModalVisible] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
-  const [resetCode, setResetCode] = useState('');
-  const [resetNewPassword, setResetNewPassword] = useState('');
-  const [emailChecked, setEmailChecked] = useState(false);
-  const [codeChecked, setCodeChecked] = useState(false);
-
-  const findEmailMutation = useFindEmail();
-  const sendCodeMutation = useSendCode();
-  const checkCodeMutation = useCheckCode();
-  const resetPasswordMutation = useResetPassword();
-
-  const handleLogin = () => {
-    if (!email || !password) {
-      showToast('error', '입력 오류', '이메일과 비밀번호를 모두 입력해주세요.');
-      return;
-    }
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-      showToast('error', '이메일 오류', '유효한 이메일 형식을 입력해주세요.');
-      return;
-    }
-    login(email, password, autoLogin);
-  };
-
-  // find-email 로 이메일 존재 여부 판단 후 send-code 로 인증번호 전송하는 부분
-  const handleResetEmailCheck = () => {
-    if (!resetEmail.trim()) {
-      showToast('error', '입력 오류', '이메일을 입력해주세요.');
-      return;
-    }
-    findEmailMutation.mutate(resetEmail, {
-      onSuccess: () => {
-        showToast('success', '이메일 확인', '해당 이메일로 인증코드를 전송했습니다.');
-        setEmailChecked(true);
-        sendCodeMutation.mutate(resetEmail);
-      },
-      onError: (_err) => {
-        showToast('error', '존재하지 않는 이메일', '존재하지 않는 이메일 주소입니다.');
-      },
-    });
-  };
-
-  // check-code 로 이메일로 전송된 인증번호 확인하는 부분
-  const handleResetCodeCheck = () => {
-    if (!resetCode.trim()) {
-      showToast('error', '입력 필요', '인증코드를 입력해주세요.');
-      return;
-    }
-    checkCodeMutation.mutate({ email: resetEmail, code: resetCode }, {
-      onSuccess: () => {
-        showToast('success', '인증 성공', '새 비밀번호를 입력해주세요.');
-        setCodeChecked(true);
-      },
-      onError: (_err) => {
-        showToast('error', '인증번호 불일치', '인증번호가 일치하지 않습니다.');
-      },
-    });
-  };
-
-  // reset-password 로 비밀번호 변경하는 부분
-  const handleResetPassword = () => {
-    if (!resetNewPassword.trim()) {
-      showToast('error', '입력 없음', '새 비밀번호를 입력해주세요.');
-      return;
-    }
-    resetPasswordMutation.mutate({ email: resetEmail, newPassword: resetNewPassword }, {
-      onSuccess: () => {
-        showToast('success', '완료', '비밀번호가 변경되었습니다.');
-        setResetModalVisible(false);
-        setResetEmail('');
-        setResetCode('');
-        setResetNewPassword('');
-        setEmailChecked(false);
-        setCodeChecked(false);
-      },
-      onError: (_err) => {
-        showToast('error', '비밀번호 재설정', '기존 비밀번호와 일치합니다.'); 
-      },
-    });
-  };
-
-  useDoubleBackExit(true);
+  const {
+    resetModalVisible,
+    resetEmail,
+    setResetEmail,
+    resetCode,
+    setResetCode,
+    resetNewPassword,
+    setResetNewPassword,
+    emailChecked,
+    codeChecked,
+    openResetModal,
+    closeResetModal,
+    handleResetEmailCheck,
+    handleResetCodeCheck,
+    handleResetPassword,
+  } = usePasswordReset();
 
   return (
     <View style={styles.container}>
@@ -124,17 +62,17 @@ function SignInScreen() {
           onChangeText={setPassword}
           secureTextEntry={!passwordVisible}
         />
-        <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
-          <Ionicons 
-            name={passwordVisible ? 'eye-outline' : 'eye-off-outline'} 
-            size={20} 
-            color="#D6DEFD" 
+        <TouchableOpacity onPress={togglePasswordVisible}>
+          <Ionicons
+            name={passwordVisible ? 'eye-outline' : 'eye-off-outline'}
+            size={20}
+            color="#D6DEFD"
           />
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity 
-        style={styles.loginButton} 
+      <TouchableOpacity
+        style={styles.loginButton}
         onPress={handleLogin}
         disabled={loading}
       >
@@ -148,7 +86,7 @@ function SignInScreen() {
             value={autoLogin}
             onValueChange={setAutoLogin}
             trackColor={{ false: '#f4f3f4', true: '#007AFF' }}
-            thumbColor={autoLogin ? '#007AFF' : '#f4f3f4'} 
+            thumbColor={autoLogin ? '#007AFF' : '#f4f3f4'}
             style={styles.autoLoginSwitch}
           />
         </View>
@@ -160,7 +98,7 @@ function SignInScreen() {
           <Text style={styles.signUpText}>회원가입하기</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => setResetModalVisible(true)}>
+      <TouchableOpacity onPress={openResetModal}>
         <Text style={styles.resetText}>비밀번호를 잊으셨습니까?</Text>
       </TouchableOpacity>
       <Modal visible={resetModalVisible} transparent animationType="fade">
@@ -215,7 +153,7 @@ function SignInScreen() {
               </>
             )}
 
-            <TouchableOpacity onPress={() => setResetModalVisible(false)} style={styles.modalClose}>
+            <TouchableOpacity onPress={closeResetModal} style={styles.modalClose}>
               <Text style={styles.modalCloseText}>닫기</Text>
             </TouchableOpacity>
           </View>
