@@ -81,12 +81,12 @@ function AnalysisScreen() {
       {weeklyAnalysis?.degree? (
         <Image
           source={degreeImageMap[weeklyAnalysis.degree]}
-          style={{ width: 150, height: 150 }}
+          style={analysisScreenStyles.degreeImage}
         />
       ) : (
         <Image
           source={degreeImageMap['UNKNOWN']}
-          style={{ width: 150, height: 150 }}
+          style={analysisScreenStyles.degreeImage}
         />
       )}
       {weeklyAnalysis?.title ? (
