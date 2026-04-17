@@ -44,11 +44,20 @@ export const styles = StyleSheet.create({
       disabledText: {
         color: '#6B6B73',
       },          
+      todayText: {
+        fontFamily: 'Pretendard4',
+        color: '#6478c4',
+        borderBottomWidth: 2,
+        borderBottomColor: '#6478c4',
+      },
       circle: {
         borderRadius: 10,
         width: '80%',
         height: '10%',
         marginBottom: 4,
+      },
+      circleDefault: {
+        backgroundColor: '#777',
       },     
       modalOverlay: {
         flex: 1,

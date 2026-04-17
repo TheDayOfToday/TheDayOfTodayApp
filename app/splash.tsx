@@ -21,7 +21,7 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
       <Image
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         source={require('@/assets/images/splash-iconv3.png')}
-        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: 200, height: 200, resizeMode: 'contain'}}
+        style={splashStyles.image}
         resizeMode="contain"
       />
     </View>

@@ -36,6 +36,14 @@ export const recordingResultStyles = StyleSheet.create({
     fontSize: RFValue(20),
     color: '#ddd',
   },
+  titleBorderFocused: {
+    borderBottomColor: '#132a9e',
+    borderBottomWidth: 1,
+  },
+  titleBorderUnfocused: {
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
   resultContainer: {
     flex: 1,
     width: '100%',

@@ -92,4 +92,7 @@ export const moodSlidingTabStyles = StyleSheet.create({
         fontSize: RFValue(14),
         color: '#eee',
     },
+    loadingText: {
+        color: '#fff',
+    },
 });

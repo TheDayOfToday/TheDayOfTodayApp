@@ -1,69 +1,29 @@
-import { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 
 import { LoadingScreen } from '@/src/components/common/Loading';
-import useShowToast from '@/src/hooks/useShowToast';
-import { useSignUp } from '@/src/hooks/useSignUp';
-import { useSendCode, useCheckCode } from '@/src/queries/useAuthQuery';
+import { useEmailVerification } from '@/src/hooks/useEmailVerification';
 import { styles } from '@/src/styles/signUpStyles';
 
 function SignUpScreen() {
-  const { mutate: signUpMutate, isPending } = useSignUp();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  const [emailSent, setEmailSent] = useState(false);
-  const [emailCode, setEmailCode] = useState('');
-  const [emailVerified, setEmailVerified] = useState(false);
-
-  const sendCodeMutation = useSendCode();
-  const checkCodeMutation = useCheckCode();
-
-  const showToast = useShowToast();
-
-  const handleSendCode = () => {
-  if (!email.trim()) {
-    showToast('error', '입력 오류', '이메일을 입력해주세요.');
-    return;
-  }
-
-  setEmailSent(true);
-
-  sendCodeMutation.mutate(email, {
-    onSuccess: () => {
-      showToast('success', '전송 완료', '입력한 이메일로 인증번호가 전송되었습니다.');
-    },
-    onError: (_err) => {
-      showToast('error', '전송 실패', '인증번호 전송 실패');
-    },
-  });
-};
-
-  const handleCheckCode = () => {
-    checkCodeMutation.mutate({ email, code: emailCode }, {
-      onSuccess: () => {
-        showToast('success', '인증 완료', '이메일 인증이 완료되었습니다.');
-        setEmailVerified(true);
-      },
-      onError: (_err) => {
-        showToast('error', '인증 실패', '인증번호가 일치하지 않습니다.');
-      },
-    });
-  };
-
-  const handleSubmit = () => {
-    if (!name || !email || !password || !phoneNumber) {
-      showToast('error', '입력 오류', '모든 항목을 입력해주세요.');
-      return;
-    }
-    if (!emailVerified) {
-      showToast('error', '인증 오류', '이메일 인증을 완료해주세요.');
-      return;
-    }
-    signUpMutate({ name, email, password, phoneNumber });
-  };
+  const {
+    isPending,
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    phoneNumber,
+    handlePhoneNumberChange,
+    emailSent,
+    emailCode,
+    setEmailCode,
+    emailVerified,
+    handleSendCode,
+    handleCheckCode,
+    handleSubmit,
+  } = useEmailVerification();
 
   return (
     <>
@@ -126,7 +86,7 @@ function SignUpScreen() {
             placeholderTextColor="#69728F"
             style={styles.input}
             value={phoneNumber}
-            onChangeText={(text) => setPhoneNumber(text.replace(/[^0-9]/g, ''))}
+            onChangeText={handlePhoneNumberChange}
             keyboardType="phone-pad"
           />
 

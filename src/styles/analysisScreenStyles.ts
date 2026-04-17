@@ -63,4 +63,8 @@ export const analysisScreenStyles = StyleSheet.create({
     color: '#ddd',
     lineHeight: 28,
   },
+  degreeImage: {
+    width: 150,
+    height: 150,
+  },
 });

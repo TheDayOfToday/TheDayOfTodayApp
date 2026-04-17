@@ -5,7 +5,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'TheDayOfToday',
   slug: 'TheDayOfToday',
-  version: '1.0.0',
+  version: '1.0.12',
   orientation: 'portrait',
   icon: './assets/images/adaptive-iconv3.png',
   scheme: 'myapp',
@@ -16,7 +16,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: 'com.thedayoftoday.app',
-    versionCode: 12,
+    versionCode: 13,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-iconv3.png',
       backgroundColor: '#ffffff',

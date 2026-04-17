@@ -3,6 +3,8 @@ import { useRouter } from 'expo-router';
 
 import useShowToast from './useShowToast';
 
+import type { AxiosError } from 'axios';
+
 import { postSignUp } from '@/src/service/auth';
 
 interface SignUpProps {
@@ -10,6 +12,10 @@ interface SignUpProps {
   email: string;
   password: string;
   phoneNumber: string;
+}
+
+interface ErrorResponseData {
+  message?: string;
 }
 
 export const useSignUp = () => {
@@ -23,8 +29,7 @@ export const useSignUp = () => {
       router.back();
       showToast('success', '회원가입 완료', '성공적으로 가입되었습니다.');
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
+    onError: (error: AxiosError<ErrorResponseData>) => {
       const message = error?.response?.data?.message || error?.message || '서버 오류가 발생했습니다.';
       showToast('error', '회원가입 실패', message);
     },

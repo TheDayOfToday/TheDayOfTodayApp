@@ -44,4 +44,10 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: RFValue(16),
   },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
 });

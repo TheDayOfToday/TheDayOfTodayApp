@@ -8,4 +8,8 @@ export const splashStyles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#101013',
     },
+    image: {
+        width: 200,
+        height: 200,
+    },
 });

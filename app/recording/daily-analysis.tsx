@@ -1,38 +1,13 @@
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 
-import { useToken } from '@/src/hooks/useToken';
-import { usePostBook } from '@/src/queries/useBookQuery';
-import { usePostAnalyze } from '@/src/queries/useDiaryQuery';
+import { useDailyAnalysisFlow } from '@/src/hooks/useDailyAnalysisFlow';
 import { dailyAnalysisScreenStyles } from '@/src/styles/dailyAnalysisScreenStyles';
 
 function DailyAnalysisScreen() {
-  const token = useToken();
-  const router = useRouter();
-  const { diaryId } = useLocalSearchParams();
-  const numericDiaryId = Number(diaryId);
-  const { mutate: analysisMutate, data, isPending} = usePostAnalyze();
-  const { mutate: bookMutate } = usePostBook();
+  const { isPending, analysis, handleSubmitPress } = useDailyAnalysisFlow();
 
-  const handleSubmitPress = useCallback(() => {
-    router.push('/(tabs)/record');
-  }, [router]);
-
-  useEffect(() => {
-    if (token && !isNaN(numericDiaryId)) {
-      analysisMutate(
-        { token, diaryId: numericDiaryId },
-        {
-          onSuccess: () => {
-            bookMutate({ token, diaryId: numericDiaryId });
-          }
-        }
-      );
-    }
-  }, [token, numericDiaryId, analysisMutate, bookMutate]);
-
-  return(
+  return (
     <ScrollView
       style={dailyAnalysisScreenStyles.Screen}
       contentContainerStyle={dailyAnalysisScreenStyles.container}
@@ -45,7 +20,7 @@ function DailyAnalysisScreen() {
       <Text style={dailyAnalysisScreenStyles.title}>오늘의 일기 분석</Text>
       <View style={dailyAnalysisScreenStyles.resultContainer}>
         <Text style={dailyAnalysisScreenStyles.resultText}>
-          {isPending ? 'Loading...' : data?.analysis}
+          {isPending ? 'Loading...' : analysis}
         </Text>
       </View>
     </ScrollView>

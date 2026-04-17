@@ -1,85 +1,19 @@
-import { useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native';
 
-import useShowToast from '@/src/hooks/useShowToast';
-import { getUserInfo, deleteUser } from '@/src/service/auth';
-import { UserInfoResponse } from '@/src/service/auth/type';
+import { useDeleteAccount } from '@/src/hooks/useDeleteAccount';
+import { useUserInfo } from '@/src/hooks/useUserInfo';
 import { ModalStyles } from '@/src/styles/modalStyles';
 import { styles } from '@/src/styles/settingScreenStyles';
 
 function SettingScreen() {
-  const router = useRouter();
-  const showToast = useShowToast();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  // 서버에서 받아올 유저 정보 state
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    profileImage: '',
-    phoneNumber: '',
-  });
-
-  // 전화번호 포맷팅 함수
-  // 010-1234-5678 형태로 변환
-  const formatPhoneNumber = (number: string) => {
-    if (!number) return '';
-    return number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-  };
-
-  // 마이페이지 진입 시 유저 정보 API 호출
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const token = await SecureStore.getItemAsync('accessToken');
-      if (!token) {
-        router.replace('/signIn');
-        showToast('error', '로그인 필요', '로그인이 필요합니다.');
-        return;
-      }
-
-      try {
-        const data: UserInfoResponse = await getUserInfo(token);
-        setUser(data);
-      } catch {
-        showToast('error', '오류', '유저 정보를 가져오지 못했습니다.');
-      }
-    };
-
-    fetchUserInfo();
-  }, [router, showToast]);
-
-  const handleLogout = async () => {
-    await SecureStore.deleteItemAsync('accessToken');
-    await SecureStore.deleteItemAsync('autoLogin');
-    showToast('success', '로그아웃 되었습니다.', '다음에 또 만나요 👋');
-    router.replace('/signIn');
-  };
-
-  const handleDeleteAccount = async () => {
-    const token = await SecureStore.getItemAsync('accessToken');
-    if (!token) {
-      router.replace('/signIn');
-      showToast('error', '계정 삭제 실패', '로그인이 필요합니다.');
-      return;
-    }
-
-    try {
-      await deleteUser(token);
-      showToast('success', '회원 탈퇴 완료', '그동안 이용해주셔서 감사합니다.');
-      await SecureStore.deleteItemAsync('accessToken');
-      router.replace('/signIn');
-    } catch {
-      showToast('error', '회원 탈퇴 실패', '다시 시도해주세요.');
-    }
-  };
+  const { user, formattedPhoneNumber, handleLogout, navigateToEditPassword } = useUserInfo();
+  const { modalIsOpen, openModal, closeModal, handleDeleteAndClose } = useDeleteAccount();
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>마이페이지</Text>
 
-      {/* 상단 프로필 */}
       <View style={styles.profileSection}>
         <Image source={{ uri: user.profileImage || 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }} style={styles.profileImage} />
         <View style={styles.headerContainer}>
@@ -92,11 +26,10 @@ function SettingScreen() {
         </View>
       </View>
 
-      {/* 회원정보 */}
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>회원정보</Text>
-          <TouchableOpacity onPress={() => { router.push('/edit-password'); }} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
+          <TouchableOpacity onPress={navigateToEditPassword} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }} style={styles.editPasswordButton}>
             <Text style={styles.editText}>비밀번호 수정</Text>
           </TouchableOpacity>
         </View>
@@ -111,21 +44,21 @@ function SettingScreen() {
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.infoLabel}>전화번호</Text>
-          <Text style={styles.infoValue}>{formatPhoneNumber(user.phoneNumber)}</Text>
+          <Text style={styles.infoValue}>{formattedPhoneNumber}</Text>
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => setModalIsOpen(true)}
+        onPress={openModal}
         style={styles.userDeleteButton}
-        >
-        <Text style={[styles.deleteUserText]}>회원 탈퇴</Text>
+      >
+        <Text style={styles.deleteUserText}>회원 탈퇴</Text>
       </TouchableOpacity>
       {modalIsOpen && (
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
+          onRequestClose={closeModal}
         >
           <View style={ModalStyles.modalOverlay}>
             <View style={ModalStyles.modalContent}>
@@ -137,16 +70,13 @@ function SettingScreen() {
               <View style={ModalStyles.modalButtonContainer}>
                 <Pressable
                   style={ModalStyles.finishButton}
-                  onPress={() => {
-                    handleDeleteAccount();
-                    setModalIsOpen(false);
-                  }
-                }>
+                  onPress={handleDeleteAndClose}
+                >
                   <Text style={ModalStyles.finishButtonText}>확인</Text>
                 </Pressable>
                 <Pressable
                   style={ModalStyles.cancelButton}
-                  onPress={() => setModalIsOpen(false)}
+                  onPress={closeModal}
                 >
                   <Text style={ModalStyles.cancelButtonText}>취소</Text>
                 </Pressable>
