@@ -16,7 +16,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: 'com.thedayoftoday.app',
-    versionCode: 12,
+    versionCode: 18,
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-iconv3.png',
       backgroundColor: '#ffffff',
