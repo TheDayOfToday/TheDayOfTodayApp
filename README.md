@@ -1,50 +1,55 @@
-# Welcome to your Expo app 👋
+# 📱 The Day of Today
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+👉 Download on Google Play:  
+https://play.google.com/store/apps/details?id=com.thedayoftoday.app&hl=ko
 
-## Get started
+---
 
-1. Install dependencies
+## 1. Overview
+The Day of Today is a voice-based daily journaling application that allows users to record their day naturally and receive AI-based emotional feedback.
 
-   ```bash
-   npm install
-   ```
+Instead of traditional text input, this service focuses on voice interaction to lower the barrier to daily recording and provide a more intuitive user experience.
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 2. Background
+Most journaling services rely heavily on text input, which can be inconvenient and time-consuming for users.
 
-In the output, you'll find options to open the app in a
+This project was designed to:
+- Simplify the journaling process using voice input
+- Provide meaningful insights through AI-based emotion analysis
+- Encourage consistent daily recording
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 3. Key Features
 
-## Get a fresh project
+### 🎤 Voice-based Diary
+- Record daily experiences using voice
+- Simple and intuitive recording interface
 
-When you're ready, run:
+### 🧠 Emotion Analysis
+- AI analyzes emotional tone from recorded data
+- Provides categorized emotional results (e.g., positive, negative)
 
+### 💬 Feedback System
+- Generates feedback based on analyzed emotions
+- Helps users reflect on their daily state
+
+---
+
+## 4. Tech Stack
+
+### Frontend
+- React Native (Expo)
+- TypeScript
+- Android SDK
+- Node.js (npm / npx)
+
+---
+
+## 5. Getting Started
+
+### 1) Install dependencies
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm install
